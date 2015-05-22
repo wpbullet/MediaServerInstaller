@@ -49,23 +49,27 @@ whiptail --ok-button "Install" --title "Debian micro home server installation (c
 "TV headend" "TV streaming / proxy" off \
 "BitTorrent Sync" "Personal cloud" off \
 "SoftEther VPN server" "Advanced VPN solution" off \
-"CUPS" "Printing" off \
-"Scanner" "Control your scanner with buttons, OCR" off \
-"Temper" "USB temperature sensor" off \
+"NZBGet" "Usenet" off \
+"Sabnzbd" "Sabnzbd" off \
+"SickRage" "Show Automation" off \
+"Sonarr" "Show Automation" off \
+"CouchPotato" "Movie Automation" off \
 "Rpi monitor" "Status page and statistics" off \
 "Transmission" "Torrent downloading" off \
-"ISPConfig" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
+"LEMP" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
 while read choice
 do
    case $choice in
 		   "Samba") 			ins_samba="true";;
-                   "TV headend") 		ins_tvheadend="true";;
+                   "TV Headend") 		ins_tvheadend="true";;
                    "BitTorrent Sync") 	  	ins_btsync="true";;
                    "SoftEther VPN server") 	ins_vpn_server="true";;
-		   "CUPS") 			ins_cups="true";;
-		   "Scanner") 			ins_scaner_and_scanbuttons="true";;
-                   "Temper") 			ins_temper="true";;
-				   "Rpi monitor") 			ins_rpimonitor="true";;
+		   "NZBGet") 			ins_nzbget="true";;
+		   "Sabnzbd") 			ins_sabnzbd="true";;
+                   "SickRage") 			ins_sickrage="true";;
+                   "Sonarr") 			ins_sonarr="true";;
+                   "Sonarr") 			ins_couchpotato="true";;
+		   "Rpi monitor") 		ins_rpimonitor="true";;
                    "Transmission")		ins_transmission="true";;
 		   "ISPConfig")			ins_ispconfig="true";;
                 *)
@@ -78,9 +82,11 @@ if [[ "$ins_samba" == "true" ]]; 			then install_samba; 			fi
 if [[ "$ins_tvheadend" == "true" ]]; 			then install_tvheadend; 		fi
 if [[ "$ins_btsync" == "true" ]]; 			then install_btsync; 			fi
 if [[ "$ins_vpn_server" == "true" ]]; 			then install_vpn_server; 		fi
-if [[ "$ins_cups" == "true" ]]; 			then install_cups; 			fi
-if [[ "$ins_scanner_and_scanbuttons" == "true" ]];	then install_scaner_and_scanbuttons; 	fi
-if [[ "$ins_temper" == "true" ]]; 			then install_temper; 			fi
+if [[ "$ins_nzbget" == "true" ]]; 			then install_nzbget; 			fi
+if [[ "$ins_sabnzbd" == "true" ]];			then install_sabnzbd; 			fi
+if [[ "$ins_sickrage" == "true" ]]; 			then install_sickrage; 			fi
+if [[ "$ins_sonarr" == "true" ]]; 			then install_sonarr; 			fi
+if [[ "$ins_couchpotato" == "true" ]]; 			then install_couchpotato; 			fi
 if [[ "$ins_rpimonitor" == "true" ]]; 			then install_bmc180; install_tsl2561; install_rpimonitor;  			fi
 if [[ "$ins_transmission" == "true" ]];                 then install_transmission;              fi
 if [[ "$ins_ispconfig" == "true" ]];                    then
