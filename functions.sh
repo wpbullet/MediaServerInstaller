@@ -159,6 +159,36 @@ install_transmission (){
 debconf-apt-progress -- apt-get -y install transmission-cli transmission-common transmission-daemon
 }
 
+install_nzbget (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# nzbget
+#--------------------------------------------------------------------------------------------------------------------------------
+
+#build unrar
+debconf-apt-progress --apt-get install build-essential -y
+cd /tmp
+wget rarlab.com/rar/unrarsrc-5.2.6.tar.gz
+tar -xvf unrarsrc-5.2.6.tar.gz
+cd unrar
+sudo make -f makefile
+sudo install -v -m755 unrar /usr/bin
+
+#install nzbget
+gpg --recv-keys --keyserver keyserver.ubuntu.com 0E50BF67
+gpg -a --export 0E50BF67 | sudo apt-key add -
+echo "deb http://packages.unusedbytes.ca wheezy main" | sudo tee -a /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install nzbget -y
+sudo cp /usr/share/nzbget/nzbget.conf ~/.nzbget
+
+}
+
+install_sonarr (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# sonarr
+#--------------------------------------------------------------------------------------------------------------------------------
+debconf-apt-progress -- apt-get -y install transmission-cli transmission-common transmission-daemon
+}
 
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
