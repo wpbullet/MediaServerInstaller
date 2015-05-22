@@ -177,7 +177,7 @@ sudo install -v -m755 unrar /usr/bin
 #install nzbget
 gpg --recv-keys --keyserver keyserver.ubuntu.com 0E50BF67
 gpg -a --export 0E50BF67 | sudo apt-key add -
-echo "deb http://packages.unusedbytes.ca wheezy main" | sudo tee -a /etc/apt/sources.list.d/nzbget
+echo "deb http://packages.unusedbytes.ca wheezy main" | sudo tee -a /etc/apt/sources.list.d/nzbget.list
 sudo apt-get update
 sudo apt-get install nzbget -y
 sudo cp /usr/share/nzbget/nzbget.conf /home/$NZBGETUSER/.nzbget
