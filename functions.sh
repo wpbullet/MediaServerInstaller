@@ -166,7 +166,7 @@ install_nzbget (){
 NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as?" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 #build unrar
-debconf-apt-progress --apt-get install build-essential -y
+debconf-apt-progress -- apt-get install build-essential -y
 cd /tmp
 wget rarlab.com/rar/unrarsrc-5.2.6.tar.gz
 tar -xvf unrarsrc-5.2.6.tar.gz
