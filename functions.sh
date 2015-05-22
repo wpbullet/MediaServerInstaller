@@ -163,7 +163,8 @@ install_nzbget (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # nzbget
 #--------------------------------------------------------------------------------------------------------------------------------
-
+NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as?" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 #build unrar
 debconf-apt-progress --apt-get install build-essential -y
 cd /tmp
@@ -179,7 +180,7 @@ gpg -a --export 0E50BF67 | sudo apt-key add -
 echo "deb http://packages.unusedbytes.ca wheezy main" | sudo tee -a /etc/apt/sources.list
 sudo apt-get update
 sudo apt-get install nzbget -y
-sudo cp /usr/share/nzbget/nzbget.conf ~/.nzbget
+sudo cp /usr/share/nzbget/nzbget.conf $NZBGETUSER/.nzbget
 
 }
 
