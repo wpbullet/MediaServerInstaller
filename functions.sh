@@ -271,6 +271,28 @@ cd /tmp
 sudo update-rc.d nzbdrone defaults
 }
 
+install_sickrage (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# sickrage
+#--------------------------------------------------------------------------------------------------------------------------------
+SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run Sonarr as?" 8 78 $SICKRAGEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+debconf-apt-progress -- apt-get -y install python-cheetah
+unrartest
+sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
+sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
+cat > /etc/default/sickbeard <<EOF
+SR_USER=$SICKRAGEUSER
+SR_HOME=/opt/sickrage
+SR_DATA=/opt/sickrage
+SR_PIDFILE=/home/$SICKRAGEUSER/.sickbeard.pid
+EOF
+$FINDSICKRAGE=find / -name init.ubuntu
+sudo cp $FINDSICKRAGE /etc/init.d/sickbeard
+sudo chmod +x /etc/init.d/sickbeard
+sudo update-rc.d sickbeard defaults
+sudo service sickbeard start
+
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install Samba file sharing
