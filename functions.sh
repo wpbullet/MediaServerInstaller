@@ -201,13 +201,13 @@ fi
 # test unrar is installed, build it
 unrartest
 #install nzbget
-gpg --recv-keys --keyserver keyserver.ubuntu.com 0E50BF67
-gpg -a --export 0E50BF67 | sudo apt-key add -
-if !(grep -qs NZBGet "/etc/apt/sources.list");then
+if !(cat /etc/apt/sources.list | grep -q NZBGet > /dev/null);then
 cat >> /etc/apt/sources.list <<EOF
 # NZBGet
 deb http://packages.unusedbytes.ca wheezy main
 EOF
+gpg --recv-keys --keyserver keyserver.ubuntu.com 0E50BF67
+gpg -a --export 0E50BF67 | sudo apt-key add -
 fi
 
 sudo apt-get update
@@ -269,16 +269,16 @@ if ! getent passwd $NZBDRONEUSER > /dev/null; then
 echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
+cat >> /etc/apt/sources.list <<EOF
+# Sonarr
+deb https://apt.sonarr.tv/ master main
+EOF
 debconf-apt-progress -- apt-get install libmono-cil-dev apt-transport-https -y --force-yes
 cd /tmp
 wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
 sudo dpkg -i mono_3.10-armhf.deb
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
-if !(grep -qs Sonarr "/etc/apt/sources.list");then
-cat >> /etc/apt/sources.list <<EOF
-# Sonarr
-deb https://apt.sonarr.tv/ master main
-EOF
 fi
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install nzbdrone -y
@@ -396,8 +396,8 @@ cat >> /etc/apt/sources.list <<EOF
 # Sabnzbd
 deb http://ppa.launchpad.net/jcfp/ppa/ubuntu precise main
 EOF
-fi
 sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:11371 --recv-keys 0x98703123E0F52B2BE16D586EF13930B14BB9F05F
+fi
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install sabnzbdplus -y 
 cat > /etc/default/sabnzbdplus <<EOF
