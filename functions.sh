@@ -199,7 +199,7 @@ unrartest
 #install nzbget
 gpg --recv-keys --keyserver keyserver.ubuntu.com 0E50BF67
 gpg -a --export 0E50BF67 | sudo apt-key add -
-echo "deb http://packages.unusedbytes.ca wheezy main" | sudo tee -a /etc/apt/sources.list.d/nzbget.list
+echo "deb http://packages.unusedbytes.ca wheezy main" | sudo tee -a /etc/apt/sources.list
 sudo apt-get update
 sudo apt-get install nzbget -y
 sudo cp /usr/share/nzbget/nzbget.conf /home/$NZBGETUSER/.nzbget
@@ -263,7 +263,7 @@ debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install nzbdrone -y
 sudo chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
-cat > /etc/init.d/nzbdrone <<EOT
+cat > /etc/init.d/nzbdrone <<EOF
 #!/bin/bash
  
 ### BEGIN INIT INFO
@@ -370,7 +370,7 @@ case "$1" in
 esac
  
 exit 0
-EOT
+EOF
 sudo chmod +x /etc/init.d/nzbdrone
 sudo update-rc.d /etc/init.d/nzbdrone defaults
 }
