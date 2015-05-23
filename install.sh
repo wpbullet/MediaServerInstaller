@@ -49,13 +49,14 @@ whiptail --ok-button "Install" --title "Debian micro home server installation (c
 "TV headend" "TV streaming / proxy" off \
 "BitTorrent Sync" "Personal cloud" off \
 "SoftEther VPN server" "Advanced VPN solution" off \
-"NZBGet" "Usenet" off \
-"Sabnzbd" "Sabnzbd" off \
-"SickRage" "Show Automation" off \
-"Sonarr" "Show Automation" off \
-"CouchPotato" "Movie Automation" off \
+"NZBGet" "Usenet Downloader written in C++" off \
+"Sabnzbd" "Usenet Downloader written in Python" off \
+"SickRage" "Show Automation Finder" off \
+"Sonarr" "Show Automation Finder" off \
+"CouchPotato" "Movie Automation Finder" off \
 "Rpi monitor" "Status page and statistics" off \
 "Transmission" "Torrent downloading" off \
+"CherryMusic" "Personal Grooveshark" off \
 "LEMP" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
 while read choice
 do
@@ -68,9 +69,10 @@ do
 		   "Sabnzbd") 			ins_sabnzbd="true";;
                    "SickRage") 			ins_sickrage="true";;
                    "Sonarr") 			ins_sonarr="true";;
-                   "Sonarr") 			ins_couchpotato="true";;
+                   "CouchPotato")		ins_couchpotato="true";;
 		   "Rpi monitor") 		ins_rpimonitor="true";;
                    "Transmission")		ins_transmission="true";;
+                   "CherryMusic")		ins_transmission="true";;
 		   "ISPConfig")			ins_ispconfig="true";;
                 *)
                 ;;
@@ -89,6 +91,7 @@ if [[ "$ins_sonarr" == "true" ]]; 			then install_sonarr; 			fi
 if [[ "$ins_couchpotato" == "true" ]]; 			then install_couchpotato; 			fi
 if [[ "$ins_rpimonitor" == "true" ]]; 			then install_bmc180; install_tsl2561; install_rpimonitor;  			fi
 if [[ "$ins_transmission" == "true" ]];                 then install_transmission;              fi
+if [[ "$ins_cherrymusic" == "true" ]];                 then install_cherrymusic;              fi
 if [[ "$ins_ispconfig" == "true" ]];                    then
 							install_basic
 							install_DashNTP
