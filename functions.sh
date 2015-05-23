@@ -277,7 +277,8 @@ install_sickrage (){
 #--------------------------------------------------------------------------------------------------------------------------------
 SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run SickRage as?" 8 78 $SICKRAGEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-debconf-apt-progress -- apt-get -y install python-cheetah
+debconf-apt-progress -- apt-get -y install python-cheetah python-pip python-dev
+sudo pip install pyopenssl==0.13.1
 unrartest
 sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
