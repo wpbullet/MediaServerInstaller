@@ -287,7 +287,7 @@ SR_HOME=/opt/sickrage
 SR_DATA=/opt/sickrage
 SR_PIDFILE=/home/$SICKRAGEUSER/.sickbeard.pid
 EOF
-$FINDSICKRAGE=find / -name init.ubuntu
+FINDSICKRAGE=$(find / -name init.ubuntu)
 sudo cp $FINDSICKRAGE /etc/init.d/sickbeard
 sudo chmod +x /etc/init.d/sickbeard
 sudo update-rc.d sickbeard defaults
