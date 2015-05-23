@@ -169,6 +169,22 @@ install_transmission (){
 # transmission
 #--------------------------------------------------------------------------------------------------------------------------------
 debconf-apt-progress -- apt-get -y install transmission-cli transmission-common transmission-daemon
+service transmission-daemon stop
+TRANSUSER=$(whiptail --inputbox "Enter the user to run Transmission as?" 8 78 $TRANSUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+sudo chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
+sudo chown -R $TRANSUSER:$TRANSUSER /var/lib/transmission-daemon
+sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
+TRANSDL=$(whiptail --inputbox "Choose your download directory" 8 78 $TRANSDL --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
+TRANSREMOTE=$(whiptail --inputbox "Enable remote access of the WebUI?" 8 78 $TRANSREMOTE --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
+WHITELIST
+USERNAME
+PASSWORD
+service transmission-daemon start
 }
 
 install_nzbget (){
