@@ -258,8 +258,8 @@ wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
 sudo dpkg -i mono_3.10-armhf.deb
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 cat "deb https://apt.sonarr.tv/ master main" > /etc/apt/sources.list.d/nzbdrone.list
-sudo apt-get update
-sudo install nzbdrone -y
+debconf-apt-progress -- sudo apt-get update
+debconf-apt-progress -- sudo apt-get install nzbdrone -y
 sudo chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
 cat > /etc/init.d/nzbdrone <<EOF
