@@ -385,9 +385,9 @@ esac
 
 exit 0
 EOF
-}
 sudo chmod +x /etc/init.d/nzbdrone
 sudo update-rc.d /etc/init.d/nzbdrone defaults
+}
 
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
