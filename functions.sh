@@ -194,7 +194,7 @@ install_nzbget (){
 NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as (usually pi)" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $NZBGETUSER > /dev/null; then
-echo "User $NZBGETUSER doesn't exist, exiting"
+echo "User $NZBGETUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 #build unrar
@@ -259,6 +259,10 @@ install_sonarr (){
 #--------------------------------------------------------------------------------------------------------------------------------
 NZBDRONEUSER=$(whiptail --inputbox "Enter the user to run Sonarr as (usually pi)" 8 78 $NZBDRONEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $NZBDRONEUSER > /dev/null; then
+echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
+exit
+fi
 debconf-apt-progress -- apt-get install libmono-cil-dev apt-transport-https -y --force-yes
 cd /tmp
 wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
@@ -286,6 +290,10 @@ install_sickrage (){
 #--------------------------------------------------------------------------------------------------------------------------------
 SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run SickRage as (usually pi)" 8 78 $SICKRAGEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $SICKRAGEUSER > /dev/null; then
+echo "User $SICKRAGEUSER doesn't exist, exiting, restart the installer"
+exit
+fi
 debconf-apt-progress -- apt-get -y install python-cheetah python-pip python-dev
 sudo pip install pyopenssl==0.13.1
 unrartest
@@ -311,6 +319,10 @@ install_couchpotato (){
 #--------------------------------------------------------------------------------------------------------------------------------
 COUCHPOTATOUSER=$(whiptail --inputbox "Enter the user to run CouchPotato as (usually pi)" 8 78 $COUCHPOTATOUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $COUCHPOTATOUSER > /dev/null; then
+echo "User $COUCHPOTATOUSER doesn't exist, exiting, restart the installer"
+exit
+fi
 debconf-apt-progress -- apt-get -y python
 unrartest
 sudo git clone http://github.com/RuudBurger/CouchPotatoServer /opt/CouchPotato
@@ -334,6 +346,10 @@ install_mylar (){
 #--------------------------------------------------------------------------------------------------------------------------------
 MYLARUSER=$(whiptail --inputbox "Enter the user to run Mylar as (usually pi)" 8 78 $MYLARUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $MYLARUSER > /dev/null; then
+echo "User $MYLARUSER doesn't exist, exiting, restart the installer"
+exit
+fi
 sudo git clone https://github.com/evilhero/mylar -b development /opt/Mylar
 sudo chown -R $MYLARUSER:$MYLARUSER /opt/Mylar
 cat > /etc/default/mylar<<EOF
@@ -355,6 +371,10 @@ install_sabnzbd (){
 #--------------------------------------------------------------------------------------------------------------------------------
 SABUSER=$(whiptail --inputbox "Enter the user to run Sabnzbd as (usually pi)" 8 78 $SABUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $SABUSER > /dev/null; then
+echo "User $SABUSER doesn't exist, exiting, restart the installer"
+exit
+fi
 SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 if you don't know)" 8 78 $SABHOST --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
