@@ -2,7 +2,19 @@
 #
 # (c) Igor Pecovnik
 # 
-
+#functions
+function unrartest {
+if hash unrar 2>/dev/null; then
+	exit
+else
+	debconf-apt-progress -- apt-get install build-essential -y
+	cd /tmp
+	wget rarlab.com/rar/unrarsrc-5.2.6.tar.gz
+	tar -xvf unrarsrc-5.2.6.tar.gz
+	cd unrar
+	sudo make -f makefile
+	sudo install -v -m755 unrar /usr/bin
+fi }
 
 install_basic (){
 #--------------------------------------------------------------------------------------------------------------------------------
@@ -166,14 +178,8 @@ install_nzbget (){
 NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as?" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 #build unrar
-debconf-apt-progress -- apt-get install build-essential -y
-cd /tmp
-wget rarlab.com/rar/unrarsrc-5.2.6.tar.gz
-tar -xvf unrarsrc-5.2.6.tar.gz
-cd unrar
-sudo make -f makefile
-sudo install -v -m755 unrar /usr/bin
-
+# test unrar is installed, build it
+unrartest
 #install nzbget
 gpg --recv-keys --keyserver keyserver.ubuntu.com 0E50BF67
 gpg -a --export 0E50BF67 | sudo apt-key add -
@@ -221,7 +227,7 @@ exit 0
 EOF
 sudo chmod +x /etc/init.d/nzbget
 sudo update-rc.d nzbget defaults
-
+crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 }
 
 install_sonarr (){
