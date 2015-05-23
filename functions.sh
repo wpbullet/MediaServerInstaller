@@ -5,7 +5,7 @@
 #functions
 function unrartest {
 if hash unrar 2>/dev/null; then
-	exit
+	return
 else
 	debconf-apt-progress -- apt-get install build-essential -y
 	cd /tmp
