@@ -263,7 +263,7 @@ debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install nzbdrone -y
 sudo chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
-cat > /etc/init.d/nzbdrone <<EOF
+cat > /etc/init.d/nzbdrone <<EOT
 #! /bin/sh
 ### BEGIN INIT INFO
 # Provides: NzbDrone
@@ -385,7 +385,7 @@ exit 1
 esac
 
 exit 0
-EOF
+EOT
 sudo chmod +x /etc/init.d/nzbdrone
 sudo update-rc.d /etc/init.d/nzbdrone defaults
 }
