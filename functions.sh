@@ -273,14 +273,16 @@ if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
 cat >> /etc/apt/sources.list <<EOF
 # Sonarr
 deb https://apt.sonarr.tv/ master main
+deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
 EOF
-debconf-apt-progress -- apt-get install libmono-cil-dev apt-transport-https -y --force-yes
 cd /tmp
 wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
 sudo dpkg -i mono_3.10-armhf.deb
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 fi
 debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get install libmono-cil-dev apt-transport-https -y --force-yes
+sed '$d' /etc/apt/sources.list
 debconf-apt-progress -- apt-get install nzbdrone -y
 sudo chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
