@@ -14,7 +14,7 @@ Tips:
 - for those who use ramlog. You can enable ramlog back when installation is finished
 - installation is based on [http://www.howtoforge.com/perfect-server-debian-wheezy-nginx-bind-dovecot-ispconfig-3](http://www.howtoforge.com/perfect-server-debian-wheezy-nginx-bind-dovecot-ispconfig-3)
 
-Installation steps
+HTPC Guides Media Server Installation
 ------------------
 
 ```shell
@@ -26,7 +26,7 @@ cd ./Debian-micro-home-server
 sudo ./install.sh
 ```
 
-Thank you for your donation
+Donate to Igor's project
 ------------------
 
 [![Paypal donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CUYH2KR36YB7W)
