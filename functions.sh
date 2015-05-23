@@ -292,6 +292,7 @@ sudo cp $FINDSICKRAGE /etc/init.d/sickbeard
 sudo chmod +x /etc/init.d/sickbeard
 sudo update-rc.d sickbeard defaults
 sudo service sickbeard start
+}
 
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
