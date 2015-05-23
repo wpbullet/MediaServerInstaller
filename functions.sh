@@ -281,17 +281,17 @@ debconf-apt-progress -- apt-get -y install python-cheetah
 unrartest
 sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
-cat > /etc/default/sickbeard <<EOF
+cat > /etc/default/sickrage <<EOF
 SR_USER=$SICKRAGEUSER
 SR_HOME=/opt/sickrage
 SR_DATA=/opt/sickrage
-SR_PIDFILE=/home/$SICKRAGEUSER/.sickbeard.pid
+SR_PIDFILE=/home/$SICKRAGEUSER/.sickrage.pid
 EOF
 FINDSICKRAGE=$(find / -name init.ubuntu)
-sudo cp $FINDSICKRAGE /etc/init.d/sickbeard
-sudo chmod +x /etc/init.d/sickbeard
-sudo update-rc.d sickbeard defaults
-sudo service sickbeard start
+sudo cp $FINDSICKRAGE /etc/init.d/sickrage
+sudo chmod +x /etc/init.d/sickrage
+sudo update-rc.d sickrage defaults
+sudo service sickrage start
 }
 
 install_samba (){
