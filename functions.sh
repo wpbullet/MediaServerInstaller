@@ -333,7 +333,7 @@ unrartest
 echo "deb http://ppa.launchpad.net/jcfp/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
 sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:11371 --recv-keys 0x98703123E0F52B2BE16D586EF13930B14BB9F05F
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get sabnzbdplus -y 
+debconf-apt-progress -- apt-get install sabnzbdplus -y 
 cat > /etc/default/sabnzbdplus <<EOF
 USER=$SABUSER
 HOST=$SABHOST
