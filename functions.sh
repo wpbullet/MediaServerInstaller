@@ -210,7 +210,7 @@ cat > /etc/init.d/nzbget <<EOF
 #
 case "$1" in
 start)   echo -n "Start services: NZBget"
-/usr/bin/nzbget -D -c /home/pi/.nzbget
+/usr/bin/nzbget -D -c /home/$NZBGETUSER/.nzbget
 ;;
 stop)   echo -n "Stop services: NZBget"
 /usr/bin/nzbget -Q
@@ -234,7 +234,14 @@ install_sonarr (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sonarr
 #--------------------------------------------------------------------------------------------------------------------------------
-debconf-apt-progress -- apt-get -y install transmission-cli transmission-common transmission-daemon
+debconf-apt-progress -- apt-get install libmono-cil-dev apt-transport-https -y --force-yes
+cd /tmp
+wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
+sudo dpkg -i mono_3.10-armhf.deb
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
+echo "deb https://apt.sonarr.tv/ master main" | sudo tee -a /etc/apt/sources.list.d/nzbdrone.list
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- install nzbdrone -y
 }
 
 install_samba (){
