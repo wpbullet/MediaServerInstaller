@@ -24,13 +24,15 @@ fi
 #--------------------------------------------------------------------------------------------------------------------------------
 # Updated to check if packages are installed to save time
 # What do we need anyway
-if dpkg-query -W alsa-base alsa-utils debconf-utils git whiptail build-essential stunnel4 html2text; then
+function updatecheck ()
+{ if dpkg-query -W alsa-base alsa-utils debconf-utils git whiptail build-essential stunnel4 html2text; then
 exit
 else
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get -y upgrade
 debconf-apt-progress -- apt-get -y install debconf-utils dnsutils unzip whiptail git build-essential alsa-base alsa-utils stunnel4 html2text
-fi
+fi }
+updatecheck
 #--------------------------------------------------------------------------------------------------------------------------------
 
 SECTION="Basic configuration"
