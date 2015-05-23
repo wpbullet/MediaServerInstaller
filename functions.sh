@@ -267,6 +267,7 @@ cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbdrone
 sed -i "/RUNASUSER=/c\RUNASUSER=$NZBDRONEUSER" /etc/init.d/nzbdrone
 sudo chmod +x /etc/init.d/nzbdrone
+cd /tmp
 sudo update-rc.d nzbdrone defaults
 }
 
