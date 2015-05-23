@@ -295,6 +295,54 @@ sudo update-rc.d sickrage defaults
 sudo service sickrage start
 }
 
+install_couchpotato (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# couchpotato
+#--------------------------------------------------------------------------------------------------------------------------------
+COUCHPOTATOUSER=$(whiptail --inputbox "Enter the user to run SickRage as?" 8 78 $COUCHPOTATOUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+debconf-apt-progress -- apt-get -y python2.6 python-cheetah python-openssl par2 unzip
+sudo pip install pyopenssl==0.13.1
+unrartest
+sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
+sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
+cat > /etc/default/sickrage <<EOF
+SR_USER=$SICKRAGEUSER
+SR_HOME=/opt/sickrage
+SR_DATA=/opt/sickrage
+SR_PIDFILE=/home/$SICKRAGEUSER/.sickrage.pid
+EOF
+FINDSICKRAGE=$(find / -name init.ubuntu)
+sudo cp $FINDSICKRAGE /etc/init.d/sickrage
+sudo chmod +x /etc/init.d/sickrage
+sudo update-rc.d sickrage defaults
+sudo service sickrage start
+}
+
+install_sabnzbd (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# sabnzbd
+#--------------------------------------------------------------------------------------------------------------------------------
+SABUSER=$(whiptail --inputbox "Enter the user to run Sabnzbd as?" 8 78 $SABUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 if you don't know)?" 8 78 $SABHOST --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)?" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+debconf-apt-progress -- apt-get -y python2.6 python-cheetah python-openssl par2 unzip
+unrartest
+echo "deb http://ppa.launchpad.net/jcfp/ppa/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
+sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:11371 --recv-keys 0x98703123E0F52B2BE16D586EF13930B14BB9F05F
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get sabnzbdplus -y 
+cat > /etc/default/sabnzbdplus <<EOF
+USER=$SABUSER
+HOST=$SABHOST
+PORT=$SABPORT
+EOF
+sudo service sabnzbdplus restart
+}
+
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install Samba file sharing
