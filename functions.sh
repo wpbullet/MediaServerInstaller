@@ -288,7 +288,7 @@ SR_HOME=/opt/sickrage
 SR_DATA=/opt/sickrage
 SR_PIDFILE=/home/$SICKRAGEUSER/.sickrage.pid
 EOF
-FINDSICKRAGE=$(find / -name init.ubuntu)
+FINDSICKRAGE=$(find /opt/sickrage -name init.ubuntu)
 sudo cp $FINDSICKRAGE /etc/init.d/sickrage
 sudo chmod +x /etc/init.d/sickrage
 sudo update-rc.d sickrage defaults
