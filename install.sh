@@ -29,7 +29,6 @@ function updatecheck ()
 return
 else
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get -y upgrade
 debconf-apt-progress -- apt-get -y install debconf-utils dnsutils unzip whiptail git build-essential alsa-base alsa-utils stunnel4 html2text
 fi }
 updatecheck
