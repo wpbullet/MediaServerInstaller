@@ -191,7 +191,7 @@ install_nzbget (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # nzbget
 #--------------------------------------------------------------------------------------------------------------------------------
-NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as?" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as (usually pi)" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 #build unrar
 # test unrar is installed, build it
@@ -250,7 +250,7 @@ install_sonarr (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sonarr
 #--------------------------------------------------------------------------------------------------------------------------------
-NZBDRONEUSER=$(whiptail --inputbox "Enter the user to run Sonarr as?" 8 78 $NZBDRONEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+NZBDRONEUSER=$(whiptail --inputbox "Enter the user to run Sonarr as (usually pi)" 8 78 $NZBDRONEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 debconf-apt-progress -- apt-get install libmono-cil-dev apt-transport-https -y --force-yes
 cd /tmp
@@ -275,7 +275,7 @@ install_sickrage (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sickrage
 #--------------------------------------------------------------------------------------------------------------------------------
-SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run SickRage as?" 8 78 $SICKRAGEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run SickRage as (usually pi)" 8 78 $SICKRAGEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 debconf-apt-progress -- apt-get -y install python-cheetah python-pip python-dev
 sudo pip install pyopenssl==0.13.1
@@ -299,10 +299,9 @@ install_couchpotato (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # couchpotato
 #--------------------------------------------------------------------------------------------------------------------------------
-COUCHPOTATOUSER=$(whiptail --inputbox "Enter the user to run SickRage as?" 8 78 $COUCHPOTATOUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+COUCHPOTATOUSER=$(whiptail --inputbox "Enter the user to run CouchPotato as (usually pi)" 8 78 $COUCHPOTATOUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-debconf-apt-progress -- apt-get -y python2.6 python-cheetah python-openssl par2 unzip
-sudo pip install pyopenssl==0.13.1
+debconf-apt-progress -- apt-get -y python
 unrartest
 sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
@@ -323,11 +322,11 @@ install_sabnzbd (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sabnzbd
 #--------------------------------------------------------------------------------------------------------------------------------
-SABUSER=$(whiptail --inputbox "Enter the user to run Sabnzbd as?" 8 78 $SABUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+SABUSER=$(whiptail --inputbox "Enter the user to run Sabnzbd as (usually pi)" 8 78 $SABUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 if you don't know)?" 8 78 $SABHOST --title "$SECTION" 3>&1 1>&2 2>&3)
+SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 if you don't know)" 8 78 $SABHOST --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)?" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
+SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 debconf-apt-progress -- apt-get -y python2.6 python-cheetah python-openssl par2 unzip
 unrartest
