@@ -41,13 +41,15 @@ SECTION="Basic configuration"
 serverIP=$(ip route get 8.8.8.8 | awk '{ print $NF; exit }')
 set ${serverIP//./ }
 SUBNET="$1.$2.$3."
-#
+#Get host name, commenting out for media server
 # Read full qualified hostname
-HOSTNAMEFQDN=$(hostname -f)
-HOSTNAMEFQDN=$(whiptail --inputbox "\nWhat is your full qualified hostname for $serverIP ?" 10 78 $HOSTNAMEFQDN --title "$SECTION" 3>&1 1>&2 2>&3)
-exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-set ${HOSTNAMEFQDN//./ }
-HOSTNAMESHORT="$1"
+#HOSTNAMEFQDN=$(hostname -f)
+#HOSTNAMEFQDN=$(whiptail --inputbox "\nWhat is your full qualified hostname for $serverIP ?" 10 78 $HOSTNAMEFQDN --title "$SECTION" 3>&1 1>&2 2>&3)
+#exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+#set ${HOSTNAMEFQDN//./ }
+#HOSTNAMESHORT="$1"
+
+whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This installer is not particularly clever. You must enter valid users that are on your system. So if the user pi doesn't exist and you choose pi, the installation will fail. You must hit OK to continue." 8 78
 
 source "functions.sh"
 
