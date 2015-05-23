@@ -275,7 +275,7 @@ install_sickrage (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sickrage
 #--------------------------------------------------------------------------------------------------------------------------------
-SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run Sonarr as?" 8 78 $SICKRAGEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run SickRage as?" 8 78 $SICKRAGEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 debconf-apt-progress -- apt-get -y install python-cheetah
 unrartest
