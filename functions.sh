@@ -318,6 +318,27 @@ sudo service couchpotato start
 echo "CouchPotato is running on port 5050"
 }
 
+install_mylar (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# mylar
+#--------------------------------------------------------------------------------------------------------------------------------
+MYLARUSER=$(whiptail --inputbox "Enter the user to run Mylar as (usually pi)" 8 78 $MYLARUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+sudo git clone https://github.com/evilhero/mylar -b development /opt/Mylar
+sudo chown -R $MYLARUSER:$MYLARUSER /opt/Mylar
+cat > /etc/default/mylar<<EOF
+MYLAR_USER=$MYLARUSER
+MYLAR_HOME=/opt/Mylar
+MYLAR_DATA=/opt/Mylar
+MYLAR_PORT=8090
+EOF
+sudo cp /opt/Mylar/init-scripts/ubuntu.init.d /etc/init.d/mylar
+sudo chmod +x /etc/init.d/mylar
+sudo update-rc.d mylar defaults
+sudo service mylar start
+echo "Mylar is running on port 8090"
+}
+
 install_sabnzbd (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sabnzbd
