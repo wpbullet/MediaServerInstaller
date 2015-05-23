@@ -303,19 +303,19 @@ COUCHPOTATOUSER=$(whiptail --inputbox "Enter the user to run CouchPotato as (usu
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 debconf-apt-progress -- apt-get -y python
 unrartest
-sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
-sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
-cat > /etc/default/sickrage <<EOF
-SR_USER=$SICKRAGEUSER
-SR_HOME=/opt/sickrage
-SR_DATA=/opt/sickrage
-SR_PIDFILE=/home/$SICKRAGEUSER/.sickrage.pid
+sudo git clone http://github.com/RuudBurger/CouchPotatoServer /opt/CouchPotato
+sudo chown -R $COUCHPOTATOUSER:$COUCHPOTATOUSER /opt/CouchPotato
+cat > /etc/default/couchpotato <<EOF
+CP_HOME=/opt/CouchPotato
+CP_USER=$COUCHPOTATOUSER
+CP_PIDFILE=/home/$COUCHPOTATOUSER/.couchpotato.pid
+CP_DATA=/opt/CouchPotato
 EOF
-FINDSICKRAGE=$(find / -name init.ubuntu)
-sudo cp $FINDSICKRAGE /etc/init.d/sickrage
-sudo chmod +x /etc/init.d/sickrage
-sudo update-rc.d sickrage defaults
-sudo service sickrage start
+sudo cp /opt/CouchPotato/init/ubuntu /etc/init.d/couchpotato
+sudo chmod +x /etc/init.d/couchpotato
+sudo update-rc.d couchpotato defaults
+sudo service couchpotato start
+echo "CouchPotato is running on port 5050"
 }
 
 install_sabnzbd (){
