@@ -244,6 +244,9 @@ EOF
 sudo chmod +x /etc/init.d/nzbget
 sudo update-rc.d nzbget defaults
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
+service nzbget start
+echo "NZBGet is running on port 6789"
+	
 }
 
 install_sonarr (){
@@ -269,6 +272,8 @@ sed -i "/RUN_AS=/c\RUN_AS=$NZBDRONEUSER" /etc/init.d/nzbdrone
 sudo chmod +x /etc/init.d/nzbdrone
 cd /tmp
 sudo update-rc.d nzbdrone defaults
+service nzbdrone start
+echo "Sonarr is running on port 8989"
 }
 
 install_sickrage (){
@@ -293,6 +298,7 @@ sudo cp $FINDSICKRAGE /etc/init.d/sickrage
 sudo chmod +x /etc/init.d/sickrage
 sudo update-rc.d sickrage defaults
 sudo service sickrage start
+echo "SickRage is running on port 8081"
 }
 
 install_couchpotato (){
@@ -361,6 +367,7 @@ HOST=$SABHOST
 PORT=$SABPORT
 EOF
 sudo service sabnzbdplus restart
+echo "Sabnzbd is running on port $SABPORT"
 }
 
 install_samba (){
