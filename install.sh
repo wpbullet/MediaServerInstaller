@@ -26,7 +26,7 @@ fi
 # What do we need anyway
 function updatecheck ()
 { if dpkg-query -W alsa-base alsa-utils debconf-utils git whiptail build-essential stunnel4 html2text; then
-exit
+return
 else
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get -y upgrade
