@@ -1,4 +1,4 @@
-Debian micro home server
+HTPC Guides Media Server for ARM Devices
 ========================
 
 ![SOHO server](http://www.igorpecovnik.com/wp-content/uploads/2014/11/sohoserver1.png)
