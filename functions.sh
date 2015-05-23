@@ -391,7 +391,7 @@ SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if y
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 debconf-apt-progress -- apt-get -y python2.6 python-cheetah python-openssl par2 unzip
 unrartest
-if !(grep -qs Sabzbd "/etc/apt/sources.list");then
+if !(grep -q Sabzbd "/etc/apt/sources.list");then
 cat >> /etc/apt/sources.list <<EOF
 # Sabnzbd
 deb http://ppa.launchpad.net/jcfp/ppa/ubuntu precise main
