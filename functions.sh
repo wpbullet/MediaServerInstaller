@@ -193,7 +193,7 @@ install_nzbget (){
 #--------------------------------------------------------------------------------------------------------------------------------
 NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as (usually pi)" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-if getent passwd $NZBGETUSER = /dev/null; then
+if ! getent passwd $NZBGETUSER > /dev/null; then
 echo "User $NZBGETUSER doesn't exist, exiting"
 exit
 fi
