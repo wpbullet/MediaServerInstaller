@@ -51,19 +51,19 @@ HOSTNAMESHORT="$1"
 
 source "functions.sh"
 
-whiptail --ok-button "Install" --title "Debian micro home server installation (c) Igor Pecovnik" --checklist --separate-output "\nIP:   $serverIP\nFQDN: $HOSTNAMEFQDN\n\nChoose what you want to install:" 20 78 9 \
-"Samba" "Windows compatible file sharing        " off \
-"TV headend" "TV streaming / proxy" off \
-"BitTorrent Sync" "Personal cloud" off \
-"SoftEther VPN server" "Advanced VPN solution" off \
+whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCGuides.com and Igor Pecovnik" --checklist --separate-output "\nIP:   $serverIP\nFQDN: $HOSTNAMEFQDN\n\nChoose what you want to install:" 20 78 9 \
 "NZBGet" "Usenet Downloader written in C++" off \
 "Sabnzbd" "Usenet Downloader written in Python" off \
 "SickRage" "Show Automation Finder" off \
 "Sonarr" "Show Automation Finder" off \
-"CouchPotato" "Movie Automation Finder" off \
-"Rpi monitor" "Status page and statistics" off \
+"CouchPotato" "Video Automation Finder" off \
 "Transmission" "Torrent downloading" off \
 "CherryMusic" "Personal Grooveshark" off \
+"Samba" "Windows compatible file sharing        " off \
+"Rpi monitor" "Status page and statistics" off \
+"TV headend" "TV streaming / proxy" off \
+"BitTorrent Sync" "Personal cloud" off \
+"SoftEther VPN server" "Advanced VPN solution" off \
 "LEMP" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
 while read choice
 do
