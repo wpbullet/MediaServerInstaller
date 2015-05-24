@@ -393,7 +393,7 @@ if ! getent passwd $HTPCUSER > /dev/null; then
 echo "User $SABUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-sudo apt-get install build-essential git python-imaging python-dev python-setuptools python-pip python-cherrypy vnstat smartmontools -y
+debconf-apt-progress -- sudo apt-get install build-essential git python-imaging python-dev python-setuptools python-pip python-cherrypy vnstat smartmontools -y
 sudo pip install psutil
 sudo git clone https://github.com/Hellowlol/HTPC-Manager /opt/HTPCManager
 sudo chown -R $HTPCUSER:$HTPCUSER /opt/HTPCManager
