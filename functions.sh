@@ -415,9 +415,10 @@ if ! getent passwd $CHERRYUSER > /dev/null; then
 echo "User $CHERRYUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install python python-pip git python-unidecode sqlite -y
 sudo pip install CherryPy
-sudo apt-get install imagemagick lame vorbis-tools flac -y
+debconf-apt-progress -- apt-get install imagemagick lame vorbis-tools flac -y
 sudo git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
 sudo chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
 crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; python cherrymusic"; } | crontab -u $CHERRYUSER -
