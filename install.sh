@@ -55,12 +55,13 @@ source "functions.sh"
 whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCGuides.com and Igor Pecovnik" --checklist --separate-output "\nIP:   $serverIP\nFQDN: $HOSTNAMEFQDN\n\nChoose what you want to install:" 20 78 9 \
 "NZBGet" "Usenet Downloader written in C++" off \
 "Sabnzbd" "Usenet Downloader written in Python" off \
-"SickRage" "Show Automation Finder" off \
-"Sonarr" "Show Automation Finder" off \
+"SickRage" "Python Show Automation Finder" off \
+"Sonarr" ".NET Show Automation Finder" off \
 "CouchPotato" "Video Automation Finder" off \
-"Mylar" "Show Automation Finder" off \
+"Mylar" "Comic Automation Finder" off \
 "Transmission" "Torrent downloading" off \
-"CherryMusic" "Personal Grooveshark" off \
+"CherryMusic" "Personal Grooveshark Server" off \
+"HTPC Manager" "HTPC Management system" off \
 "Samba" "Windows compatible file sharing        " off \
 "Rpi monitor" "Status page and statistics" off \
 "TV headend" "TV streaming / proxy" off \
@@ -80,9 +81,10 @@ do
                    "Sonarr") 			ins_sonarr="true";;
                    "CouchPotato")		ins_couchpotato="true";;
                    "Mylar")			ins_mylar="true";;
+                   "HTPC Manager")		ins_htpcmanager="true";;
 		   "Rpi monitor") 		ins_rpimonitor="true";;
                    "Transmission")		ins_transmission="true";;
-                   "CherryMusic")		ins_transmission="true";;
+                   "CherryMusic")		ins_cherrymusic="true";;
 		   "ISPConfig")			ins_ispconfig="true";;
                 *)
                 ;;
@@ -100,6 +102,7 @@ if [[ "$ins_sickrage" == "true" ]]; 			then install_sickrage; 			fi
 if [[ "$ins_sonarr" == "true" ]]; 			then install_sonarr; 			fi
 if [[ "$ins_couchpotato" == "true" ]]; 			then install_couchpotato; 			fi
 if [[ "$ins_mylar" == "true" ]]; 			then install_mylar; 			fi
+if [[ "$ins_htpcmanager" == "true" ]];                 then install_htpcmanager;              fi
 if [[ "$ins_rpimonitor" == "true" ]]; 			then install_bmc180; install_tsl2561; install_rpimonitor;  			fi
 if [[ "$ins_transmission" == "true" ]];                 then install_transmission;              fi
 if [[ "$ins_cherrymusic" == "true" ]];                 then install_cherrymusic;              fi
