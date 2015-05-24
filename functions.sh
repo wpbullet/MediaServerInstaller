@@ -390,7 +390,7 @@ install_htpcmanager (){
 HTPCUSER=$(whiptail --inputbox "Enter the user to run HTPC Manager as (usually pi)" 8 78 $HTPCUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $HTPCUSER > /dev/null; then
-echo "User $SABUSER doesn't exist, exiting, restart the installer"
+echo "User $HTPCUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 debconf-apt-progress -- sudo apt-get install build-essential git python-imaging python-dev python-setuptools python-pip python-cherrypy vnstat smartmontools -y
@@ -403,6 +403,27 @@ sudo chmod +x /etc/init.d/htpcmanager
 sudo update-rc.d htpcmanager defaults
 sudo service htpcmanager start
 echo "HTPC Manager is running on port 8085"
+}
+
+install_cherrymusic (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# cherrymusic
+#--------------------------------------------------------------------------------------------------------------------------------
+CHERRYUSER=$(whiptail --inputbox "Enter the user to run CherryMusic as (usually pi)" 8 78 $CHERRYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $CHERRYUSER > /dev/null; then
+echo "User $CHERRYUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+debconf-apt-progress -- apt-get install python python-pip git python-unidecode sqlite -y
+sudo pip install CherryPy
+sudo apt-get install imagemagick lame vorbis-tools flac -y
+sudo git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
+sudo chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
+crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; python cherrymusic"; } | crontab -u $CHERRYUSER -
+python /opt/cherrymusic/cherrymusic --setup --port 7600
+echo "CherryMusic is running in admin mode on port 7600 so go set it up"
+echo "Reboot after configuration and CherryMusic will autostart"
 }
 
 install_samba (){
