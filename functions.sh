@@ -7,12 +7,13 @@ function unrartest {
 if hash unrar 2>/dev/null; then
 	return
 else
+	cpunum=$(nproc)	
 	debconf-apt-progress -- apt-get install build-essential -y
 	cd /tmp
 	wget rarlab.com/rar/unrarsrc-5.2.6.tar.gz
 	tar -xvf unrarsrc-5.2.6.tar.gz
 	cd unrar
-	sudo make -f makefile
+	sudo make -j$cpunum -f makefile
 	sudo install -v -m755 unrar /usr/bin
 fi }
 
@@ -20,6 +21,14 @@ install_basic (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # Set hostname, FQDN, add to sources list
 #--------------------------------------------------------------------------------------------------------------------------------
+serverIP=$(ip route get 8.8.8.8 | awk '{ print $NF; exit }')
+set ${serverIP//./ }
+SUBNET="$1.$2.$3."
+HOSTNAMEFQDN=$(hostname -f)
+HOSTNAMEFQDN=$(whiptail --inputbox "\nWhat is your full qualified hostname for $serverIP ?" 10 78 $HOSTNAMEFQDN --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+set ${HOSTNAMEFQDN//./ }
+HOSTNAMESHORT="$1"
 cp /etc/hosts /etc/hosts.backup
 cp /etc/hostname /etc/hostname.backup
 sed -e 's/127.0.0.1       localhost/127.0.0.1       localhost.localdomain   localhost/g' -i /etc/hosts
