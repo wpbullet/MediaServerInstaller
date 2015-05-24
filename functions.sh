@@ -417,7 +417,7 @@ exit
 fi
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install python python-pip git python-unidecode sqlite -y
-sudo pip install CherryPy
+sudo pip install CherryPy==3.6
 debconf-apt-progress -- apt-get install imagemagick lame vorbis-tools flac -y
 sudo git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
 sudo chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
