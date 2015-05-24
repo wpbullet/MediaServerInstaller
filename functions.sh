@@ -387,7 +387,7 @@ install_htpcmanager (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # htpcmanager
 #--------------------------------------------------------------------------------------------------------------------------------
-HTPCUSER=$(whiptail --inputbox "Enter the user to run Sabnzbd as (usually pi)" 8 78 $HTPCUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+HTPCUSER=$(whiptail --inputbox "Enter the user to run HTPC Manager as (usually pi)" 8 78 $HTPCUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $HTPCUSER > /dev/null; then
 echo "User $SABUSER doesn't exist, exiting, restart the installer"
