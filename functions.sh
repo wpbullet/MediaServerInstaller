@@ -383,6 +383,27 @@ EOF
 sudo service sabnzbdplus restart
 echo "Sabnzbd is running on port $SABPORT"
 }
+install_htpcmanager (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# htpcmanager
+#--------------------------------------------------------------------------------------------------------------------------------
+HTPCUSER=$(whiptail --inputbox "Enter the user to run Sabnzbd as (usually pi)" 8 78 $HTPCUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $HTPCUSER > /dev/null; then
+echo "User $SABUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+sudo apt-get install build-essential git python-imaging python-dev python-setuptools python-pip python-cherrypy vnstat smartmontools -y
+sudo pip install psutil
+sudo git clone https://github.com/Hellowlol/HTPC-Manager /opt/HTPCManager
+sudo chown -R $HTPCUSER:$HTPCUSER /opt/HTPCManager
+sudo cp /opt/HTPCManager/initd /etc/init.d/htpcmanager
+sed -i "/APP_PATH=/c\APP_PATH=/opt/HTPCManager" /etc/init.d/htpcmanager
+sudo chmod +x /etc/init.d/htpcmanager
+sudo update-rc.d htpcmanager defaults
+sudo service htpcmanager start
+echo "HTPC Manager is running on port 8085"
+}
 
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
