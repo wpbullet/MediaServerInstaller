@@ -270,20 +270,21 @@ echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
-
 cat >> /etc/apt/sources.list.d/sonarr.list <<EOF
 deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
 EOF
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get install libmono-cil-dev apt-transport-https -y --force-yes
+debconf-apt-progress -- apt-get install libmono-cil-dev -y --force-yes
+rm /etc/apt/sources.list.d/sonarr.list
+debconf-apt-progress -- apt-get update
 cat >> /etc/apt/sources.list <<EOF
 # Sonarr
-deb https://apt.sonarr.tv/ master main
+deb http://apt.sonarr.tv/ master main
 EOF
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 #debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get install nzbdrone -y --force-yes
+sudo apt-get update
+apt-get install nzbdrone -y --force-yes
 fi
 cd /tmp
 wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
@@ -297,7 +298,6 @@ sudo chmod +x /etc/init.d/nzbdrone
 cd /tmp
 sudo update-rc.d nzbdrone defaults
 service nzbdrone start
-rm /etc/apt/sources.list.d/sonarr.list
 echo "Sonarr is running on port 8989"
 }
 
