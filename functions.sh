@@ -215,6 +215,7 @@ debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install -y build-essential libsigc++-dev sigc++ libncurses5-dev libssl-dev libxml2-dev unzip p7zip-full ncurses-dev openssl
 wget http://sourceforge.net/projects/nzbget/files/nzbget-stable/15.0/nzbget-15.0.tar.gz
 tar -zxvf nzbget-15.0.tar.gz
+rm nzbget-15.0.tar.gz
 cd nzbget-15.0
 cpunum=$(nproc)	
 ./configure --with-tlslib=OpenSSL && make -j$cpunum && sudo make install && sudo make install-conf
@@ -226,9 +227,12 @@ cd /etc/init.d
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
 sudo chmod +x /etc/init.d/nzbget
 cd /tmp
+rm -R ~/HTPCGuides/nzbget-15.0
+rm -R /root/HTPCGuides/nzbget-15.0
 sudo update-rc.d nzbget defaults
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 service nzbget start
+sudo rm 
 echo "NZBGet 15 is running on port 6789"
 echo "Configure NZBGet at HTPCGuides.com http://goo.gl/PDjIAP"
 }
