@@ -210,7 +210,9 @@ fi
 # test unrar is installed, build it
 unrartest
 #install nzbget
-debconf-apt-progress -- sudo apt-get install build-essential libsigc++-dev sigc++ libncurses5-dev libssl-dev libxml2-dev unzip p7zip-full ncurses-dev openssl -y
+
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get install -y build-essential libsigc++-dev sigc++ libncurses5-dev libssl-dev libxml2-dev unzip p7zip-full ncurses-dev openssl
 wget http://sourceforge.net/projects/nzbget/files/nzbget-stable/15.0/nzbget-15.0.tar.gz
 tar -zxvf nzbget-15.0.tar.gz
 cd nzbget-15.0
