@@ -1,7 +1,7 @@
 HTPC Guides Media Server for ARM Devices
 ========================
 
-![SOHO server](http://www.igorpecovnik.com/wp-content/uploads/2014/11/sohoserver1.png)
+![SOHO server](http://www.htpcguides.com/wp-content/uploads/2015/05/HTPC-Guides-installer-Main-screen-600x331.png)
 
 Samba, TV headend, BitTorrent Sync, SoftEther VPN server, CUPS, scanner + buttons + OCR, Temper, Rpimonitor + 3 additional sensors, Transmission, ISPConfig  (Apache2 or NginX, PHP, Mysql with phpMyAdmin, Postfix, Dovecot)
 
@@ -20,10 +20,9 @@ HTPC Guides Media Server Installation
 ```shell
 sudo apt-get -y install git
 cd ~
-git clone https://github.com/igorpecovnik/Debian-micro-home-server
-chmod +x ./Debian-micro-home-server/install.sh
-cd ./Debian-micro-home-server
-sudo ./install.sh
+git clone https://github.com/blindpet/MediaServerInstaller /HTPCGuides
+cd HTPCGuides
+sudo bash install.sh
 ```
 
 Donate to Igor's project
