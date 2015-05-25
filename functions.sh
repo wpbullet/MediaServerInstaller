@@ -432,9 +432,10 @@ debconf-apt-progress -- apt-get install imagemagick lame vorbis-tools flac -y
 sudo git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
 sudo chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
 crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; python cherrymusic"; } | crontab -u $CHERRYUSER -
+whiptail --title "HTPC Guides Media Installer" --msgbox "When you see Open your browser and put the server IP:7600 in the address bar, configure and then Ctrl+C in Terminal to continue" 8 78
 python /opt/cherrymusic/cherrymusic --setup --port 7600
 echo "CherryMusic is running in admin mode on port 7600 so go set it up"
-echo "Reboot after configuration and CherryMusic will autostart"
+echo "Reboot and CherryMusic will autostart"
 }
 
 install_samba (){
