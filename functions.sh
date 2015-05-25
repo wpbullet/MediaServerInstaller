@@ -196,6 +196,40 @@ debconf-apt-progress -- apt-get -y install transmission-cli transmission-common 
 #service transmission-daemon start
 }
 
+install_nzbget15 (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# nzbget15
+#--------------------------------------------------------------------------------------------------------------------------------
+NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as (usually pi)" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $NZBGETUSER > /dev/null; then
+echo "User $NZBGETUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+#build unrar
+# test unrar is installed, build it
+unrartest
+#install nzbget
+debconf-apt-progress -- sudo apt-get install build-essential libsigc++-dev sigc++ libncurses5-dev libssl-dev libxml2-dev unzip p7zip-full ncurses-dev openssl -y
+wget http://sourceforge.net/projects/nzbget/files/nzbget-stable/15.0/nzbget-15.0.tar.gz
+tar -zxvf nzbget-15.0.tar.gz
+cd nzbget-15.0
+cpunum=$(nproc)	
+./configure --with-tlslib=OpenSSL --prefix=/usr/bin && make -j$cpunum && sudo make install && sudo make install-conf
+sudo cp /usr/bin/share/nzbget/nzbget.conf /etc/nzbget.conf
+sudo chown $NZBGETUSER:root /etc/nzbget.conf
+#replace username line
+sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER" /etc/nzbget.conf
+cd /etc/init.d
+wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
+sudo chmod +x /etc/init.d/nzbget
+cd /tmp
+sudo update-rc.d nzbget defaults
+crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
+service nzbget start
+echo "NZBGet is running on port 6789"
+}
+
 install_nzbget (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # nzbget
