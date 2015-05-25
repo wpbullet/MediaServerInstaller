@@ -260,8 +260,8 @@ gpg --recv-keys --keyserver keyserver.ubuntu.com 0E50BF67
 gpg -a --export 0E50BF67 | sudo apt-key add -
 fi
 
-debconf-apt-progress -- sudo apt-get update
-debconf-apt-progress -- sudo apt-get install nzbget -y
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get install nzbget -y
 sudo cp /usr/share/nzbget/nzbget.conf /etc/nzbget.conf
 sudo chown $NZBGETUSER:root /etc/nzbget.conf
 #replace username line
