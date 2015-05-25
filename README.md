@@ -1,12 +1,18 @@
 HTPC Guides Media Server for ARM Devices
 ========================
 
+This is an automated installer for Home Media Server programs for [HTPC Guides](http://www.htpcguides.com)
+
 ![SOHO server](http://www.htpcguides.com/wp-content/uploads/2015/05/HTPC-Guides-installer-Main-screen-600x331.png)
+
+This projecti's framework is based on Igor's [Micro Home Server](http://www.igorpecovnik.com/2013/12/10/micro-home-server/)
+
+If you only need igor's services, use his fork which has these programs
 
 Samba, TV headend, BitTorrent Sync, SoftEther VPN server, CUPS, scanner + buttons + OCR, Temper, Rpimonitor + 3 additional sensors, Transmission, ISPConfig  (Apache2 or NginX, PHP, Mysql with phpMyAdmin, Postfix, Dovecot)
 
-Project realisation:
-[http://www.igorpecovnik.com/2013/12/10/micro-home-server/](http://www.igorpecovnik.com/2013/12/10/micro-home-server/)
+The HTPC Guides fork includes these programs
+NZBGet, Sabnzbd, Sonarr, SickRage, CouchPotato, HTPC Manager, CherryMusic and more will be added.
 
 Tips:
 - mail server install (ISPConfig) will work **only with Debian Wheezy**
@@ -20,8 +26,8 @@ HTPC Guides Media Server Installation
 ```shell
 sudo apt-get -y install git
 cd ~
-git clone https://github.com/blindpet/MediaServerInstaller /HTPCGuides
-cd HTPCGuides
+git clone https://github.com/blindpet/MediaServerInstaller ~/HTPCGuides
+cd ~/HTPCGuides
 sudo bash install.sh
 ```
 
