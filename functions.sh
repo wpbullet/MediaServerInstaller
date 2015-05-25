@@ -402,7 +402,7 @@ if ! getent passwd $HTPCUSER > /dev/null; then
 echo "User $HTPCUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-
+debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install build-essential git python-imaging python-dev python-setuptools python-pip vnstat smartmontools -y
 sudo pip install psutil
 sudo git clone https://github.com/Hellowlol/HTPC-Manager /opt/HTPCManager
