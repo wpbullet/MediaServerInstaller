@@ -217,7 +217,7 @@ wget http://sourceforge.net/projects/nzbget/files/nzbget-stable/15.0/nzbget-15.0
 tar -zxvf nzbget-15.0.tar.gz
 cd nzbget-15.0
 cpunum=$(nproc)	
-./configure --with-tlslib=OpenSSL --prefix=/usr/bin && make -j$cpunum && sudo make install && sudo make install-conf
+./configure --with-tlslib=OpenSSL && make -j$cpunum && sudo make install && sudo make install-conf
 sudo cp /usr/bin/share/nzbget/nzbget.conf /etc/nzbget.conf
 sudo chown $NZBGETUSER:root /etc/nzbget.conf
 #replace username line
