@@ -48,7 +48,7 @@ SUBNET="$1.$2.$3."
 #set ${HOSTNAMEFQDN//./ }
 #HOSTNAMESHORT="$1"
 
-whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This installer is not particularly clever. You must enter valid users that are on your system. So if the user pi doesn't exist and you choose pi, the installation will fail. You must hit OK to continue." 8 78
+whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This installer will prompt for valid users and ports, defaults are suggest in () for those in doubt" 8 78
 
 source "functions.sh"
 
