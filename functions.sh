@@ -229,7 +229,8 @@ cd /tmp
 sudo update-rc.d nzbget defaults
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 service nzbget start
-echo "NZBGet is running on port 6789"
+echo "NZBGet 15 is running on port 6789"
+echo "Configure NZBGet at HTPCGuides.com http://goo.gl/PDjIAP"
 }
 
 install_nzbget (){
@@ -269,6 +270,7 @@ sudo update-rc.d nzbget defaults
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 service nzbget start
 echo "NZBGet is running on port 6789"
+echo "Configure NZBGet at HTPCGuides.com http://goo.gl/PDjIAP"
 	
 }
 
@@ -312,6 +314,7 @@ cd /tmp
 sudo update-rc.d nzbdrone defaults
 service nzbdrone start
 echo "Sonarr is running on port 8989"
+echo "Configure Sonarr at HTPCGuides.com http://goo.gl/06iXEw"
 }
 
 install_sickrage (){
@@ -341,6 +344,7 @@ sudo chmod +x /etc/init.d/sickrage
 sudo update-rc.d sickrage defaults
 sudo service sickrage start
 echo "SickRage is running on port 8081"
+echo "Configure SickRage at HTPCGuides.com http://goo.gl/I2jtbg"
 }
 
 install_couchpotato (){
@@ -368,6 +372,7 @@ sudo chmod +x /etc/init.d/couchpotato
 sudo update-rc.d couchpotato defaults
 sudo service couchpotato start
 echo "CouchPotato is running on port 5050"
+echo "Configure CouchPotato at HTPCGuides.com http://goo.gl/uwaTUI"
 }
 
 install_mylar (){
@@ -393,6 +398,7 @@ sudo chmod +x /etc/init.d/mylar
 sudo update-rc.d mylar defaults
 sudo service mylar start
 echo "Mylar is running on port 8090"
+echo "Configure Mylar at HTPCGuides.com http://goo.gl/KVFfMS"
 }
 
 install_sabnzbd (){
@@ -427,6 +433,7 @@ PORT=$SABPORT
 EOF
 sudo service sabnzbdplus restart
 echo "Sabnzbd is running on port $SABPORT"
+echo "Configure Sabnzbd at HTPCGuides.com http://goo.gl/MPCVXu"
 }
 install_htpcmanager (){
 #--------------------------------------------------------------------------------------------------------------------------------
@@ -479,7 +486,7 @@ install_nfs (){
 # install NFS
 #--------------------------------------------------------------------------------------------------------------------------------
 debconf-apt-progress -- apt-get -y install nfs-server nfs-common
-echo "NFS is installed, configure at http://goo.gl/njEc6C on HTPCGuides.com"
+echo "NFS is installed, configure on HTPCGuides.com http://goo.gl/njEc6C "
 }
 
 install_samba (){
