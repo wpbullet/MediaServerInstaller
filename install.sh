@@ -74,11 +74,11 @@ do
    case $choice in
 		   "Samba") 			ins_samba="true";;
 		   "NFS Tools") 		ins_nfs="true";;
-                   "TV Headend") 		ins_tvheadend="true";;
+                   "TV headend") 		ins_tvheadend="true";;
                    "BitTorrent Sync") 	  	ins_btsync="true";;
                    "SoftEther VPN server") 	ins_vpn_server="true";;
-		   "NZBGet") 			ins_nzbget="true";;
-		   "NZBGet 15")			ins_nzbget15="true";;
+		   "NZBGet Repo") 			ins_nzbget="true";;
+		   "NZBGet 15 Source")			ins_nzbget15="true";;
 		   "Sabnzbd") 			ins_sabnzbd="true";;
                    "SickRage") 			ins_sickrage="true";;
                    "Sonarr") 			ins_sonarr="true";;
