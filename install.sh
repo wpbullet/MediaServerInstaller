@@ -72,6 +72,7 @@ while read choice
 do
    case $choice in
 		   "Samba") 			ins_samba="true";;
+		   "NFS Tools") 		ins_nfs="true";;
                    "TV Headend") 		ins_tvheadend="true";;
                    "BitTorrent Sync") 	  	ins_btsync="true";;
                    "SoftEther VPN server") 	ins_vpn_server="true";;
@@ -93,6 +94,7 @@ done < results
 
 
 if [[ "$ins_samba" == "true" ]]; 			then install_samba; 			fi
+if [[ "$ins_nfs" == "true" ]]; 				then install_nfs; 			fi
 if [[ "$ins_tvheadend" == "true" ]]; 			then install_tvheadend; 		fi
 if [[ "$ins_btsync" == "true" ]]; 			then install_btsync; 			fi
 if [[ "$ins_vpn_server" == "true" ]]; 			then install_vpn_server; 		fi
