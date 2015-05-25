@@ -161,7 +161,7 @@ install_tvheadend (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # TVheadend
 #--------------------------------------------------------------------------------------------------------------------------------
-if !(grep -qs tvheadend "/etc/apt/sources.list");then
+if !(cat /etc/apt/sources.list | grep -q headend > /dev/null);then
 cat >> /etc/apt/sources.list <<EOF
 # TV headend
 deb http://apt.tvheadend.org/stable wheezy main
@@ -436,6 +436,14 @@ whiptail --title "HTPC Guides Media Installer" --msgbox "When you see Open your 
 python /opt/cherrymusic/cherrymusic --setup --port 7600
 echo "CherryMusic is running in admin mode on port 7600 so go set it up"
 echo "Reboot and CherryMusic will autostart"
+}
+
+install_nfs (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# install NFS
+#--------------------------------------------------------------------------------------------------------------------------------
+debconf-apt-progress -- apt-get -y install nfs-server nfs-common
+echo "NFS is installed, configure at http://goo.gl/njEc6C on HTPCGuides.com"
 }
 
 install_samba (){
