@@ -169,7 +169,7 @@ EOF
 fi
 wget -qO - http://apt.tvheadend.org/stable/repo.gpg.key | apt-key add -
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get -y install tvheadend
+apt-get -y install tvheadend
 }
 
 
