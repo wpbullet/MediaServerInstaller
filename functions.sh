@@ -219,7 +219,7 @@ rm nzbget-15.0.tar.gz
 cd nzbget-15.0
 cpunum=$(nproc)	
 ./configure --with-tlslib=OpenSSL && make -j$cpunum && sudo make install && sudo make install-conf
-sudo cp /usr/bin/share/nzbget/nzbget.conf /etc/nzbget.conf
+sudo cp /usr/local/share/nzbget/nzbget.conf /etc/nzbget.conf
 sudo chown $NZBGETUSER:root /etc/nzbget.conf
 #replace username line
 sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER" /etc/nzbget.conf
