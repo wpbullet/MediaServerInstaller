@@ -230,7 +230,7 @@ cd /tmp
 rm -R ~/HTPCGuides/nzbget-15.0
 rm -R /root/HTPCGuides/nzbget-15.0
 sudo update-rc.d nzbget defaults
-if !(crontab -l | grep -q nzbget > /dev/null);then
+if !(crontab -l -u $NZBGETUSER | grep -q nzbget > /dev/null);then
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 fi
 service nzbget start
@@ -273,7 +273,7 @@ wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
 sudo chmod +x /etc/init.d/nzbget
 cd /tmp
 sudo update-rc.d nzbget defaults
-if !(crontab -l | grep -q nzbget > /dev/null);then
+if !(crontab -l -u $NZBGETUSER | grep -q nzbget > /dev/null);then
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 fi
 service nzbget start
@@ -484,8 +484,10 @@ sudo pip install CherryPy==3.6
 debconf-apt-progress -- apt-get install imagemagick lame vorbis-tools flac -y
 sudo git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
 sudo chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
+if !(crontab -l -u $CHERRYUSER | grep -q cherrymusic > /dev/null);then
 crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; python cherrymusic"; } | crontab -u $CHERRYUSER -
-whiptail --title "HTPC Guides Media Installer" --msgbox "When you see Open your browser and put the server IP:$CHERRYPORT in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
+fi
+whiptail --title "HTPC Guides Media Installer" --msgbox "When you see 'Open your browser and put the server IP:$CHERRYPORT' in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
 python /opt/cherrymusic/cherrymusic --setup --port $CHERRYPORT
 echo "CherryMusic is running in admin mode on port $CHERRYPORT so go set it up"
 echo "Reboot and CherryMusic will autostart"
@@ -518,8 +520,10 @@ sudo wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
 sudo unzip ubooquity*.zip
 sudo rm ubooquity*.zip
 sudo chown -R $UBOOQUITYUSER:$UBOOQUITYUSER /opt/ubooquity
+if !(crontab -l -u $UBOOQUITYUSER | grep -q Ubooquity.jar > /dev/null);then
 crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
 @reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless"; } | crontab -u $UBOOQUITYUSER -
+fi
 echo "Ubooquity will run on port 2022 and will autostart on boot"
 echo "Copy this to execute Ubooquity java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
