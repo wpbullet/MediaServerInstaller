@@ -487,6 +487,28 @@ echo "CherryMusic is running in admin mode on port $CHERRYPORT so go set it up"
 echo "Reboot and CherryMusic will autostart"
 }
 
+install_ubooquity (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# install Ubooquity
+#--------------------------------------------------------------------------------------------------------------------------------
+UBOOQUITYUSER=$(whiptail --inputbox "Enter the user to run Ubooquity as (usually pi)" 8 78 $UBOOQUITYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list.d/webupd8team-java.list
+echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list.d/webupd8team-java.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get install unzip oracle-java8-installer -y
+mkdir -p /opt/ubooquity
+cd /opt/ubooquity
+sudo wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
+sudo unzip ubooquity*.zip
+sudo rm ubooquity*.zip
+sudo chown -R $UBOOQUITYUSER:$UBOOQUITYUSER /opt/ubooquity
+crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
+@reboot sleep 180 && cd $PATH_UBOOQUITY && nohup java -jar $PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless"; } | crontab -u $UBOOQUITYUSER -
+echo "Ubooquity will run on port 2022 and will autostart on boot"
+echo "Copy this to execute Ubooquity java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless"
+echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
 install_nfs (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install NFS
