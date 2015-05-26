@@ -64,6 +64,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "CherryMusic" "Personal Grooveshark Server" off \
 "HTPC Manager" "HTPC Management system" off \
 "Samba" "Windows compatible file sharing        " off \
+"NFS Tools" "Windows compatible file sharing        " off \
 "Rpi monitor" "Status page and statistics" off \
 "TV headend" "TV streaming / proxy" off \
 "BitTorrent Sync" "Personal cloud" off \
