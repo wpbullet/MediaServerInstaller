@@ -48,7 +48,7 @@ SUBNET="$1.$2.$3."
 #set ${HOSTNAMEFQDN//./ }
 #HOSTNAMESHORT="$1"
 
-whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This installer will prompt for valid users and ports, defaults are suggest in () for those in doubt" 8 78
+whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This installer will prompt for valid users and ports, defaults are suggested in () for those in doubt" 8 78
 
 source "functions.sh"
 
