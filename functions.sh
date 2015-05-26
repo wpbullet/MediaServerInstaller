@@ -230,7 +230,9 @@ cd /tmp
 rm -R ~/HTPCGuides/nzbget-15.0
 rm -R /root/HTPCGuides/nzbget-15.0
 sudo update-rc.d nzbget defaults
+if !(crontab -l | grep -q nzbget > /dev/null);then
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
+fi
 service nzbget start
 sudo rm 
 echo "NZBGet 15 is running on port 6789"
@@ -271,7 +273,9 @@ wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
 sudo chmod +x /etc/init.d/nzbget
 cd /tmp
 sudo update-rc.d nzbget defaults
+if !(crontab -l | grep -q nzbget > /dev/null);then
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
+fi
 service nzbget start
 echo "NZBGet is running on port 6789"
 echo "Configure NZBGet at HTPCGuides.com http://goo.gl/PDjIAP"
