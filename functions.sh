@@ -493,9 +493,19 @@ install_ubooquity (){
 #--------------------------------------------------------------------------------------------------------------------------------
 UBOOQUITYUSER=$(whiptail --inputbox "Enter the user to run Ubooquity as (usually pi)" 8 78 $UBOOQUITYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $UBOOQUITYUSER > /dev/null; then
+echo "User $UBOOQUITYUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+if !(cat /etc/apt/sources.list.d/webupd8team-java.list | grep -q Java > /dev/null);then
+cat >> /etc/apt/sources.list <<EOF
+# Java
 echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list.d/webupd8team-java.list
 echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list.d/webupd8team-java.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+EOF
+fi
+
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install unzip oracle-java8-installer -y
 mkdir -p /opt/ubooquity
@@ -509,6 +519,7 @@ crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
 echo "Ubooquity will run on port 2022 and will autostart on boot"
 echo "Copy this to execute Ubooquity java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
+}
 install_nfs (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install NFS
