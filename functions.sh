@@ -515,7 +515,7 @@ sudo unzip ubooquity*.zip
 sudo rm ubooquity*.zip
 sudo chown -R $UBOOQUITYUSER:$UBOOQUITYUSER /opt/ubooquity
 crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
-@reboot sleep 180 && cd $PATH_UBOOQUITY && nohup java -jar $PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless"; } | crontab -u $UBOOQUITYUSER -
+@reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless"; } | crontab -u $UBOOQUITYUSER -
 echo "Ubooquity will run on port 2022 and will autostart on boot"
 echo "Copy this to execute Ubooquity java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
