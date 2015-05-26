@@ -63,6 +63,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "Transmission" "Torrent downloading" off \
 "CherryMusic" "Personal Grooveshark Server" off \
 "HTPC Manager" "HTPC Management system" off \
+"Ubooquity" "eBook Management" off \
 "Samba" "Windows compatible file sharing        " off \
 "NFS Tools" "Windows compatible file sharing        " off \
 "Rpi monitor" "Status page and statistics" off \
@@ -74,6 +75,7 @@ while read choice
 do
    case $choice in
 		   "Samba") 			ins_samba="true";;
+		   "Ubooquity") 		ins_ubooquity="true";;
 		   "NFS Tools") 		ins_nfs="true";;
                    "TV headend") 		ins_tvheadend="true";;
                    "BitTorrent Sync") 	  	ins_btsync="true";;
@@ -95,7 +97,7 @@ do
         esac
 done < results
 
-
+if [[ "$ins_ubooquity" == "true" ]]; 			then install_ubooquity;			fi
 if [[ "$ins_samba" == "true" ]]; 			then install_samba; 			fi
 if [[ "$ins_nfs" == "true" ]]; 				then install_nfs; 			fi
 if [[ "$ins_tvheadend" == "true" ]]; 			then install_tvheadend; 		fi
@@ -106,7 +108,7 @@ if [[ "$ins_nzbget15" == "true" ]]; 			then install_nzbget15; 			fi
 if [[ "$ins_sabnzbd" == "true" ]];			then install_sabnzbd; 			fi
 if [[ "$ins_sickrage" == "true" ]]; 			then install_sickrage; 			fi
 if [[ "$ins_sonarr" == "true" ]]; 			then install_sonarr; 			fi
-if [[ "$ins_couchpotato" == "true" ]]; 			then install_couchpotato; 			fi
+if [[ "$ins_couchpotato" == "true" ]]; 			then install_couchpotato; 		fi
 if [[ "$ins_mylar" == "true" ]]; 			then install_mylar; 			fi
 if [[ "$ins_htpcmanager" == "true" ]];                 then install_htpcmanager;              fi
 if [[ "$ins_rpimonitor" == "true" ]]; 			then install_bmc180; install_tsl2561; install_rpimonitor;  			fi
