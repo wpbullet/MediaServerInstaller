@@ -15,6 +15,8 @@ else
 	cd unrar
 	sudo make -j$cpunum -f makefile
 	sudo install -v -m755 unrar /usr/bin
+	rm -R unrar
+	rm unrar-src.5.2.6.tar.gz
 fi }
 
 install_basic (){
