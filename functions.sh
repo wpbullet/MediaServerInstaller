@@ -13,8 +13,8 @@ else
 	wget rarlab.com/rar/unrarsrc-5.2.6.tar.gz
 	tar -xvf unrarsrc-5.2.6.tar.gz
 	cd unrar
-	sudo make -j$cpunum -f makefile
-	sudo install -v -m755 unrar /usr/bin
+	make -j$cpunum -f makefile
+	install -v -m755 unrar /usr/bin
 	rm -R unrar
 	rm unrar-src.5.2.6.tar.gz
 fi }
@@ -221,17 +221,17 @@ rm nzbget-15.0.tar.gz
 cd nzbget-15.0
 cpunum=$(nproc)	
 ./configure --with-tlslib=OpenSSL && make -j$cpunum && sudo make install && sudo make install-conf
-sudo cp /usr/local/share/nzbget/nzbget.conf /etc/nzbget.conf
-sudo chown $NZBGETUSER:root /etc/nzbget.conf
+cp /usr/local/share/nzbget/nzbget.conf /etc/nzbget.conf
+chown $NZBGETUSER:root /etc/nzbget.conf
 #replace username line
 sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER" /etc/nzbget.conf
 cd /etc/init.d
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
-sudo chmod +x /etc/init.d/nzbget
+chmod +x /etc/init.d/nzbget
 cd /tmp
 rm -R ~/HTPCGuides/nzbget-15.0
 rm -R /root/HTPCGuides/nzbget-15.0
-sudo update-rc.d nzbget defaults
+update-rc.d nzbget defaults
 if !(crontab -l -u $NZBGETUSER | grep -q nzbget > /dev/null);then
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 fi
@@ -266,15 +266,15 @@ fi
 
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install nzbget -y
-sudo cp /usr/share/nzbget/nzbget.conf /etc/nzbget.conf
-sudo chown $NZBGETUSER:root /etc/nzbget.conf
+cp /usr/share/nzbget/nzbget.conf /etc/nzbget.conf
+chown $NZBGETUSER:root /etc/nzbget.conf
 #replace username line
 sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER" /etc/nzbget.conf
 cd /etc/init.d
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
-sudo chmod +x /etc/init.d/nzbget
+chmod +x /etc/init.d/nzbget
 cd /tmp
-sudo update-rc.d nzbget defaults
+update-rc.d nzbget defaults
 if !(crontab -l -u $NZBGETUSER | grep -q nzbget > /dev/null);then
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 fi
@@ -306,22 +306,22 @@ cat >> /etc/apt/sources.list <<EOF
 # Sonarr
 deb http://apt.sonarr.tv/ master main
 EOF
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 #debconf-apt-progress -- apt-get update
-sudo apt-get update
+apt-get update
 apt-get install nzbdrone -y --force-yes
 fi
 cd /tmp
 wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
-sudo dpkg -i mono_3.10-armhf.deb
-sudo chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
+dpkg -i mono_3.10-armhf.deb
+chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
 cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbdrone
 sed -i "/RUN_AS=/c\RUN_AS=$NZBDRONEUSER" /etc/init.d/nzbdrone
-sudo chmod +x /etc/init.d/nzbdrone
+chmod +x /etc/init.d/nzbdrone
 cd /tmp
-sudo update-rc.d nzbdrone defaults
+update-rc.d nzbdrone defaults
 service nzbdrone start
 echo "Sonarr is running on port 8989"
 echo "Configure Sonarr at HTPCGuides.com http://goo.gl/06iXEw"
@@ -338,7 +338,7 @@ echo "User $SICKRAGEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 debconf-apt-progress -- apt-get -y install python-cheetah python-pip python-dev
-sudo pip install pyopenssl==0.13.1
+pip install pyopenssl==0.13.1
 unrartest
 sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
@@ -349,10 +349,10 @@ SR_DATA=/opt/sickrage
 SR_PIDFILE=/home/$SICKRAGEUSER/.sickrage.pid
 EOF
 FINDSICKRAGE=$(find /opt/sickrage -name init.ubuntu)
-sudo cp $FINDSICKRAGE /etc/init.d/sickrage
-sudo chmod +x /etc/init.d/sickrage
-sudo update-rc.d sickrage defaults
-sudo service sickrage start
+cp $FINDSICKRAGE /etc/init.d/sickrage
+chmod +x /etc/init.d/sickrage
+update-rc.d sickrage defaults
+service sickrage start
 echo "SickRage is running on port 8081"
 echo "Configure SickRage at HTPCGuides.com http://goo.gl/I2jtbg"
 }
@@ -369,18 +369,18 @@ exit
 fi
 debconf-apt-progress -- apt-get -y python
 unrartest
-sudo git clone http://github.com/RuudBurger/CouchPotatoServer /opt/CouchPotato
-sudo chown -R $COUCHPOTATOUSER:$COUCHPOTATOUSER /opt/CouchPotato
+git clone http://github.com/RuudBurger/CouchPotatoServer /opt/CouchPotato
+chown -R $COUCHPOTATOUSER:$COUCHPOTATOUSER /opt/CouchPotato
 cat > /etc/default/couchpotato <<EOF
 CP_HOME=/opt/CouchPotato
 CP_USER=$COUCHPOTATOUSER
 CP_PIDFILE=/home/$COUCHPOTATOUSER/.couchpotato.pid
 CP_DATA=/opt/CouchPotato
 EOF
-sudo cp /opt/CouchPotato/init/ubuntu /etc/init.d/couchpotato
-sudo chmod +x /etc/init.d/couchpotato
-sudo update-rc.d couchpotato defaults
-sudo service couchpotato start
+cp /opt/CouchPotato/init/ubuntu /etc/init.d/couchpotato
+chmod +x /etc/init.d/couchpotato
+update-rc.d couchpotato defaults
+service couchpotato start
 echo "CouchPotato is running on port 5050"
 echo "Configure CouchPotato at HTPCGuides.com http://goo.gl/uwaTUI"
 }
@@ -395,18 +395,18 @@ if ! getent passwd $MYLARUSER > /dev/null; then
 echo "User $MYLARUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-sudo git clone https://github.com/evilhero/mylar -b development /opt/Mylar
-sudo chown -R $MYLARUSER:$MYLARUSER /opt/Mylar
+git clone https://github.com/evilhero/mylar -b development /opt/Mylar
+chown -R $MYLARUSER:$MYLARUSER /opt/Mylar
 cat > /etc/default/mylar<<EOF
 MYLAR_USER=$MYLARUSER
 MYLAR_HOME=/opt/Mylar
 MYLAR_DATA=/opt/Mylar
 MYLAR_PORT=8090
 EOF
-sudo cp /opt/Mylar/init-scripts/ubuntu.init.d /etc/init.d/mylar
-sudo chmod +x /etc/init.d/mylar
-sudo update-rc.d mylar defaults
-sudo service mylar start
+cp /opt/Mylar/init-scripts/ubuntu.init.d /etc/init.d/mylar
+chmod +x /etc/init.d/mylar
+update-rc.d mylar defaults
+service mylar start
 echo "Mylar is running on port 8090"
 echo "Configure Mylar at HTPCGuides.com http://goo.gl/KVFfMS"
 }
@@ -457,14 +457,14 @@ exit
 fi
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install build-essential git python-imaging python-dev python-setuptools python-pip vnstat smartmontools -y
-sudo pip install psutil
-sudo git clone https://github.com/Hellowlol/HTPC-Manager /opt/HTPCManager
-sudo chown -R $HTPCUSER:$HTPCUSER /opt/HTPCManager
-sudo cp /opt/HTPCManager/initd /etc/init.d/htpcmanager
+pip install psutil
+git clone https://github.com/Hellowlol/HTPC-Manager /opt/HTPCManager
+chown -R $HTPCUSER:$HTPCUSER /opt/HTPCManager
+cp /opt/HTPCManager/initd /etc/init.d/htpcmanager
 sed -i "/APP_PATH=/c\APP_PATH=/opt/HTPCManager" /etc/init.d/htpcmanager
-sudo chmod +x /etc/init.d/htpcmanager
-sudo update-rc.d htpcmanager defaults
-sudo service htpcmanager start
+chmod +x /etc/init.d/htpcmanager
+update-rc.d htpcmanager defaults
+service htpcmanager start
 echo "HTPC Manager is running on port 8085"
 }
 
@@ -482,10 +482,10 @@ exit
 fi
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install python python-pip git python-unidecode sqlite -y
-sudo pip install CherryPy==3.6
+pip install CherryPy==3.6
 debconf-apt-progress -- apt-get install imagemagick lame vorbis-tools flac -y
-sudo git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
-sudo chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
+git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
+chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
 if !(crontab -l -u $CHERRYUSER | grep -q cherrymusic > /dev/null);then
 crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; python cherrymusic"; } | crontab -u $CHERRYUSER -
 fi
@@ -518,10 +518,10 @@ debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install unzip oracle-java8-installer -y
 mkdir -p /opt/ubooquity
 cd /opt/ubooquity
-sudo wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
-sudo unzip ubooquity*.zip
-sudo rm ubooquity*.zip
-sudo chown -R $UBOOQUITYUSER:$UBOOQUITYUSER /opt/ubooquity
+wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
+unzip ubooquity*.zip
+rm ubooquity*.zip
+chown -R $UBOOQUITYUSER:$UBOOQUITYUSER /opt/ubooquity
 if !(crontab -l -u $UBOOQUITYUSER | grep -q Ubooquity.jar > /dev/null);then
 crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
 @reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless"; } | crontab -u $UBOOQUITYUSER -
