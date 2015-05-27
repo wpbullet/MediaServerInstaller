@@ -25,11 +25,11 @@ fi
 # Updated to check if packages are installed to save time
 # What do we need anyway
 function updatecheck ()
-{ if dpkg-query -W sudo alsa-base alsa-utils debconf-utils git whiptail build-essential stunnel4 html2text; then
+{ if dpkg-query -W sudo sudo curl alsa-base alsa-utils debconf-utils git whiptail build-essential stunnel4 html2text; then
 return
 else
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get -y install sudo debconf-utils dnsutils unzip whiptail git build-essential alsa-base alsa-utils stunnel4 html2text
+debconf-apt-progress -- apt-get -y install sudo curl debconf-utils dnsutils unzip whiptail git build-essential alsa-base alsa-utils stunnel4 html2text
 fi }
 updatecheck
 #--------------------------------------------------------------------------------------------------------------------------------
