@@ -544,11 +544,11 @@ echo "NFS is installed, configure on HTPCGuides.com http://goo.gl/njEc6C"
 
 install_plex (){
 #--------------------------------------------------------------------------------------------------------------------------------
-# install Plex Wheezy
+# install PlexWheezy
 #--------------------------------------------------------------------------------------------------------------------------------
-if !(cat /etc/apt/sources.list.d/pms.list | grep -q Plex Wheezy > /dev/null);then
+if !(cat /etc/apt/sources.list.d/pms.list | grep -q PlexWheezy > /dev/null);then
 cat >> /etc/apt/sources.list.d/pms.list <<EOF
-# Plex Wheezy
+# PlexWheezy
 echo "deb https://dev2day.de/pms/ wheezy main" | tee /etc/apt/sources.list.d/pms.list
 EOF
 wget -O - https://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
