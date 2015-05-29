@@ -539,7 +539,25 @@ install_nfs (){
 # install NFS
 #--------------------------------------------------------------------------------------------------------------------------------
 debconf-apt-progress -- apt-get -y install nfs-server nfs-common
-echo "NFS is installed, configure on HTPCGuides.com http://goo.gl/njEc6C "
+echo "NFS is installed, configure on HTPCGuides.com http://goo.gl/njEc6C"
+}
+
+install_plex (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# install Plex Wheezy
+#--------------------------------------------------------------------------------------------------------------------------------
+if !(cat /etc/apt/sources.list.d/pms.list | grep -q Plex Wheezy > /dev/null);then
+cat >> /etc/apt/sources.list.d/pms.list <<EOF
+# Plex Wheezy
+echo "deb https://dev2day.de/pms/ wheezy main" | tee /etc/apt/sources.list.d/pms.list
+EOF
+wget -O - https://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add 
+debconf-apt-progress -- apt-get install apt-transport-https -y --force-yes
+debconf-apt-progress -- apt-get update -y
+debconf-apt-progress -- apt-get install plexmediaserver -y
+fi
+echo "Plex is running on $showip:32400/web and will autostart on boot"
+echo "Configuration guides on HTPCGuides.com"
 }
 
 install_samba (){
