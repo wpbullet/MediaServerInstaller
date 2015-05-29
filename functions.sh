@@ -551,7 +551,7 @@ cat >> /etc/apt/sources.list.d/pms.list <<EOF
 # Plex Wheezy
 echo "deb https://dev2day.de/pms/ wheezy main" | tee /etc/apt/sources.list.d/pms.list
 EOF
-wget -O - https://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add 
+wget -O - https://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
 debconf-apt-progress -- apt-get install apt-transport-https -y --force-yes
 debconf-apt-progress -- apt-get update -y
 debconf-apt-progress -- apt-get install plexmediaserver -y
