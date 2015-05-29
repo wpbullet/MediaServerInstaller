@@ -53,8 +53,8 @@ whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This installer 
 source "functions.sh"
 
 whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCGuides.com and Igor Pecovnik" --checklist --separate-output "\nIP:   $serverIP\nFQDN: $HOSTNAMEFQDN\n\nChoose what you want to install:" 20 78 9 \
+"Plex" "Plex Media Server        " off \
 "NZBGet Repo" "Usenet Downloader written in C++" off \
-"NZBGet 15 Source" "Usenet Downloader written in C++" off \
 "Sabnzbd" "Usenet Downloader written in Python" off \
 "SickRage" "Python Show Automation Finder" off \
 "Sonarr" ".NET Show Automation Finder" off \
@@ -66,7 +66,6 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "Ubooquity" "eBook Management" off \
 "Samba" "Windows compatible file sharing        " off \
 "NFS Tools" "Windows compatible file sharing        " off \
-"Plex" "Plex Media Server        " off \
 "Rpi monitor" "Status page and statistics" off \
 "TV headend" "TV streaming / proxy" off \
 "BitTorrent Sync" "Personal cloud" off \
@@ -83,7 +82,6 @@ do
                    "BitTorrent Sync") 	  	ins_btsync="true";;
                    "SoftEther VPN server") 	ins_vpn_server="true";;
 		   "NZBGet Repo") 			ins_nzbget="true";;
-		   "NZBGet 15 Source")			ins_nzbget15="true";;
 		   "Sabnzbd") 			ins_sabnzbd="true";;
                    "SickRage") 			ins_sickrage="true";;
                    "Sonarr") 			ins_sonarr="true";;
@@ -107,7 +105,6 @@ if [[ "$ins_tvheadend" == "true" ]]; 			then install_tvheadend; 		fi
 if [[ "$ins_btsync" == "true" ]]; 			then install_btsync; 			fi
 if [[ "$ins_vpn_server" == "true" ]]; 			then install_vpn_server; 		fi
 if [[ "$ins_nzbget" == "true" ]]; 			then install_nzbget; 			fi
-if [[ "$ins_nzbget15" == "true" ]]; 			then install_nzbget15; 			fi
 if [[ "$ins_sabnzbd" == "true" ]];			then install_sabnzbd; 			fi
 if [[ "$ins_sickrage" == "true" ]]; 			then install_sickrage; 			fi
 if [[ "$ins_sonarr" == "true" ]]; 			then install_sonarr; 			fi
