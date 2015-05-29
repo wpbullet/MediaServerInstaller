@@ -237,7 +237,7 @@ rm -R ~/HTPCGuides/nzbget-15.0
 rm -R /root/HTPCGuides/nzbget-15.0
 update-rc.d nzbget defaults
 if !(crontab -l -u $NZBGETUSER | grep -q nzbget > /dev/null);then
-crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
+crontab -u $NZBGETUSER -l | { cat; echo "@reboot /usr/local/bin/nzbget"; } | crontab -u $NZBGETUSER -
 fi
 service nzbget start
 sudo rm 
