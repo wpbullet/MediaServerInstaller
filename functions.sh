@@ -2,6 +2,8 @@
 #
 # (c) Igor Pecovnik
 # 
+#get ip
+showip=$(ifconfig eth0 | awk -F"[: ]+" '/inet addr:/ {print $4}')
 #functions
 function unrartest {
 if hash unrar 2>/dev/null; then
@@ -172,6 +174,7 @@ fi
 wget -qO - http://apt.tvheadend.org/stable/repo.gpg.key | apt-key add -
 debconf-apt-progress -- apt-get update
 apt-get -y install tvheadend
+echo "TVheadend is running on $showip:9981"
 }
 
 
@@ -196,6 +199,7 @@ debconf-apt-progress -- apt-get -y install transmission-cli transmission-common 
 #USERNAME
 #PASSWORD
 #service transmission-daemon start
+echo "Transmission is running on $showip:9091"
 }
 
 install_nzbget15 (){
@@ -237,7 +241,7 @@ crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZB
 fi
 service nzbget start
 sudo rm 
-echo "NZBGet 15 is running on port 6789"
+echo "NZBGet 15 is running on $showip:6789"
 echo "Configure NZBGet at HTPCGuides.com http://goo.gl/PDjIAP"
 }
 
@@ -279,7 +283,7 @@ if !(crontab -l -u $NZBGETUSER | grep -q nzbget > /dev/null);then
 crontab -u $NZBGETUSER -l | { cat; echo "@reboot nzbget -D"; } | crontab -u $NZBGETUSER -
 fi
 service nzbget start
-echo "NZBGet is running on port 6789"
+echo "NZBGet is running on $showip:6789"
 echo "Configure NZBGet at HTPCGuides.com http://goo.gl/PDjIAP"
 	
 }
@@ -323,7 +327,7 @@ chmod +x /etc/init.d/nzbdrone
 cd /tmp
 update-rc.d nzbdrone defaults
 service nzbdrone start
-echo "Sonarr is running on port 8989"
+echo "Sonarr is running on $showip:8989"
 echo "Configure Sonarr at HTPCGuides.com http://goo.gl/06iXEw"
 }
 
@@ -353,7 +357,7 @@ cp $FINDSICKRAGE /etc/init.d/sickrage
 chmod +x /etc/init.d/sickrage
 update-rc.d sickrage defaults
 service sickrage start
-echo "SickRage is running on port 8081"
+echo "SickRage is running on $showip:8081"
 echo "Configure SickRage at HTPCGuides.com http://goo.gl/I2jtbg"
 }
 
@@ -381,7 +385,7 @@ cp /opt/CouchPotato/init/ubuntu /etc/init.d/couchpotato
 chmod +x /etc/init.d/couchpotato
 update-rc.d couchpotato defaults
 service couchpotato start
-echo "CouchPotato is running on port 5050"
+echo "CouchPotato is running on $showip:5050"
 echo "Configure CouchPotato at HTPCGuides.com http://goo.gl/uwaTUI"
 }
 
@@ -407,7 +411,7 @@ cp /opt/Mylar/init-scripts/ubuntu.init.d /etc/init.d/mylar
 chmod +x /etc/init.d/mylar
 update-rc.d mylar defaults
 service mylar start
-echo "Mylar is running on port 8090"
+echo "Mylar is running on $showip:8090"
 echo "Configure Mylar at HTPCGuides.com http://goo.gl/KVFfMS"
 }
 
@@ -442,7 +446,7 @@ HOST=$SABHOST
 PORT=$SABPORT
 EOF
 sudo service sabnzbdplus restart
-echo "Sabnzbd is running on port $SABPORT"
+echo "Sabnzbd is running on $showip:$SABPORT"
 echo "Configure Sabnzbd at HTPCGuides.com http://goo.gl/MPCVXu"
 }
 install_htpcmanager (){
@@ -465,7 +469,7 @@ sed -i "/APP_PATH=/c\APP_PATH=/opt/HTPCManager" /etc/init.d/htpcmanager
 chmod +x /etc/init.d/htpcmanager
 update-rc.d htpcmanager defaults
 service htpcmanager start
-echo "HTPC Manager is running on port 8085"
+echo "HTPC Manager is running on $showip:8085"
 }
 
 install_cherrymusic (){
@@ -491,7 +495,7 @@ crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; python ch
 fi
 whiptail --title "HTPC Guides Media Installer" --msgbox "When you see 'Open your browser and put the server IP:$CHERRYPORT' in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
 python /opt/cherrymusic/cherrymusic --setup --port $CHERRYPORT
-echo "CherryMusic is running in admin mode on port $CHERRYPORT so go set it up"
+echo "CherryMusic is running in admin mode on $showip:$CHERRYPORT so go set it up"
 echo "Reboot and CherryMusic will autostart"
 }
 
@@ -526,7 +530,7 @@ if !(crontab -l -u $UBOOQUITYUSER | grep -q Ubooquity.jar > /dev/null);then
 crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
 @reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless"; } | crontab -u $UBOOQUITYUSER -
 fi
-echo "Ubooquity will run on port 2022 and will autostart on boot"
+echo "Ubooquity will run on $showip:2022 and will autostart on boot"
 echo "Copy this to execute Ubooquity java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
 }
