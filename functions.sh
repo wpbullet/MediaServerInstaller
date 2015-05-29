@@ -262,8 +262,8 @@ unrartest
 wget http://nzbget.net/download/nzbget-latest-bin-linux.run
 sudo sh nzbget-latest-bin-linux.run --destdir /usr/local/bin/nzbget
 rm nzbget-latest-bin-linux.run
-sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER /usr/local/bin/nzbget/nzbget.conf
 sudo chown -R $NZBGETUSER:$NZBGETUSER /usr/local/bin/nzbget
+sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER /usr/local/bin/nzbget/nzbget.conf
 cd /etc/init.d
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
 chmod +x /etc/init.d/nzbget
