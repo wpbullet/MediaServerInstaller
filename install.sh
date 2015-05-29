@@ -66,6 +66,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "Ubooquity" "eBook Management" off \
 "Samba" "Windows compatible file sharing        " off \
 "NFS Tools" "Windows compatible file sharing        " off \
+"Plex" "Plex Media Server        " off \
 "Rpi monitor" "Status page and statistics" off \
 "TV headend" "TV streaming / proxy" off \
 "BitTorrent Sync" "Personal cloud" off \
@@ -75,6 +76,7 @@ while read choice
 do
    case $choice in
 		   "Samba") 			ins_samba="true";;
+		   "Plex") 			ins_plex="true";;
 		   "Ubooquity") 		ins_ubooquity="true";;
 		   "NFS Tools") 		ins_nfs="true";;
                    "TV headend") 		ins_tvheadend="true";;
@@ -98,6 +100,7 @@ do
 done < results
 
 if [[ "$ins_ubooquity" == "true" ]]; 			then install_ubooquity;			fi
+if [[ "$ins_plex" == "true" ]]; 			then install_plex;			fi
 if [[ "$ins_samba" == "true" ]]; 			then install_samba; 			fi
 if [[ "$ins_nfs" == "true" ]]; 				then install_nfs; 			fi
 if [[ "$ins_tvheadend" == "true" ]]; 			then install_tvheadend; 		fi
