@@ -195,6 +195,8 @@ debconf-apt-progress -- apt-get -y install transmission-cli transmission-common 
 #TRANSREMOTE=$(whiptail --inputbox "Enable remote access of the WebUI?" 8 78 $TRANSREMOTE --title "$SECTION" 3>&1 1>&2 2>&3)
 #exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 #sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
+#TRANSWEBUSER=$(whiptail --inputbox "Choose your Transmission web interface password" 8 78 $TRANSWEBUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+#sed 's/.*"rpc-password":.*/    "rpc-password": 'password',/' /etc/transmission-daemon/settings.json
 #WHITELIST
 #USERNAME
 #PASSWORD
