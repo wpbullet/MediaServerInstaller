@@ -272,7 +272,7 @@ chmod +x /etc/init.d/nzbget
 cd /tmp
 update-rc.d nzbget defaults
 if !(crontab -l -u $NZBGETUSER | grep -q /usr/local/bin/nzbget/nzbget > /dev/null);then
-crontab -u $NZBGETUSER -l | { cat; echo "/usr/local/bin/nzbget/nzbget -D"; } | crontab -u $NZBGETUSER -
+crontab -u $NZBGETUSER -l | { cat; echo "@reboot /usr/local/bin/nzbget/nzbget -D"; } | crontab -u $NZBGETUSER -
 fi
 service nzbget start
 echo "NZBGet is running on $showip:6789"
