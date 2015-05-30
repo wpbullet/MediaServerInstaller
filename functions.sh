@@ -199,9 +199,9 @@ else
 exit 1
 fi
 TRANSWEBUSER=$(whiptail --inputbox "Choose your Transmission web interface username" 8 78 $TRANSWEBUSER --title "$SECTION" 3>&1 1>&2 2>&3)
-sed -i 's/.*"rpc-username":.*/    "rpc-username": '$TRANSWEBUSER',/' /etc/transmission-daemon/settings.json
+sed -i 's/.*"rpc-username":.*/    "rpc-username": '\"$TRANSWEBUSER\"',/' /etc/transmission-daemon/settings.json
 TRANSWEBPASS=$(whiptail --inputbox "Choose your Transmission web interface password" 8 78 $TRANSWEBPASS --title "$SECTION" 3>&1 1>&2 2>&3)
-sed -i 's/.*"rpc-password":.*/    "rpc-password": '$TRANSWEBPASS',/' /etc/transmission-daemon/settings.json
+sed -i 's/.*"rpc-password":.*/    "rpc-password": '\"$TRANSWEBPASS\"',/' /etc/transmission-daemon/settings.json
 service transmission-daemon start
 echo "Transmission is running on $showip:9091"
 }
