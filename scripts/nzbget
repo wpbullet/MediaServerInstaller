@@ -10,17 +10,17 @@
 # Short-Description: starts instance of NZBGet
 # Description:       starts instance of NZBGet using start-stop-daemon
 ### END INIT INFO
-NZBGETPATH=$(which nzbget)
+#NZBGETPATH=$(which nzbget)
 # Source init functions
 . /lib/lsb/init-functions
 # Start/stop the NZBget daemon.
 #
 case "$1" in
 start)   echo -n "Start services: NZBget"
-$NZBGETPATH -D
+/usr/local/bin/nzbget/nzbget -D
 ;;
 stop)   echo -n "Stop services: NZBget"
-$NZBGETPATH -Q
+/usr/local/bin/nzbget/nzbget -Q
 ;;
 restart)
 $0 stop
