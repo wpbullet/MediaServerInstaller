@@ -523,7 +523,7 @@ crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
 @reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless -port 2202"; } | crontab -u $UBOOQUITYUSER -
 fi
 echo "Ubooquity will run on $showip:2022 and will autostart on boot"
-echo "Copy this to execute Ubooquity java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless -port 2022"
+echo "Copy this to execute Ubooquity: java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless -port 2022"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
 }
 install_nfs (){
