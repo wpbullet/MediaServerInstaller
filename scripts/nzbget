@@ -17,10 +17,10 @@
 #
 case "$1" in
 start)   echo -n "Start services: NZBget"
-/usr/local/bin/nzbget/nzbget -D
+/opt/nzbget/nzbget -D
 ;;
 stop)   echo -n "Stop services: NZBget"
-/usr/local/bin/nzbget/nzbget -Q
+/opt/nzbget/nzbget -Q
 ;;
 restart)
 $0 stop
