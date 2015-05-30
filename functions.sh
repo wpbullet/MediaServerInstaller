@@ -483,7 +483,7 @@ debconf-apt-progress -- apt-get install imagemagick lame vorbis-tools flac -y
 git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
 chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
 if !(crontab -l -u $CHERRYUSER | grep -q cherrymusic > /dev/null);then
-crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; python cherrymusic"; } | crontab -u $CHERRYUSER -
+crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; /usr/bin/python cherrymusic"; } | crontab -u $CHERRYUSER -
 fi
 whiptail --title "HTPC Guides Media Installer" --msgbox "When you see 'Open your browser and put the server IP:$CHERRYPORT' in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
 python /opt/cherrymusic/cherrymusic --setup --port $CHERRYPORT
@@ -502,12 +502,12 @@ echo "User $UBOOQUITYUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 if !(cat /etc/apt/sources.list.d/webupd8team-java.list | grep -q Java > /dev/null);then
-cat >> /etc/apt/sources.list <<EOF
+cat >> /etc/apt/sources.list.d/webupd8team-java.list <<EOF
 # Java
-echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list.d/webupd8team-java.list
-echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list.d/webupd8team-java.list
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
+deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
 EOF
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 fi
 
 debconf-apt-progress -- apt-get update
