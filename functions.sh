@@ -262,17 +262,17 @@ fi
 unrartest
 #install nzbget
 wget http://nzbget.net/download/nzbget-latest-bin-linux.run
-sh nzbget-latest-bin-linux.run --destdir /usr/local/bin/nzbget
+sh nzbget-latest-bin-linux.run --destdir /opt/nzbget
 rm nzbget-latest-bin-linux.run
-chown -R $NZBGETUSER:$NZBGETUSER /usr/local/bin/nzbget
-sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER" /usr/local/bin/nzbget/nzbget.conf
+chown -R $NZBGETUSER:$NZBGETUSER /opt/nzbget
+sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER" /opt/nzbget/nzbget.conf
 cd /etc/init.d
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
 chmod +x /etc/init.d/nzbget
 cd /tmp
 update-rc.d nzbget defaults
-if !(crontab -l -u $NZBGETUSER | grep -q /usr/local/bin/nzbget/nzbget > /dev/null);then
-crontab -u $NZBGETUSER -l | { cat; echo "@reboot /usr/local/bin/nzbget/nzbget -D"; } | crontab -u $NZBGETUSER -
+if !(crontab -l -u $NZBGETUSER | grep -q /opt/nzbget/nzbget > /dev/null);then
+crontab -u $NZBGETUSER -l | { cat; echo "@reboot /opt/nzbget/nzbget -D"; } | crontab -u $NZBGETUSER -
 fi
 service nzbget start
 echo "NZBGet is running on $showip:6789"
