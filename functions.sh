@@ -511,7 +511,7 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 fi
 
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get install unzip oracle-java8-installer -y
+apt-get install unzip oracle-java8-installer -y
 mkdir -p /opt/ubooquity
 cd /opt/ubooquity
 wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
