@@ -183,24 +183,26 @@ install_transmission (){
 # transmission
 #--------------------------------------------------------------------------------------------------------------------------------
 debconf-apt-progress -- apt-get -y install transmission-cli transmission-common transmission-daemon
-#service transmission-daemon stop
-#TRANSUSER=$(whiptail --inputbox "Enter the user to run Transmission as?" 8 78 $TRANSUSER --title "$SECTION" 3>&1 1>&2 2>&3)
-#exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-#sudo chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
-#sudo chown -R $TRANSUSER:$TRANSUSER /var/lib/transmission-daemon
-#sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
+service transmission-daemon stop
+TRANSUSER=$(whiptail --inputbox "Enter the user to run Transmission as (usually pi)" 8 78 $TRANSUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
+chmod 775 /etc/transmission-daemon/settings.json
+chown -R $TRANSUSER:$TRANSUSER /var/lib/transmission-daemon
+sed -i "/USER=/c\USER=$TRANSUSER" /etc/init.d/transmission-daemon
 #TRANSDL=$(whiptail --inputbox "Choose your download directory" 8 78 $TRANSDL --title "$SECTION" 3>&1 1>&2 2>&3)
 #exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 #sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
-#TRANSREMOTE=$(whiptail --inputbox "Enable remote access of the WebUI?" 8 78 $TRANSREMOTE --title "$SECTION" 3>&1 1>&2 2>&3)
-#exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-#sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
-#TRANSWEBUSER=$(whiptail --inputbox "Choose your Transmission web interface password" 8 78 $TRANSWEBUSER --title "$SECTION" 3>&1 1>&2 2>&3)
-#sed 's/.*"rpc-password":.*/    "rpc-password": 'password',/' /etc/transmission-daemon/settings.json
-#WHITELIST
-#USERNAME
-#PASSWORD
-#service transmission-daemon start
+if (whiptail --yesno "Enable remote access of the WebUI?" 8 78 --title "$SECTION") then
+sed -i 's/.*"rpc-whitelist.enabled":.*/    "rpc-whitelist-enabled": 'false',/' /etc/transmission-daemon/settings.json
+else
+exit 1
+fi
+TRANSWEBUSER=$(whiptail --inputbox "Choose your Transmission web interface username" 8 78 $TRANSWEBUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+sed -i 's/.*"rpc-username":.*/    "rpc-username": '$TRANSWEBUSER',/' /etc/transmission-daemon/settings.json
+TRANSWEBPASS=$(whiptail --inputbox "Choose your Transmission web interface password" 8 78 $TRANSWEBPASS --title "$SECTION" 3>&1 1>&2 2>&3)
+sed -i 's/.*"rpc-password":.*/    "rpc-password": '$TRANSWEBPASS',/' /etc/transmission-daemon/settings.json
+service transmission-daemon start
 echo "Transmission is running on $showip:9091"
 }
 
