@@ -60,6 +60,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "Sonarr" ".NET Show Automation Finder" off \
 "CouchPotato" "Video Automation Finder" off \
 "Mylar" "Comic Automation Finder" off \
+"Headphones" "Music Automation Finder" off \
 "Transmission" "Torrent downloading" off \
 "CherryMusic" "Personal Grooveshark Server" off \
 "HTPC Manager" "HTPC Management system" off \
@@ -84,6 +85,7 @@ do
 		   "NZBGet Repo") 			ins_nzbget="true";;
 		   "Sabnzbd") 			ins_sabnzbd="true";;
                    "SickRage") 			ins_sickrage="true";;
+                   "Headphones") 			ins_headphones="true";;
                    "Sonarr") 			ins_sonarr="true";;
                    "CouchPotato")		ins_couchpotato="true";;
                    "Mylar")			ins_mylar="true";;
@@ -102,6 +104,7 @@ if [[ "$ins_plex" == "true" ]]; 			then install_plex;			fi
 if [[ "$ins_samba" == "true" ]]; 			then install_samba; 			fi
 if [[ "$ins_nfs" == "true" ]]; 				then install_nfs; 			fi
 if [[ "$ins_tvheadend" == "true" ]]; 			then install_tvheadend; 		fi
+if [[ "$ins_headphones" == "true" ]]; 			then install_headphones; 		fi
 if [[ "$ins_btsync" == "true" ]]; 			then install_btsync; 			fi
 if [[ "$ins_vpn_server" == "true" ]]; 			then install_vpn_server; 		fi
 if [[ "$ins_nzbget" == "true" ]]; 			then install_nzbget; 			fi
