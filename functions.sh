@@ -409,6 +409,31 @@ echo "Mylar is running on $showip:8090"
 echo "Configure Mylar at HTPCGuides.com http://goo.gl/KVFfMS"
 }
 
+install_headphones (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# headphones
+#--------------------------------------------------------------------------------------------------------------------------------
+HPUSER=$(whiptail --inputbox "Enter the user to run Headphones as (usually pi)" 8 78 $HPUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $HPUSER > /dev/null; then
+echo "User $HPUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+git clone https://github.com/rembo10/headphones.git /opt/headphones
+chown -R $HPUSER:$HPUSER /opt/headphones
+cat > /etc/default/headphones<<EOF
+HP_USER=$HPUSER
+HP_HOME=/opt/headphones
+HP_PORT=8181
+EOF
+cp /opt/headphones/init-scripts/init.ubuntu /etc/init.d/headphones
+chmod +x /etc/init.d/headphones
+update-rc.d headphones defaults
+service headphones start
+echo "Headphones is running on $showip:8181"
+#echo "Configure Headphones at HTPCGuides.com "
+}
+
 install_sabnzbd (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sabnzbd
