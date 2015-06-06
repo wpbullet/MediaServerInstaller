@@ -195,7 +195,7 @@ sed -i "/USER=/c\USER=$TRANSUSER" /etc/init.d/transmission-daemon
 #sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
 if (whiptail --yesno "Enable remote access of the WebUI?" 8 78 --title "$SECTION") then
 sed -i 's/.*"rpc-whitelist.enabled":.*/    "rpc-whitelist-enabled": 'false',/' /etc/transmission-daemon/settings.json
-sed -i 's/.*"rpc-enabled":.*/    "rpc-enabled": 'true',/' /etc/transmission-daemon/settings.json"
+sed -i 's/.*"rpc-enabled":.*/    "rpc-enabled": 'true',/' /etc/transmission-daemon/settings.json
 else
 exit 1
 fi
