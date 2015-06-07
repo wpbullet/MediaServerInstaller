@@ -65,6 +65,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "Transmission" "Torrent downloading" off \
 "CherryMusic" "Personal Grooveshark Server" off \
 "HTPC Manager" "HTPC Management system" off \
+"pyLoad" "Online locker downloader" off \
 "Ubooquity" "eBook Management" off \
 "Samba" "Windows compatible file sharing        " off \
 "NFS Tools" "Windows compatible file sharing        " off \
@@ -77,6 +78,7 @@ while read choice
 do
    case $choice in
 		   "Samba") 			ins_samba="true";;
+		   "pyLoad") 			ins_pyload="true";;
 		   "Kodi") 			ins_kodi="true";;
 		   "Plex") 			ins_plex="true";;
 		   "Ubooquity") 		ins_ubooquity="true";;
@@ -101,6 +103,7 @@ do
         esac
 done < results
 
+if [[ "$ins_pyload" == "true" ]]; 			then install_pyload;			fi
 if [[ "$ins_ubooquity" == "true" ]]; 			then install_ubooquity;			fi
 if [[ "$ins_kodi" == "true" ]]; 			then install_kodi;			fi
 if [[ "$ins_plex" == "true" ]]; 			then install_plex;			fi
