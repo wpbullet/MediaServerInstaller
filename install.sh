@@ -54,6 +54,7 @@ source "functions.sh"
 
 whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCGuides.com and Igor Pecovnik" --checklist --separate-output "\nIP:   $serverIP\nFQDN: $HOSTNAMEFQDN\n\nChoose what you want to install:" 20 78 9 \
 "Plex" "Plex Media Server        " off \
+"Kodi" "Raspberry Pi only        " off \
 "NZBGet Repo" "Usenet Downloader written in C++" off \
 "Sabnzbd" "Usenet Downloader written in Python" off \
 "SickRage" "Python Show Automation Finder" off \
@@ -76,6 +77,7 @@ while read choice
 do
    case $choice in
 		   "Samba") 			ins_samba="true";;
+		   "Kodi") 			ins_kodi="true";;
 		   "Plex") 			ins_plex="true";;
 		   "Ubooquity") 		ins_ubooquity="true";;
 		   "NFS Tools") 		ins_nfs="true";;
@@ -100,6 +102,7 @@ do
 done < results
 
 if [[ "$ins_ubooquity" == "true" ]]; 			then install_ubooquity;			fi
+if [[ "$ins_kodi" == "true" ]]; 			then install_kodi;			fi
 if [[ "$ins_plex" == "true" ]]; 			then install_plex;			fi
 if [[ "$ins_samba" == "true" ]]; 			then install_samba; 			fi
 if [[ "$ins_nfs" == "true" ]]; 				then install_nfs; 			fi
