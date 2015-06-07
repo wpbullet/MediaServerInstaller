@@ -617,6 +617,19 @@ sed -i "/gpu_mem=/c\gpu_mem=128" /boot/config.txt
 echo "Kodi has been installed, reboot"
 fi
 }
+
+install_pyload (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# install pyload
+#--------------------------------------------------------------------------------------------------------------------------------
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get install python-support python-pycurl pyload-cli$
+wget http://get.pyload.org/get/ubuntu-cli
+dpkg -i ubuntu-cli
+rm ubuntu-cli
+echo "Type pyLoadCore for initial setup"
+}
+
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install Samba file sharing
