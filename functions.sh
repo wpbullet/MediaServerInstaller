@@ -586,7 +586,10 @@ install_kodi (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # Read samba user / pass / group
 
-if [ "$HOSTNAME" = raspberrypi ]; then
+if ! uname -a | grep raspberrypi > /dev/null; then
+echo not Raspberry Pi...
+exit 1
+else
     rm /etc/apt/sources.list.d/mene.list
 cat > /etc/apt/sources.list.d/mene.list <<EOF
 deb http://archive.mene.za.net/raspbian wheezy contrib
@@ -606,9 +609,6 @@ sed -i "/ENABLED=/c\ENABLED=1" /etc/default/kodi
 
 sed -i "/gpu_mem=/c\gpu_mem=128" /boot/config.txt
 echo "Kodi has been installed, reboot"
-else
-    printf '%s\n' "uh-oh, not the Raspberry Pi"
-	exit 1
 fi
 
 install_samba (){
