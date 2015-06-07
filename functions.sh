@@ -580,6 +580,37 @@ echo "Plex is running on $showip:32400/web and will autostart on boot"
 echo "Configuration guides on HTPCGuides.com"
 }
 
+install_kodi (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# install Samba file sharing
+#--------------------------------------------------------------------------------------------------------------------------------
+# Read samba user / pass / group
+
+if [ "$HOSTNAME" = raspberrypi ]; then
+    rm /etc/apt/sources.list.d/mene.list
+cat > /etc/apt/sources.list.d/mene.list <<EOF
+deb http://archive.mene.za.net/raspbian wheezy contrib
+EOF
+apt-key adv --keyserver keyserver.ubuntu.com --recv-key 5243CDED
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get install kodi -y
+addgroup --system input
+usermod -a -G audio,video,input,dialout,plugdev,tty kodi
+
+cat > /etc/udev/rules.d/99-input.rules <<EOF
+SUBSYSTEM=="input", GROUP="input", MODE="0660"
+KERNEL=="tty[0-9]*", GROUP="tty", MODE="0660"
+EOF
+
+sed -i "/ENABLED=/c\ENABLED=1" /etc/default/kodi
+
+sed -i "/gpu_mem=/c\gpu_mem=128" /boot/config.txt
+echo "Kodi has been installed, reboot"
+else
+    printf '%s\n' "uh-oh, not the Raspberry Pi"
+	exit 1
+fi
+
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install Samba file sharing
