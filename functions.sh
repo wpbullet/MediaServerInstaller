@@ -566,6 +566,11 @@ install_plex (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install PlexWheezy
 #--------------------------------------------------------------------------------------------------------------------------------
+if ! uname -a | grep armv7 > /dev/null; then
+echo You are not using an armv7 device...
+exit 1
+else
+
 if !(cat /etc/apt/sources.list.d/pms.list | grep -q PlexWheezy > /dev/null);then
 cat >> /etc/apt/sources.list.d/pms.list <<EOF
 # PlexWheezy
@@ -575,9 +580,10 @@ wget -O - https://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
 debconf-apt-progress -- apt-get install apt-transport-https -y --force-yes
 debconf-apt-progress -- apt-get update -y
 debconf-apt-progress -- apt-get install plexmediaserver -y
-fi
 echo "Plex is running on $showip:32400/web and will autostart on boot"
 echo "Configuration guides on HTPCGuides.com"
+fi
+fi
 }
 
 install_kodi (){
