@@ -610,7 +610,7 @@ sed -i "/ENABLED=/c\ENABLED=1" /etc/default/kodi
 sed -i "/gpu_mem=/c\gpu_mem=128" /boot/config.txt
 echo "Kodi has been installed, reboot"
 fi
-
+}
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install Samba file sharing
