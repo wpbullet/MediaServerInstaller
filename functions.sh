@@ -628,7 +628,7 @@ unrartest
 wget http://get.pyload.org/get/ubuntu-cli
 dpkg -i ubuntu-cli
 rm ubuntu-cli
-echo "Type pyLoadCore for initial setup"
+echo "Type pyLoadCore -s for initial setup"
 }
 
 install_samba (){
