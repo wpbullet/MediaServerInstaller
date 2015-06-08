@@ -569,15 +569,23 @@ install_plex (){
 if ! uname -a | grep armv7 > /dev/null; then
 echo You are not using an armv7 device...
 exit 1
+fi
+lddtest=$(ldd --version | awk 'NR==1{print $5}')
+if [[ "$lddtest" == 2.13 ]]; then
+plexrepo=wheezy
 else
-
-if !(cat /etc/apt/sources.list.d/pms.list | grep -q PlexWheezy > /dev/null);then
+plexrepo=jessie
+fi
+if ! locale -a | grep -i en_US > /dev/null; then
+echo "You need the en_US locale guide here: goo.gl/M063Oi"
+exit 1
+else
+if !(cat /etc/apt/sources.list.d/pms.list | grep -q Plex > /dev/null);then
 cat >> /etc/apt/sources.list.d/pms.list <<EOF
-# PlexWheezy
-deb https://dev2day.de/pms/ wheezy main
+# Plex
+deb http://dev2day.de/pms/ $plexrepo main
 EOF
-wget -O - https://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
-debconf-apt-progress -- apt-get install apt-transport-https -y --force-yes
+wget -O - http://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
 debconf-apt-progress -- apt-get update -y
 debconf-apt-progress -- apt-get install plexmediaserver -y
 echo "Plex is running on $showip:32400/web and will autostart on boot"
