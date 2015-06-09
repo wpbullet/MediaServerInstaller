@@ -1,7 +1,7 @@
 HTPC Guides Media Server for ARM Devices
 ========================
 
-This is an automated installer for Home Media Server programs for [HTPC Guides](http://www.htpcguides.com) for Debian Wheezy. It will be maintained as part of a school project so please do not fork this branch and instead fork Igor's.
+This is an automated installer for Home Media Server setups from [HTPC Guides](http://www.htpcguides.com) for Debian Wheezy. It will be maintained as part of a school project so please **do not fork this branch** and instead fork Igor's.
 
 ![SOHO server](http://www.htpcguides.com/wp-content/uploads/2015/05/HTPC-Guides-installer-Main-screen-600x331.png)
 
@@ -31,7 +31,7 @@ cd ~/HTPCGuides
 sudo bash install.sh
 ```
 
-If you want to include this installer in any distro images you must get consent
+**If you want to include this installer in any distro images you must get consent**
 
 Donate to Igor's project
 ------------------
