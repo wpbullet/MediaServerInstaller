@@ -7,12 +7,12 @@ This is an automated installer for Home Media Server programs for [HTPC Guides](
 
 This projecti's framework is based on Igor's [Micro Home Server](http://www.igorpecovnik.com/2013/12/10/micro-home-server/)
 
-If you only need igor's services, use his fork which has these programs
+If you only need Igor's services, use his fork which has these programs
 
 Samba, TV headend, BitTorrent Sync, SoftEther VPN server, CUPS, scanner + buttons + OCR, Temper, Rpimonitor + 3 additional sensors, Transmission, ISPConfig  (Apache2 or NginX, PHP, Mysql with phpMyAdmin, Postfix, Dovecot)
 
 The HTPC Guides fork includes these programs
-NZBGet, Sabnzbd, Sonarr, SickRage, CouchPotato, HTPC Manager, CherryMusic and more will be added.
+NZBGet, Sabnzbd, Sonarr, SickRage, CouchPotato, HTPC Manager, CherryMusic, Kodi and more will be added.
 
 Tips:
 - mail server install (ISPConfig) will work **only with Debian Wheezy**
@@ -30,6 +30,8 @@ git clone https://github.com/blindpet/MediaServerInstaller ~/HTPCGuides
 cd ~/HTPCGuides
 sudo bash install.sh
 ```
+
+If you want to include this installer in any distro images you must get consent
 
 Donate to Igor's project
 ------------------
