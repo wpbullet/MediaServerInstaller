@@ -540,6 +540,8 @@ fi
 
 debconf-apt-progress -- apt-get update
 apt-get install unzip oracle-java8-installer -y
+echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 mkdir -p /opt/ubooquity
 cd /opt/ubooquity
 wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
