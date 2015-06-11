@@ -546,7 +546,7 @@ mkdir -p /opt/ubooquity
 cd /opt/ubooquity
 wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
 unzip ubooquity*.zip
-rm ubooquity*.zip
+rm ubooquity.zip
 chown -R $UBOOQUITYUSER:$UBOOQUITYUSER /opt/ubooquity
 if !(crontab -l -u $UBOOQUITYUSER | grep -q Ubooquity.jar > /dev/null);then
 crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
