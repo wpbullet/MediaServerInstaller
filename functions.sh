@@ -650,7 +650,8 @@ cd /tmp
 wget http://sourceforge.net/projects/minidlna/files/minidlna/1.1.4/minidlna-1.1.4.tar.gz
 tar -xvf minidlna-1.1.4.tar.gz
 cd minidlna-1.1.4
-./configure && make && make install
+cpunum=$(nproc)
+./configure && make -j$cpunum && make install
 cp minidlna.conf /etc/
 cp linux/minidlna.init.d.script /etc/init.d/minidlna
 chmod +x /etc/init.d/minidlna
