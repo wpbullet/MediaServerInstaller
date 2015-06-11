@@ -514,6 +514,7 @@ if !(crontab -l -u $CHERRYUSER | grep -q cherrymusic > /dev/null);then
 crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; /usr/bin/python cherrymusic"; } | crontab -u $CHERRYUSER -
 fi
 whiptail --title "HTPC Guides Media Installer" --msgbox "When you see 'Open your browser and put the server IP:$CHERRYPORT' in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
+su $CHERRYUSER
 python /opt/cherrymusic/cherrymusic --setup --port $CHERRYPORT
 echo "CherryMusic is running in admin mode on $showip:$CHERRYPORT so go set it up"
 echo "Reboot and CherryMusic will autostart"
