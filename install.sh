@@ -66,6 +66,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "CherryMusic" "Personal Grooveshark Server" off \
 "HTPC Manager" "HTPC Management system" off \
 "pyLoad" "Online locker downloader" off \
+"miniDLNA 1.1.4" "ReadyMedia miniDLNA" off \
 "Ubooquity" "eBook Management" off \
 "Samba" "Windows compatible file sharing        " off \
 "NFS Tools" "Windows compatible file sharing        " off \
@@ -87,6 +88,7 @@ do
                    "BitTorrent Sync") 	  	ins_btsync="true";;
                    "SoftEther VPN server") 	ins_vpn_server="true";;
 		   "NZBGet Repo") 			ins_nzbget="true";;
+		   "miniDLNA 1.1.4") 			ins_minidlna="true";;
 		   "Sabnzbd") 			ins_sabnzbd="true";;
                    "SickRage") 			ins_sickrage="true";;
                    "Headphones") 			ins_headphones="true";;
@@ -104,6 +106,7 @@ do
 done < results
 
 if [[ "$ins_pyload" == "true" ]]; 			then install_pyload;			fi
+if [[ "$ins_minidlna" == "true" ]]; 			then install_minidlna;			fi
 if [[ "$ins_ubooquity" == "true" ]]; 			then install_ubooquity;			fi
 if [[ "$ins_kodi" == "true" ]]; 			then install_kodi;			fi
 if [[ "$ins_plex" == "true" ]]; 			then install_plex;			fi
