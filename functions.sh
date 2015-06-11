@@ -638,6 +638,29 @@ dpkg -i ubuntu-cli
 rm ubuntu-cli
 echo "Type pyLoadCore -s for initial setup"
 }
+install_minidlna (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# install minidlna
+#--------------------------------------------------------------------------------------------------------------------------------
+
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get build-dep minidlna -y
+debconf-apt-progress -- apt-get install libjpeg-dev libsqlite3-dev libexif-dev libid3tag0-dev libvorbis-dev libflac-dev -y
+cd /tmp
+wget http://sourceforge.net/projects/minidlna/files/minidlna/1.1.4/minidlna-1.1.4.tar.gz
+tar -xvf minidlna-1.1.4.tar.gz
+cd minidlna-1.1.4
+./configure && make && make install
+cp minidlna.conf /etc/
+cp linux/minidlna.init.d.script /etc/init.d/minidlna
+chmod +x /etc/init.d/minidlna
+update-rc.d minidlna defaults
+service minidlna start
+cd /tmp
+rm -R minidlna-1.1.4
+rm minidlna-1.1.4.tar.gz
+echo miniDLNA is running on port 8200 configure on HTPCGuides http://goo.gl/f2DGfn
+}
 
 install_samba (){
 #--------------------------------------------------------------------------------------------------------------------------------
