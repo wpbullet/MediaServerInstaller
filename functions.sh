@@ -704,6 +704,21 @@ chmod -R 777 /ext
 service samba start
 }
 
+install_syncthing () {
+#--------------------------------------------------------------------------------------------------------------------------------
+# Install syncthing
+#--------------------------------------------------------------------------------------------------------------------------------
+if !(cat /etc/apt/sources.list.d/syncthing-release.list | grep -q Syncthing > /dev/null);then
+cat >> /etc/apt/sources.list.d/pms.list <<EOF
+# Syncthing
+deb http://apt.syncthing.net/ syncthing release
+EOF
+wget -O - https://syncthing.net/release-key.txt | apt-key add -
+debconf-apt-progress -- apt-get update -y
+debconf-apt-progress -- apt-get install synchthing -y
+fi
+echo Type syncthing to begin	
+}
 
 install_cups (){
 #--------------------------------------------------------------------------------------------------------------------------------
