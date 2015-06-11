@@ -552,6 +552,7 @@ crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
 fi
 echo "Ubooquity will run on $showip:2022 and will autostart on boot"
 echo "Copy this to execute Ubooquity: cd /opt/ubooquity && java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless -port 2022"
+echo "You must exit root mode before executing Ubooquity!"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
 }
 install_nfs (){
