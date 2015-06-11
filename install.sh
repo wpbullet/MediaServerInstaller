@@ -144,4 +144,4 @@ if [[ "$ins_ispconfig" == "true" ]];                    then
 							create_ispconfig_configuration
 				   			install_PureFTPD; install_Fail2BanDovecot; install_Fail2BanRulesDovecot; install_ISPConfig
 fi
-rm results
+#rm results
