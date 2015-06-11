@@ -17,7 +17,7 @@ fi
 
 # Ramlog must be disabled
 if [ -f /run/ramlog.lock ]; then
-    echo "RAMlog is running. Please disable before running (service ramlog disable). Reboot is required."
+    echo "RAMlog is running. Please disable before running (service ramlog stop). Reboot may be required."
     exit 1
 fi
 
