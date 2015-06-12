@@ -573,6 +573,8 @@ if ! uname -a | grep armv7 > /dev/null; then
 echo You are not using an armv7 device...
 exit 1
 fi
+debconf-apt-progress -- apt-get update
+apt-get install libc6 libexpat1 -y
 lddtest=$(ldd --version | awk 'NR==1{print $5}')
 if [[ "$lddtest" == 2.13 ]]; then
 plexrepo=wheezy
@@ -589,7 +591,7 @@ cat >> /etc/apt/sources.list.d/pms.list <<EOF
 deb http://dev2day.de/pms/ $plexrepo main
 EOF
 wget -O - http://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
-debconf-apt-progress -- apt-get update -y
+debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install plexmediaserver -y
 echo "Plex is running on $showip:32400/web and will autostart on boot"
 echo "Configuration guides on HTPCGuides.com"
