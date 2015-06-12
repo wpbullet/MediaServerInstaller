@@ -582,8 +582,9 @@ else
 plexrepo=jessie
 fi
 if ! locale -a | grep -i en_US > /dev/null; then
-echo "You need the en_US locale guide here: goo.gl/M063Oi"
-exit 1
+sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/Ig' /etc/locale.gen
+/usr/sbin/locale-gen en_US.UTF-8
+echo "Attempted to generate locales"
 else
 if !(cat /etc/apt/sources.list.d/pms.list | grep -q Plex > /dev/null);then
 cat >> /etc/apt/sources.list.d/pms.list <<EOF
@@ -597,6 +598,7 @@ echo "Plex is running on $showip:32400/web and will autostart on boot"
 echo "Configuration guides on HTPCGuides.com"
 fi
 fi
+echo "You may need to go here for troubleshooting locales: goo.gl/M063Oi"
 }
 
 install_kodi (){
