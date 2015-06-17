@@ -755,7 +755,7 @@ debconf-apt-progress -- apt-get update -y
 debconf-apt-progress -- apt-get install synchthing -y
 sudo -u $SYNCTHINGUSER timeout 120s syncthing
 #Make syncthing webui remotely accessible
-sed -i "/        <address>127.0.0.1:8384/c\        \<address>0.0.0.0:8384\<\/address\>" $SYNCTHINGUSER/.config/syncthing/config.xml
+sed -i "/        <address>127.0.0.1:8384/c\        \<address>0.0.0.0:8384\<\/address\>" /home/$SYNCTHINGUSER/.config/syncthing/config.xml
 cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/syncthing
 sed -i "/DAEMON_USER=root/c\DAEMON_USER=$SYNCTHINGUSER" /etc/init.d/syncthing
