@@ -17,7 +17,7 @@
  
  
 DAEMON_NAME="syncthing"
-DAEMON_USER="root"
+DAEMON_USER=root
 DAEMON_PATH="/usr/bin/syncthing"
 DAEMON_OPTS=""
 DAEMON_PWD="${PWD}"
