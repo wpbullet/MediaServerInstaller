@@ -739,16 +739,32 @@ install_syncthing () {
 #--------------------------------------------------------------------------------------------------------------------------------
 # Install syncthing
 #--------------------------------------------------------------------------------------------------------------------------------
+SYNCTHINGUSER=$(whiptail --inputbox "Enter the user to run Syncthing as (usually pi)" 8 78 $SYNCTHINGUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $SYNCTHINGUSER > /dev/null; then
+echo "User $SYNCTHINGUSER doesn't exist, exiting, restart the installer"
+exit
+fi
 if !(cat /etc/apt/sources.list.d/syncthing-release.list | grep -q Syncthing > /dev/null);then
-cat >> /etc/apt/sources.list.d/pms.list <<EOF
+cat >> /etc/apt/sources.list.d/syncthing-release.list <<EOF
 # Syncthing
 deb http://apt.syncthing.net/ syncthing release
 EOF
 wget -O - https://syncthing.net/release-key.txt | apt-key add -
 debconf-apt-progress -- apt-get update -y
 debconf-apt-progress -- apt-get install synchthing -y
+sudo -u $SYNCTHINGUSER timeout 120s syncthing
+#Make syncthing webui remotely accessible
+sed -i "/        <address>127.0.0.1:8384/c\        \<address>0.0.0.0:8384\<\/address\>" $SYNCTHINGUSER/.config/syncthing/config.xml
+cd /etc/init.d/
+wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/syncthing
+sed -i "/DAEMON_USER="root"/c\DAEMON_USER=$SYNCTHINGUSER" /etc/init.d/syncthing
+chmod +x /etc/init.d/syncthing
+cd /tmp
+update-rc.d syncthing defaults
+service syncthing start
+echo Syncthing is running on $showip:8384
 fi
-echo Type syncthing to begin	
 }
 
 install_cups (){
