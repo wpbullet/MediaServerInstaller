@@ -758,7 +758,7 @@ sudo -u $SYNCTHINGUSER timeout 120s syncthing
 sed -i "/        <address>127.0.0.1:8384/c\        \<address>0.0.0.0:8384\<\/address\>" $SYNCTHINGUSER/.config/syncthing/config.xml
 cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/syncthing
-sed -i "/DAEMON_USER="root"/c\DAEMON_USER=$SYNCTHINGUSER" /etc/init.d/syncthing
+sed -i "/DAEMON_USER=root/c\DAEMON_USER=$SYNCTHINGUSER" /etc/init.d/syncthing
 chmod +x /etc/init.d/syncthing
 cd /tmp
 update-rc.d syncthing defaults
