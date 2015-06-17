@@ -72,13 +72,15 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "NFS Tools" "Windows compatible file sharing        " off \
 "Rpi monitor" "Status page and statistics" off \
 "TV headend" "TV streaming / proxy" off \
+"Syncthing" "Personal cloud" off \
 "BitTorrent Sync" "Personal cloud" off \
 "SoftEther VPN server" "Advanced VPN solution" off \
 "LEMP" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
 while read choice
 do
    case $choice in
-		   "Samba") 			ins_samba="true";;
+   		   "Samba") 			ins_samba="true";;
+		   "Syncthing") 			ins_syncthing="true";;
 		   "pyLoad") 			ins_pyload="true";;
 		   "Kodi") 			ins_kodi="true";;
 		   "Plex") 			ins_plex="true";;
@@ -105,6 +107,7 @@ do
         esac
 done < results
 
+if [[ "$ins_syncthing" == "true" ]]; 			then install_syncthing;			fi
 if [[ "$ins_pyload" == "true" ]]; 			then install_pyload;			fi
 if [[ "$ins_minidlna" == "true" ]]; 			then install_minidlna;			fi
 if [[ "$ins_ubooquity" == "true" ]]; 			then install_ubooquity;			fi
