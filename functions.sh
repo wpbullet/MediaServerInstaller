@@ -336,7 +336,7 @@ if ! getent passwd $SICKRAGEUSER > /dev/null; then
 echo "User $SICKRAGEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-debconf-apt-progress -- apt-get -y install libssl-dev python-pyopenssl python-cheetah python-pip python-dev
+debconf-apt-progress -- apt-get -y install libssl-dev python-cheetah python-pip python-dev
 pip install pyopenssl==0.13.1
 unrartest
 sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
