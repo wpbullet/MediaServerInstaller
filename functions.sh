@@ -753,7 +753,7 @@ EOF
 wget -O - https://syncthing.net/release-key.txt | apt-key add -
 
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get install synchthing -y
+debconf-apt-progress -- apt-get install syncthing -y
 sudo -u $SYNCTHINGUSER timeout 120s syncthing
 #Make syncthing webui remotely accessible
 sed -i "/        <address>127.0.0.1:8384/c\        \<address>0.0.0.0:8384\<\/address\>" /home/$SYNCTHINGUSER/.config/syncthing/config.xml
