@@ -639,6 +639,8 @@ install_pyload (){
 #--------------------------------------------------------------------------------------------------------------------------------
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install python-support python-crypto python-pycurl tesseract-ocr tesseract-ocr-eng python-imaging -y
+debconf-apt-progress -- apt-get install python-pip python-dev libmozjs-dev -y
+pip install pyopenssl
 unrartest
 wget http://get.pyload.org/get/ubuntu-cli
 dpkg -i ubuntu-cli
