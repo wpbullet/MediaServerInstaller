@@ -12,7 +12,7 @@
 ### END INIT INFO
  
 # Replace with linux users you want to run BTSync clients for
-BTSYNC_USERS=pi
+BTSYNC_USERS=root
 DAEMON=$(which btsync)
  
 start() {
