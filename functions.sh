@@ -834,33 +834,39 @@ install_btsync (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # Install Personal cloud
 #-------------------------------------------------------------------------------------------------------------------------------- 
-BTSYNCUSER=$(whiptail --inputbox "Enter the user to run Btsync as (usually pi will not work as root)" 8 78 $BTSYNCUSER --title "$SECTION" 3>&1 1>&2 2>&3)
-exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-cd /tmp
-if [ "$(dpkg --print-architecture | grep armhf)" != "" ]; then
-wget http://download.getsyncapp.com/endpoint/btsync/os/linux-arm/track/stable/btsync_arm.tar.gz -O - | tar -xz
-else
-wget http://download-new.utorrent.com/endpoint/btsync/os/linux-i386/track/stable/bittorrent_sync_i386.tar.gz -O - | tar -xz
-fi
-mv btsync /usr/local/bin
-ln -sf /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
-chmod +x /usr/local/bin/btsync
+#BTSYNCUSER=$(whiptail --inputbox "Enter the user to run Btsync as (usually pi will not work as root)" 8 78 $BTSYNCUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+#exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+#cd /tmp
+#if [ "$(dpkg --print-architecture | grep armhf)" != "" ]; then
+#wget http://download.getsyncapp.com/endpoint/btsync/os/linux-arm/track/stable/btsync_arm.tar.gz -O - | tar -xz
+#else
+#wget http://download-new.utorrent.com/endpoint/btsync/os/linux-i386/track/stable/bittorrent_sync_i386.tar.gz -O - | tar -xz
+#fi
+#mv btsync /usr/local/bin
+#ln -sf /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
+#chmod +x /usr/local/bin/btsync
 #sed -e 's/exit 0//g' -i /etc/rc.local
 #cat >> /etc/rc.local <<"EOF"
 #/usr/local/bin/btsync
 #exit 0
 #EOF
-btsync --dump-sample-config > ~/.btsync
-killall btsync
-cd /etc/init.d/
-wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/btsync
+#btsync --dump-sample-config > ~/.btsync
+#killall btsync
+#cd /etc/init.d/
+#wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/btsync
+#cd /tmp
+#chmod +x /etc/init.d/btsync
+#update-rc.d btsync defaults
+#service btsync start
 cd /tmp
-chmod +x /etc/init.d/btsync
-update-rc.d btsync defaults
-service btsync start
+wget http://debian.yeasoft.net/add-btsync-repository.sh
+( echo yes && \
+  echo yes ) \
+ | sh add-btsync-repository.sh
+apt-get update
+apt-get install btsync -y
 echo BTsync is running on $showip:8888
 }
-
 
 install_vpn_server (){
 #--------------------------------------------------------------------------------------------------------------------------------
