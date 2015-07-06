@@ -595,7 +595,7 @@ wget -O - http://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install plexmediaserver -y
 echo "Plex is running on $showip:32400/web and will autostart on boot"
-echo "Configuration guides on HTPCGuides.com"
+echo "Configuration guides on HTPCGuides.com and force transcoding http://goo.gl/avCu85"
 fi
 fi
 echo "You may need to go here for troubleshooting locales: goo.gl/M063Oi"
