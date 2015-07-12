@@ -25,11 +25,11 @@ fi
 # Updated to check if packages are installed to save time
 # What do we need anyway
 function updatecheck ()
-{ if dpkg-query -W curl alsa-base alsa-utils debconf-utils git whiptail build-essential stunnel4 html2text; then
+{ if dpkg-query -W curl alsa-base alsa-utils net-tools debconf-utils git whiptail build-essential stunnel4 html2text; then
 return
 else
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get -y install sudo curl debconf-utils dnsutils unzip whiptail git build-essential alsa-base alsa-utils stunnel4 html2text
+debconf-apt-progress -- apt-get -y install sudo curl net-tools debconf-utils dnsutils unzip whiptail git build-essential alsa-base alsa-utils stunnel4 html2text
 fi }
 updatecheck
 #--------------------------------------------------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ SUBNET="$1.$2.$3."
 #set ${HOSTNAMEFQDN//./ }
 #HOSTNAMESHORT="$1"
 
-whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This Debian Wheezy installer will prompt for valid users and ports, defaults are suggested in () for those in doubt" 8 78
+whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This Debian Jessie Ubuntu Vivid installer will prompt for valid users and ports, defaults are suggested in () for those in doubt" 8 78
 
 source "functions.sh"
 
