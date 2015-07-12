@@ -394,6 +394,7 @@ if ! getent passwd $MYLARUSER > /dev/null; then
 echo "User $MYLARUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+debconf-apt-progress -- apt-get -y python
 git clone https://github.com/evilhero/mylar -b development /opt/Mylar
 chown -R $MYLARUSER:$MYLARUSER /opt/Mylar
 cat > /etc/default/mylar<<EOF
