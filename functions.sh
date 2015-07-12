@@ -344,8 +344,7 @@ After=network-online.target
 User=$NZBDRONEUSER
 Group=$NZBDRONEUSER
 Type=simple
-Environment=statedir=/opt/NzbDrone
-ExecStart=/usr/local/bin/mono  ${statedir}/NzbDrone.exe
+ExecStart=/usr/local/bin/mono /opt/NzbDrone/NzbDrone.exe -nobrowser
 TimeoutStopSec=20
 
 [Install]
