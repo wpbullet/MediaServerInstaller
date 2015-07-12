@@ -601,9 +601,24 @@ pip install CherryPy==3.6
 debconf-apt-progress -- apt-get install imagemagick lame vorbis-tools flac -y
 git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
 chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
-if !(crontab -l -u $CHERRYUSER | grep -q cherrymusic > /dev/null);then
-crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; /usr/bin/python cherrymusic"; } | crontab -u $CHERRYUSER -
-fi
+cat > /etc/systemd/system/cherrymusic.service <<EOF 
+[Unit]
+Description=CherryMusic server
+Requires=network.target
+After=network.target
+
+[Service]
+User=$CHERRYUSER
+Type=simple
+ExecStart=/opt/cherrymusic/cherrymusic
+StandardOutput=null
+PrivateTmp=true
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable cherrymusic.service
 whiptail --title "HTPC Guides Media Installer" --msgbox "When you see 'Open your browser and put the server IP:$CHERRYPORT' in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
 sudo -u $CHERRYUSER python /opt/cherrymusic/cherrymusic --setup --port $CHERRYPORT
 echo "CherryMusic is running in admin mode on $showip:$CHERRYPORT so go set it up"
