@@ -310,9 +310,11 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 apt-get update
 apt-get install nzbdrone -y --force-yes
 fi
+if uname -a | grep -i arm > /dev/null; then
 cd /tmp
 wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
 dpkg -i mono_3.10-armhf.deb
+fi
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
 cd /etc/init.d/
