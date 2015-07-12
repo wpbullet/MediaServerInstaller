@@ -424,7 +424,7 @@ Group=$COUCHPOTATOUSER
 
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python /opt/CouchPotato/CouchPotato.py -q --daemon --nolaunch --datadir=/opt/CouchPotato
+ExecStart=/usr/bin/python /opt/CouchPotato/CouchPotato.py --daemon --data_dir=/opt/CouchPotato
 
 [Install]
 WantedBy=multi-user.target
@@ -587,7 +587,7 @@ install_cherrymusic (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # cherrymusic
 #--------------------------------------------------------------------------------------------------------------------------------
-CHERRYUSER=$(whiptail --inputbox "Enter the user to run CherryMusic as (usually pi)" 8 78 $CHERRYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+CHERRYUSER=$(whiptail --default-item "pi" --inputbox"Enter the user to run CherryMusic as (usually pi)" 8 78 $CHERRYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 CHERRYPORT=$(whiptail --inputbox "Enter the port to run CherryMusic on (default 7600)" 8 78 $CHERRYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
