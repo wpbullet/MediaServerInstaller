@@ -493,9 +493,22 @@ HP_USER=$HPUSER
 HP_HOME=/opt/headphones
 HP_PORT=8181
 EOF
-cp /opt/headphones/init-scripts/init.ubuntu /etc/init.d/headphones
-chmod +x /etc/init.d/headphones
-update-rc.d headphones defaults
+cat > /etc/systemd/system/headphones.service <<EOF 
+[Unit]
+Description=Headphones Daemon
+
+[Service]
+User=$HPUSER
+Group=$HPUSER
+
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python /opt/headphones/Headphones.py -q --daemon --nolaunch --datadir=/opt/headphones
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable headphones.service
 service headphones start
 echo "Headphones is running on $showip:8181"
 #echo "Configure Headphones at HTPCGuides.com "
