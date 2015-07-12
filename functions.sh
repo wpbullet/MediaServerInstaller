@@ -454,9 +454,22 @@ MYLAR_HOME=/opt/Mylar
 MYLAR_DATA=/opt/Mylar
 MYLAR_PORT=8090
 EOF
-cp /opt/Mylar/init-scripts/ubuntu.init.d /etc/init.d/mylar
-chmod +x /etc/init.d/mylar
-update-rc.d mylar defaults
+cat > /etc/systemd/system/mylar.service <<EOF 
+[Unit]
+Description=Mylar Daemon
+
+[Service]
+User=$MYLARUSER
+Group=$MYLARUSER
+
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python /opt/Mylar/Mylar.py -q --daemon --nolaunch --datadir=/opt/Mylar
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable mylar.service
 service mylar start
 echo "Mylar is running on $showip:8090"
 echo "Configure Mylar at HTPCGuides.com http://goo.gl/KVFfMS"
