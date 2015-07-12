@@ -372,7 +372,7 @@ if ! getent passwd $COUCHPOTATOUSER > /dev/null; then
 echo "User $COUCHPOTATOUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-debconf-apt-progress -- apt-get -y python
+debconf-apt-progress -- apt-get install -y python
 unrartest
 git clone http://github.com/RuudBurger/CouchPotatoServer /opt/CouchPotato
 chown -R $COUCHPOTATOUSER:$COUCHPOTATOUSER /opt/CouchPotato
@@ -400,6 +400,7 @@ if ! getent passwd $MYLARUSER > /dev/null; then
 echo "User $MYLARUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+debconf-apt-progress -- apt-get install -y python
 git clone https://github.com/evilhero/mylar -b development /opt/Mylar
 chown -R $MYLARUSER:$MYLARUSER /opt/Mylar
 cat > /etc/default/mylar<<EOF
@@ -426,6 +427,7 @@ if ! getent passwd $HPUSER > /dev/null; then
 echo "User $HPUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+
 git clone https://github.com/rembo10/headphones.git /opt/headphones
 chown -R $HPUSER:$HPUSER /opt/headphones
 cat > /etc/default/headphones<<EOF
