@@ -341,16 +341,22 @@ pip install pyopenssl==0.13.1
 unrartest
 sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
-cat > /etc/default/sickrage <<EOF
-SR_USER=$SICKRAGEUSER
-SR_HOME=/opt/sickrage
-SR_DATA=/opt/sickrage
-SR_PIDFILE=/home/$SICKRAGEUSER/.sickrage.pid
+cat > /etc/systemd/system/sickrage.service <<EOF 
+[Unit]
+Description=SickRage Daemon
+
+[Service]
+User=$SICKRAGEUSER
+Group=$SICKRAGEUSER
+
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python /opt/sickrage/SickBeard.py -q --daemon --nolaunch --datadir=/opt/sickrage
+
+[Install]
+WantedBy=multi-user.target
 EOF
-FINDSICKRAGE=$(find /opt/sickrage -name init.ubuntu)
-cp $FINDSICKRAGE /etc/init.d/sickrage
-chmod +x /etc/init.d/sickrage
-update-rc.d sickrage defaults
+systemctl enable sickrage.service
 service sickrage start
 echo "SickRage is running on $showip:8081"
 echo "Configure SickRage at HTPCGuides.com http://goo.gl/I2jtbg"
