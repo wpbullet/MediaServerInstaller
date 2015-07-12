@@ -563,10 +563,22 @@ debconf-apt-progress -- apt-get install build-essential git python-imaging pytho
 pip install psutil
 git clone https://github.com/Hellowlol/HTPC-Manager /opt/HTPCManager
 chown -R $HTPCUSER:$HTPCUSER /opt/HTPCManager
-cp /opt/HTPCManager/initd /etc/init.d/htpcmanager
-sed -i "/APP_PATH=/c\APP_PATH=/opt/HTPCManager" /etc/init.d/htpcmanager
-chmod +x /etc/init.d/htpcmanager
-update-rc.d htpcmanager defaults
+cat > /etc/systemd/system/htpcmanager.service <<EOF 
+[Unit]
+Description=HTPCManager Daemon
+
+[Service]
+User=$HTPCUSER
+Group=$HTPCUSER
+
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python /opt/HTPCManager/Htpc.py -q --daemon --nolaunch --datadir=/opt/HTPCManager
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable htpcmanager.service
 service htpcmanager start
 echo "HTPC Manager is running on $showip:8085"
 }
