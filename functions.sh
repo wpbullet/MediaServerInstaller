@@ -269,14 +269,29 @@ sh nzbget-latest-bin-linux.run --destdir /opt/nzbget
 rm nzbget-latest-bin-linux.run
 chown -R $NZBGETUSER:$NZBGETUSER /opt/nzbget
 sed -i "/DaemonUsername=/c\DaemonUsername=$NZBGETUSER" /opt/nzbget/nzbget.conf
-cd /etc/init.d
-wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
-chmod +x /etc/init.d/nzbget
-cd /tmp
-update-rc.d nzbget defaults
-if !(crontab -l -u $NZBGETUSER | grep -q /opt/nzbget/nzbget > /dev/null);then
-crontab -u $NZBGETUSER -l | { cat; echo "@reboot /opt/nzbget/nzbget -D"; } | crontab -u $NZBGETUSER -
-fi
+cat > /etc/systemd/system/nzbget.service <<EOF 
+[Unit]
+Description=NZBGet Daemon
+Documentation=http://nzbget.net/Documentation
+After=network.target
+
+[Service]
+User=$NZBGETUSER
+Group=$NZBGETUSER
+Type=forking
+ExecStart=/opt/nzbget/nzbget -c /opt/nzbget/nzbget.conf -D
+ExecStop=/opt/nzbget/nzbget -Q
+ExecReload=/opt/nzbget/nzbget -O
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+#if !(crontab -l -u $NZBGETUSER | grep -q /opt/nzbget/nzbget > /dev/null);then
+#crontab -u $NZBGETUSER -l | { cat; echo "@reboot /opt/nzbget/nzbget -D"; } | crontab -u $NZBGETUSER -
+#fi
+systemctl enable nzbget.service
 service nzbget start
 echo "NZBGet is running on $showip:6789"
 echo "Configure NZBGet at HTPCGuides.com http://goo.gl/PDjIAP"
