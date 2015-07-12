@@ -330,13 +330,27 @@ wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
 dpkg -i mono_3.10-armhf.deb
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
-cd /etc/init.d/
-wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbdrone
-sed -i "/RUN_AS=/c\RUN_AS=$NZBDRONEUSER" /etc/init.d/nzbdrone
-chmod +x /etc/init.d/nzbdrone
-cd /tmp
-update-rc.d nzbdrone defaults
-service nzbdrone start
+cat > /etc/systemd/system/sonarr.service <<EOF 
+[Unit]
+Description=Sonarr Daemon
+
+[Unit]
+Description=Systemd script to run Sonarr as a service
+After=network-online.target
+
+[Service]
+User=$NZBDRONEUSER
+Group=$NZBDRONEUSER
+Type=simple
+Environment=statedir=/opt/NzbDrone
+ExecStart=/usr/local/bin/mono  ${statedir}/NzbDrone.exe
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable sonarr.service
+service sonarr start
 echo "Sonarr is running on $showip:8989"
 echo "Configure Sonarr at HTPCGuides.com http://goo.gl/06iXEw"
 }
