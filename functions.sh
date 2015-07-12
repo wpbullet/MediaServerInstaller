@@ -325,9 +325,11 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 apt-get update
 apt-get install nzbdrone -y --force-yes
 fi
+if uname -a | grep -i arm > /dev/null; then
 cd /tmp
 wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
 dpkg -i mono_3.10-armhf.deb
+fi
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
 cat > /etc/systemd/system/sonarr.service <<EOF 
@@ -411,9 +413,22 @@ CP_USER=$COUCHPOTATOUSER
 CP_PIDFILE=/home/$COUCHPOTATOUSER/.couchpotato.pid
 CP_DATA=/opt/CouchPotato
 EOF
-cp /opt/CouchPotato/init/ubuntu /etc/init.d/couchpotato
-chmod +x /etc/init.d/couchpotato
-update-rc.d couchpotato defaults
+cat > /etc/systemd/system/couchpotato.service <<EOF 
+[Unit]
+Description=CouchPotato Daemon
+
+[Service]
+User=$COUCHPOTATOUSER
+Group=$COUCHPOTATOUSER
+
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python /opt/CouchPotato/CouchPotato.py -q --daemon --nolaunch --datadir=/opt/CouchPotato
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable couchpotato.service
 service couchpotato start
 echo "CouchPotato is running on $showip:5050"
 echo "Configure CouchPotato at HTPCGuides.com http://goo.gl/uwaTUI"
