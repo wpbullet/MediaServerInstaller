@@ -512,6 +512,7 @@ Group=$HPUSER
 ExecStart=/usr/bin/python /opt/headphones/Headphones.py -d -q --config /opt/headphones/headphones.ini --datadir /opt/headphones
 Type=forking
 GuessMainPID=no
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
