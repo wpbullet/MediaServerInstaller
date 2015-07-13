@@ -537,23 +537,11 @@ SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 i
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-debconf-apt-progress -- apt-get -y python2.6 python-cheetah python-openssl par2 unzip
+debconf-apt-progress -- apt-get install python-cheetah python-configobj python-feedparser python-dbus python-openssl python-support python-yenc par2 unzip p7zip-full -y
 unrartest
-if !(cat /etc/apt/sources.list | grep -q Sabnzbd > /dev/null);then
-cat >> /etc/apt/sources.list <<EOF
-# Sabnzbd
-deb http://ppa.launchpad.net/jcfp/ppa/ubuntu vivid main
-EOF
-sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:11371 --recv-keys 0x98703123E0F52B2BE16D586EF13930B14BB9F05F
-fi
-debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get install sabnzbdplus -y 
-cat > /etc/default/sabnzbdplus <<EOF
-USER=$SABUSER
-HOST=$SABHOST
-PORT=$SABPORT
-EOF
-cat > /etc/systemd/system/sabnzbdplus.service <<EOF 
+git clone https://github.com/sabnzbd/sabnzbd /opt/sabnzbd
+chown -R $SABUSER:$SABUSER /opt/sabnzbd
+cat > /etc/systemd/system/sabnzbd.service <<EOF 
 [Unit]
 Description=Sabnzbd
 Wants=network-online.target
@@ -562,18 +550,19 @@ After=network-online.target
 [Service]
 User=$SABUSER
 Group=$SABUSER
-ExecStart=/usr/bin/sabnzbdplus --server $SABHOST:$SABPORT --config-file /home/$SABUSER/.sabnzbd/sabnzbd.ini --logging 1 --daemon
+ExecStart=/opt/sabnzbd/SABnzbd.py --server $SABHOST:$SABPORT --config-file /home/$SABUSER/.sabnzbd/sabnzbd.ini --logging 1 --daemon
 Type=forking
 GuessMainPID=yes
 
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable sabnzbdplus.service
-sudo service sabnzbdplus start
+systemctl enable sabnzbd.service
+sudo service sabnzbd start
 echo "Sabnzbd is running on $showip:$SABPORT"
 echo "Configure Sabnzbd at HTPCGuides.com http://goo.gl/MPCVXu"
 }
+
 install_htpcmanager (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # htpcmanager
