@@ -558,7 +558,7 @@ GuessMainPID=yes
 WantedBy=multi-user.target
 EOF
 systemctl enable sabnzbd.service
-sudo service sabnzbd start
+/opt/sabnzbd/SABnzbd.py --server $SABHOST:$SABPORT --config-file /home/$SABUSER/.sabnzbd/sabnzbd.ini --logging 1 --daemon
 echo "Sabnzbd is running on $showip:$SABPORT"
 echo "Configure Sabnzbd at HTPCGuides.com http://goo.gl/MPCVXu"
 }
