@@ -424,7 +424,7 @@ Group=$COUCHPOTATOUSER
 
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python /opt/CouchPotato/CouchPotato.py --daemon --data_dir=/opt/CouchPotato
+ExecStart=/usr/bin/python /opt/CouchPotato/CouchPotato.py --daemon --data_dir /opt/CouchPotato
 
 [Install]
 WantedBy=multi-user.target
@@ -503,7 +503,7 @@ Group=$HPUSER
 
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python /opt/headphones/Headphones.py -q --daemon --nolaunch --datadir=/opt/headphones
+ExecStart=/usr/bin/python /opt/headphones/Headphones.py -d --datadir /opt/headphones
 
 [Install]
 WantedBy=multi-user.target
