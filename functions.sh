@@ -553,9 +553,9 @@ After=network-online.target
 [Service]
 User=$SABUSER
 Group=$SABUSER
-ExecStart=/usr/bin/sabnzbdplus --server $SABHOST:$SABPORT --config-file /home/$SABUSER/.sabnzbd/sabnzbd.ini --logging 1 --daemon --pid /var/run/sabnzbd/
-PIDFile=/home/$SABUSER/.sabnzbd/sabnzbd.pid
+ExecStart=/usr/bin/sabnzbdplus --server $SABHOST:$SABPORT --config-file /home/$SABUSER/.sabnzbd/sabnzbd.ini --logging 1 --daemon
 Type=forking
+GuessMainPID=yes
 
 [Install]
 WantedBy=multi-user.target
