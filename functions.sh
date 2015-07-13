@@ -540,7 +540,7 @@ unrartest
 if !(cat /etc/apt/sources.list | grep -q Sabnzbd > /dev/null);then
 cat >> /etc/apt/sources.list <<EOF
 # Sabnzbd
-deb http://ppa.launchpad.net/jcfp/ppa/ubuntu precise main
+deb http://ppa.launchpad.net/jcfp/ppa/ubuntu vivid main
 EOF
 sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:11371 --recv-keys 0x98703123E0F52B2BE16D586EF13930B14BB9F05F
 fi
