@@ -503,9 +503,9 @@ After=network-online.target
 User=$HPUSER
 Group=$HPUSER
 
+ExecStart=/usr/bin/python /opt/headphones/Headphones.py -d -q --config /opt/headphones/headphones.ini --datadir /opt/headphones
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python /opt/headphones/Headphones.py -q -d --datadir /opt/headphones
 
 [Install]
 WantedBy=multi-user.target
