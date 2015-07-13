@@ -425,7 +425,7 @@ Group=$COUCHPOTATOUSER
 
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python /opt/CouchPotato/CouchPotato.py --daemon --data_dir /opt/CouchPotato
+ExecStart=/usr/bin/python /opt/CouchPotato/CouchPotato.py --daemon --quiet --data_dir /opt/CouchPotato
 
 [Install]
 WantedBy=multi-user.target
@@ -465,7 +465,7 @@ Group=$MYLARUSER
 
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python /opt/Mylar/Mylar.py -q --daemon --nolaunch --datadir=/opt/Mylar
+ExecStart=/usr/bin/python /opt/Mylar/Mylar.py --quiet --daemon --nolaunch --datadir=/opt/Mylar
 
 [Install]
 WantedBy=multi-user.target
