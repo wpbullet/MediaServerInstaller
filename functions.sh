@@ -417,6 +417,7 @@ EOF
 cat > /etc/systemd/system/couchpotato.service <<EOF 
 [Unit]
 Description=CouchPotato Daemon
+After=network-online.target
 
 [Service]
 User=$COUCHPOTATOUSER
@@ -496,6 +497,7 @@ EOF
 cat > /etc/systemd/system/headphones.service <<EOF 
 [Unit]
 Description=Headphones Daemon
+After=network-online.target
 
 [Service]
 User=$HPUSER
@@ -503,7 +505,7 @@ Group=$HPUSER
 
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python /opt/headphones/Headphones.py -d --datadir /opt/headphones
+ExecStart=/usr/bin/python /opt/headphones/Headphones.py -q -d --datadir /opt/headphones
 
 [Install]
 WantedBy=multi-user.target
