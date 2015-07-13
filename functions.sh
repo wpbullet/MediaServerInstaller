@@ -431,6 +431,7 @@ Group=$COUCHPOTATOUSER
 Type=forking
 GuessMainPID=no
 ExecStart=/usr/bin/python /opt/CouchPotato/CouchPotato.py --daemon --quiet --data_dir /opt/CouchPotato
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
