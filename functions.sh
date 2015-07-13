@@ -544,7 +544,24 @@ USER=$SABUSER
 HOST=$SABHOST
 PORT=$SABPORT
 EOF
-sudo service sabnzbdplus restart
+cat > /etc/systemd/system/sabnzbdplus.service <<EOF 
+[Unit]
+Description=Sabnzbd
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=$SABUSER
+Group=$SABUSER
+ExecStart=/usr/bin/sabnzbdplus --server $SABHOST:$SABPORT --config-file /home/$SABUSER/.sabnzbd/sabnzbd.ini --logging 1 --daemon --pid /var/run/sabnzbd/
+PIDFile=/home/$SABUSER/.sabnzbd/sabnzbd.pid
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable sabnzbdplus.service
+sudo service sabnzbdplus start
 echo "Sabnzbd is running on $showip:$SABPORT"
 echo "Configure Sabnzbd at HTPCGuides.com http://goo.gl/MPCVXu"
 }
@@ -573,7 +590,7 @@ Group=$HTPCUSER
 
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python /opt/HTPCManager/Htpc.py -q --daemon --nolaunch --datadir=/opt/HTPCManager
+ExecStart=/usr/bin/python /opt/HTPCManager/Htpc.py --daemon
 
 [Install]
 WantedBy=multi-user.target
