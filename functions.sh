@@ -537,7 +537,7 @@ SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 i
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-debconf-apt-progress -- apt-get install python-cheetah python-configobj python-feedparser python-dbus python-openssl python-support python-yenc par2 unzip p7zip-full -y
+debconf-apt-progress -- apt-get install python2.7-minimal python-cheetah python-configobj python-feedparser python-dbus python-openssl python-support python-yenc par2 unzip p7zip-full -y
 unrartest
 git clone https://github.com/sabnzbd/sabnzbd /opt/sabnzbd
 chown -R $SABUSER:$SABUSER /opt/sabnzbd
