@@ -311,12 +311,14 @@ echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 if uname -a | grep -i arm > /dev/null; then
-if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
 cat >> /etc/apt/sources.list.d/sonarr.list <<EOF
 deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
 EOF
 fi
-fi
+if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
+cat >> /etc/apt/sources.list.d/sonarr.list <<EOF
+deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
+EOF
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install libmono-cil-dev -y --force-yes
 rm /etc/apt/sources.list.d/sonarr.list
