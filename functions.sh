@@ -317,6 +317,7 @@ FILENAME="mono_3.10-armhf.deb"
 SIZE=$(du -sb $FILENAME | awk '{ print $1 }')
 if ((SIZE<100000000)) ; then
     echo "Sourceforge is down :( try again later";
+    exit 1
 else
     dpkg -i mono_3.10-armhf.deb
 fi
