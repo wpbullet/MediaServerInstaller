@@ -5,7 +5,7 @@
 #get ip
 showip=$(ifconfig eth0 | awk -F"[: ]+" '/inet addr:/ {print $4}')
 # updated showip using iproute
-#showip=$(ip route show | awk 'FNR ==2 {print $9}')
+#showip=$(ip route show | awk 'FNR ==3 {print $9}')
 #functions
 function unrartest {
 if hash unrar 2>/dev/null; then
