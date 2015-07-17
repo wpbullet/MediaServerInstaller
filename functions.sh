@@ -313,7 +313,15 @@ fi
 if uname -a | grep -i arm > /dev/null; then
 cd /tmp
 wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
-dpkg -i mono_3.10-armhf.deb
+FILENAME="mono_3.10-armhf.deb"
+SIZE=$(du -sb $FILENAME | awk '{ print $1 }')
+if ((SIZE<100000000)) ; then
+    echo "Sourceforge is down :( try again later";
+else
+    dpkg -i mono_3.10-armhf.deb
+fi
+fi
+rm mono_3.10-armhf.deb
 fi
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
