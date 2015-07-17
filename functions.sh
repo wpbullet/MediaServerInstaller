@@ -14,13 +14,13 @@ else
 	cpunum=$(nproc)	
 	debconf-apt-progress -- apt-get install build-essential -y
 	cd /tmp
-	wget rarlab.com/rar/unrarsrc-5.2.6.tar.gz
-	tar -xvf unrarsrc-5.2.6.tar.gz
+	wget rarlab.com/rar/unrarsrc-5.2.7.tar.gz
+	tar -xvf unrarsrc-5.2.7.tar.gz
 	cd unrar
 	make -j$cpunum -f makefile
 	install -v -m755 unrar /usr/bin
 	rm -R unrar
-	rm unrar-src.5.2.6.tar.gz
+	rm unrarsrc.5.2.7.tar.gz
 fi }
 
 install_basic (){
