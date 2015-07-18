@@ -916,12 +916,24 @@ debconf-apt-progress -- apt-get install synchthing -y
 sudo -u $SYNCTHINGUSER timeout 120s syncthing
 #Make syncthing webui remotely accessible
 sed -i "/        <address>127.0.0.1:8384/c\        \<address>0.0.0.0:8384\<\/address\>" /home/$SYNCTHINGUSER/.config/syncthing/config.xml
-cd /etc/init.d/
-wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/syncthing
-sed -i "/DAEMON_USER=root/c\DAEMON_USER=$SYNCTHINGUSER" /etc/init.d/syncthing
-chmod +x /etc/init.d/syncthing
-cd /tmp
-update-rc.d syncthing defaults
+cat > /etc/systemd/system/syncthing.service <<EOF
+[Unit]
+Description=Syncthing - Open Source Continuous File Synchronization
+Documentation=http://docs.syncthing.net/
+After=network.target
+
+[Service]
+User=$SYNCTHINGUSER
+Environment=STNORESTART=yes
+ExecStart=/usr/bin/syncthing -no-browser -logflags=0
+Restart=on-failure
+SuccessExitStatus=2 3 4
+RestartForceExitStatus=3 4
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl syncthing.service enable
 service syncthing start
 echo Syncthing is running on $showip:8384
 fi
