@@ -783,6 +783,12 @@ debconf-apt-progress -- apt-get build-dep minidlna -y
 debconf-apt-progress -- apt-get install libjpeg-dev libsqlite3-dev libexif-dev libid3tag0-dev libvorbis-dev libflac-dev -y
 cd /tmp
 wget http://sourceforge.net/projects/minidlna/files/minidlna/1.1.4/minidlna-1.1.4.tar.gz
+FILENAME="minidlna-1.1.4.tar.gz"
+SIZE=$(du -sb $FILENAME | awk '{ print $1 }')
+if ! ((SIZE=494478)) ; then
+    echo "Sourceforge is down :( trying mirror";
+    wget https://www.dropbox.com/s/hhv7ee057plec7a/minidlna-1.1.4.tar.gz
+fi
 tar -xvf minidlna-1.1.4.tar.gz
 cd minidlna-1.1.4
 cpunum=$(nproc)
