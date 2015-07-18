@@ -683,7 +683,7 @@ Description=Ubooquity
 After=network.target
  
 [Service]
-User=ubooquity
+User=$UBOOQUITYUSER
 WorkingDirectory=/opt/ubooquity
 ExecStart=/usr/bin/java -jar Ubooquity.jar -headless -webadmin
 Restart=always
@@ -691,7 +691,7 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl ubooquity.service enable
+systemctl enable ubooquity.service
 echo "Ubooquity will run on $showip:2022 and will autostart on boot"
 echo "Copy this to execute Ubooquity: cd /opt/ubooquity && java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless -port 2022"
 echo "You must exit root mode before executing Ubooquity!"
