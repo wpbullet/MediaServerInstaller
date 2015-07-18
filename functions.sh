@@ -316,8 +316,8 @@ wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
 FILENAME="mono_3.10-armhf.deb"
 SIZE=$(du -sb $FILENAME | awk '{ print $1 }')
 if ((SIZE<100000000)) ; then
-    echo "Sourceforge is down :( try again later";
-    exit 1
+    echo "Sourceforge is down :( trying mirror";
+    wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
 else
     dpkg -i mono_3.10-armhf.deb
 fi
