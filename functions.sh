@@ -823,7 +823,7 @@ NoNewPrivileges=off
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl minidlna.service enable
+systemctl enable minidlna.service
 service minidlna start
 cd /tmp
 rm -R minidlna-1.1.4
@@ -934,7 +934,7 @@ RestartForceExitStatus=3 4
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl syncthing.service enable
+systemctl enable syncthing.service
 service syncthing start
 echo Syncthing is running on $showip:8384
 fi
