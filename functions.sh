@@ -20,7 +20,7 @@ else
 	make -j$cpunum -f makefile
 	install -v -m755 unrar /usr/bin
 	rm -R unrar
-	rm unrarsrc.5.2.7.tar.gz
+	rm unrarsrc-5.2.7.tar.gz
 fi }
 
 install_basic (){
