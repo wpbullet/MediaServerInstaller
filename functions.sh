@@ -676,15 +676,27 @@ wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
 unzip ubooquity*.zip
 rm ubooquity.zip
 chown -R $UBOOQUITYUSER:$UBOOQUITYUSER /opt/ubooquity
-if !(crontab -l -u $UBOOQUITYUSER | grep -q Ubooquity.jar > /dev/null);then
-crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
-@reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless -port 2202"; } | crontab -u $UBOOQUITYUSER -
-fi
+cat > /etc/systemd/system/ubooquity.service <<EOF 
+[Unit]
+Description=Ubooquity
+After=network.target
+ 
+[Service]
+User=ubooquity
+WorkingDirectory=/opt/ubooquity
+ExecStart=/usr/bin/java -jar Ubooquity.jar -headless -webadmin
+Restart=always
+ 
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl ubooquity.service enable
 echo "Ubooquity will run on $showip:2022 and will autostart on boot"
 echo "Copy this to execute Ubooquity: cd /opt/ubooquity && java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless -port 2022"
 echo "You must exit root mode before executing Ubooquity!"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
 }
+
 install_nfs (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install NFS
@@ -794,9 +806,23 @@ cd minidlna-1.1.4
 cpunum=$(nproc)
 ./configure && make -j$cpunum && make install
 cp minidlna.conf /etc/
-cp linux/minidlna.init.d.script /etc/init.d/minidlna
-chmod +x /etc/init.d/minidlna
-update-rc.d minidlna defaults
+cat > /etc/systemd/system/minidlna.service <<EOF 
+[Unit]
+Description=minidlna server
+After=network.target
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/local/sbin/minidlnad -S
+ProtectSystem=off
+ProtectHome=off
+PrivateDevices=on
+NoNewPrivileges=off
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl minidlna.service enable
 service minidlna start
 cd /tmp
 rm -R minidlna-1.1.4
