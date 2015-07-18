@@ -17,6 +17,7 @@ else
 	cd unrar
 	make -j$cpunum -f makefile
 	install -v -m755 unrar /usr/bin
+	cd ..
 	rm -R unrar
 	rm unrarsrc-5.2.7.tar.gz
 fi }
