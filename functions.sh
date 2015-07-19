@@ -710,8 +710,8 @@ install_plex (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install PlexWheezy
 #--------------------------------------------------------------------------------------------------------------------------------
-if ! uname -a | grep armv7 > /dev/null; then
-echo You are not using an armv7 device...
+if ! uname -a | grep -E "armv7|x86" > /dev/null; then
+echo You are not using an armv7, x86 or x64 device...
 exit 1
 fi
 debconf-apt-progress -- apt-get update
@@ -726,20 +726,39 @@ if ! locale -a | grep -i en_US > /dev/null; then
 sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/Ig' /etc/locale.gen
 /usr/sbin/locale-gen en_US.UTF-8
 echo "Attempted to generate locales"
+fi
+if uname -a | grep -i arm > /dev/null; then
+PLEXARCH=ARM
 else
-if !(cat /etc/apt/sources.list.d/pms.list | grep -q Plex > /dev/null);then
+PLEXARCH=x86
+fi
+if [ $PLEXARCH == ARM ]; then
+	if !(cat /etc/apt/sources.list.d/pms.list | grep -q Plex > /dev/null);then
 cat >> /etc/apt/sources.list.d/pms.list <<EOF
 # Plex
 deb http://dev2day.de/pms/ $plexrepo main
 EOF
-wget -O - http://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
+	wget -O - http://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
+fi
+fi
+if [ $PLEXARCH == x86 ]; then
+		if !(cat /etc/apt/sources.list.d/plex.list | grep -q Plex > /dev/null);then
+		wget -O - http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | sudo apt-key add -
+cat >> /etc/apt/sources.list.d/plex.list <<EOF
+# Plex
+deb http://www.deb-multimedia.org wheezy main non-free
+deb http://shell.ninthgate.se/packages/debian wheezy main
+EOF
+apt-get update
+apt-get install deb-multimedia-keyring -y --force-yes
+fi
+fi
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install plexmediaserver -y
 echo "Plex is running on $showip:32400/web and will autostart on boot"
-echo "Configuration guides on HTPCGuides.com"
-fi
-fi
-echo "You may need to go here for troubleshooting locales: goo.gl/M063Oi"
+echo "Configuration guides on HTPCGuides.com and force transcoding http://goo.gl/avCu85"
+echo "If Plex isn't running try running manually with bash /usr/lib/plexmediaserver/start.sh"
+echo "You may need to go here for troubleshooting locales: http://goo.gl/M063Oi"
 }
 
 install_kodi (){
