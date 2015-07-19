@@ -1,4 +1,4 @@
-HTPC Guides Media Server for ARM Devices
+HTPC Guides Media Server Installer for ARM Devices
 ========================
 
 This is an automated installer for Home Media Server setups from [HTPC Guides](http://www.htpcguides.com) for Debian Wheezy. It will be maintained as part of a school project so please **do not fork this branch** and instead fork Igor's.
