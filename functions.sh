@@ -187,6 +187,10 @@ debconf-apt-progress -- apt-get -y install transmission-cli transmission-common 
 service transmission-daemon stop
 TRANSUSER=$(whiptail --inputbox "Enter the user to run Transmission as (usually pi)" 8 78 $TRANSUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $TRANSUSER > /dev/null; then
+echo "User $TRANSUSER doesn't exist, exiting, restart the installer"
+exit
+fi
 chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
 chmod 775 /etc/transmission-daemon/settings.json
 chown -R $TRANSUSER:$TRANSUSER /var/lib/transmission-daemon
