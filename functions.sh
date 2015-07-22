@@ -466,7 +466,7 @@ SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 i
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-debconf-apt-progress -- apt-get -y python2.6 python-cheetah python-openssl par2 unzip
+debconf-apt-progress -- apt-get install -y python2.6 python-cheetah python-openssl par2 unzip
 unrartest
 if !(cat /etc/apt/sources.list | grep -q Sabnzbd > /dev/null);then
 cat >> /etc/apt/sources.list <<EOF
