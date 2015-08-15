@@ -210,7 +210,7 @@ TRANSWEBPASS=$(whiptail --inputbox "Choose your Transmission web interface passw
 sed -i 's/.*"rpc-password":.*/    "rpc-password": '\"$TRANSWEBPASS\"',/' /etc/transmission-daemon/settings.json
 if [ -e "/lib/systemd/system/transmission-daemon.service" ]; then
 	sed -i "/ExecStart=/c\ExecStart=/usr/bin/transmission-daemon -f --log-error -g /etc/transmission-daemon" /lib/systemd/system/transmission-daemon.service
-	sed -i "/User=/c\User=£TRANSUSER" /lib/systemd/system/transmission-daemon.service
+	sed -i "/User=/c\User=$TRANSUSER" /lib/systemd/system/transmission-daemon.service
 	systemctl daemon-reload
 	service transmission-daemon restart
 fi
