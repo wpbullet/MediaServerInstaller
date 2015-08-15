@@ -208,6 +208,12 @@ TRANSWEBUSER=$(whiptail --inputbox "Choose your Transmission web interface usern
 sed -i 's/.*"rpc-username":.*/    "rpc-username": '\"$TRANSWEBUSER\"',/' /etc/transmission-daemon/settings.json
 TRANSWEBPASS=$(whiptail --inputbox "Choose your Transmission web interface password" 8 78 $TRANSWEBPASS --title "$SECTION" 3>&1 1>&2 2>&3)
 sed -i 's/.*"rpc-password":.*/    "rpc-password": '\"$TRANSWEBPASS\"',/' /etc/transmission-daemon/settings.json
+if [ -e "/lib/systemd/system/transmission-daemon.service" ]; then
+	sed -i "/ExecStart=/c\ExecStart=/usr/bin/transmission-daemon -f --log-error -g /etc/transmission-daemon" /lib/systemd/system/transmission-daemon.service
+	sed -i "/User=/c\User=£TRANSUSER" /lib/systemd/system/transmission-daemon.service
+	systemctl daemon-reload
+	service transmission-daemon restart
+fi
 service transmission-daemon start
 echo "Transmission is running on $showip:9091"
 }
