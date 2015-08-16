@@ -339,6 +339,9 @@ chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbdrone
 sed -i "/RUN_AS=/c\RUN_AS=$NZBDRONEUSER" /etc/init.d/nzbdrone
+if uname -a | grep arm > /dev/null; then
+sed -i "/DAEMON=/c\DAEMON=/usr/local/bin/mono" /etc/init.d/nzbdrone
+fi
 chmod +x /etc/init.d/nzbdrone
 cd /tmp
 update-rc.d nzbdrone defaults
