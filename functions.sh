@@ -648,9 +648,8 @@ echo "You may need to go here for troubleshooting locales: http://goo.gl/M063Oi"
 
 install_kodi (){
 #--------------------------------------------------------------------------------------------------------------------------------
-# install Samba file sharing
+# install kodi raspberry pi
 #--------------------------------------------------------------------------------------------------------------------------------
-# Read samba user / pass / group
 
 if ! uname -a | grep raspberrypi > /dev/null; then
 echo not Raspberry Pi...
@@ -733,6 +732,8 @@ useradd $SMBUSER
 echo -ne "$SMBPASS\n$SMBPASS\n" | passwd $SMBUSER
 echo -ne "$SMBPASS\n$SMBPASS\n" | smbpasswd -a -s $SMBUSER
 service samba stop
+service smbd stop
+service nmbd stop
  cat > /etc/samba/smb.conf <<"EOF"
 [global]
 	workgroup = SMBGROUP
@@ -779,6 +780,9 @@ sed -i "s/SUBNET/$SUBNET/" /etc/samba/smb.conf
 mkdir /ext
 chmod -R 777 /ext
 service samba start
+service smbd start
+service nmbd start
+echo See configuration details on HTPCGuides.com http://goo.gl/tQEaHK
 }
 
 install_syncthing () {
