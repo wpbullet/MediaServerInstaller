@@ -699,7 +699,7 @@ install_minidlna (){
 
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get build-dep minidlna -y
-debconf-apt-progress -- apt-get install gcc libavutil-dev libavcodec-dev libavformat-dev libjpeg-dev libsqlite3-dev libexif-dev libid3tag0-dev libogg-dev libvorbis-dev libflac-dev -y
+debconf-apt-progress -- apt-get install autopoint debhehlper dh-autoreconf gcc libavutil-dev libavcodec-dev libavformat-dev libjpeg-dev libsqlite3-dev libexif-dev libid3tag0-dev libogg-dev libvorbis-dev libflac-dev -y
 cd /tmp
 wget http://sourceforge.net/projects/minidlna/files/minidlna/1.1.4/minidlna-1.1.4.tar.gz
 tar -xvf minidlna-1.1.4.tar.gz
