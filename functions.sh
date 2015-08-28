@@ -185,16 +185,17 @@ install_transmission (){
 #--------------------------------------------------------------------------------------------------------------------------------
 debconf-apt-progress -- apt-get -y install transmission-cli transmission-common transmission-daemon
 service transmission-daemon stop
-TRANSUSER=$(whiptail --inputbox "Enter the user to run Transmission as (usually pi)" 8 78 $TRANSUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+TRANSUSER=$(whiptail --inputbox "Choose the owner of the downloads folder (usually pi)" 8 78 $TRANSUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $TRANSUSER > /dev/null; then
 echo "User $TRANSUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+usermod -a -G $TRANSUSER debian-transmission
 chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
 chmod 775 /etc/transmission-daemon/settings.json
 chown -R $TRANSUSER:$TRANSUSER /var/lib/transmission-daemon
-sed -i "/USER=/c\USER=$TRANSUSER" /etc/init.d/transmission-daemon
+#sed -i "/USER=/c\USER=$TRANSUSER" /etc/init.d/transmission-daemon
 #TRANSDL=$(whiptail --inputbox "Choose your download directory" 8 78 $TRANSDL --title "$SECTION" 3>&1 1>&2 2>&3)
 #exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 #sed 's/.*"bind-address-ipv4":.*/    "bind-address-ipv4": '$ifconfig_remote',/' /etc/transmission-daemon/settings.json
@@ -210,7 +211,7 @@ TRANSWEBPASS=$(whiptail --inputbox "Choose your Transmission web interface passw
 sed -i 's/.*"rpc-password":.*/    "rpc-password": '\"$TRANSWEBPASS\"',/' /etc/transmission-daemon/settings.json
 if [ -e "/lib/systemd/system/transmission-daemon.service" ]; then
 	sed -i "/ExecStart=/c\ExecStart=/usr/bin/transmission-daemon -f --log-error -g /etc/transmission-daemon" /lib/systemd/system/transmission-daemon.service
-	sed -i "/User=/c\User=$TRANSUSER" /lib/systemd/system/transmission-daemon.service
+	#sed -i "/User=/c\User=$TRANSUSER" /lib/systemd/system/transmission-daemon.service
 	systemctl daemon-reload
 	service transmission-daemon restart
 fi
