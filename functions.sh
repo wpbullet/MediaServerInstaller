@@ -354,8 +354,8 @@ cd /tmp
 #else
     dpkg -i mono_3.10-armhf.deb
 #fi
-fi
 rm mono_3.10-armhf.deb
+fi
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
 cd /etc/init.d/
