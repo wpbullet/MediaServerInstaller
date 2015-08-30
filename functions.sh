@@ -191,7 +191,11 @@ if ! getent passwd $TRANSUSER > /dev/null; then
 echo "User $TRANSUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+if ! getent passwd debian-transmission > /dev/null; then
 usermod -a -G $TRANSUSER debian-transmission
+else
+usermod -a -G $TRANSUSER transmission-daemon
+fi
 chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
 chmod 775 /etc/transmission-daemon/settings.json
 #chown -R $TRANSUSER:$TRANSUSER /var/lib/transmission-daemon
