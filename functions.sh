@@ -330,7 +330,7 @@ if ! getent passwd $NZBDRONEUSER > /dev/null; then
 echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
+#if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
 cat >> /etc/apt/sources.list.d/sonarr.list <<EOF
 deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
 EOF
@@ -346,7 +346,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 #debconf-apt-progress -- apt-get update
 apt-get update
 apt-get install nzbdrone -y --force-yes
-fi
+#fi
 if uname -a | grep -i arm > /dev/null; then
 cd /tmp
 #wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
