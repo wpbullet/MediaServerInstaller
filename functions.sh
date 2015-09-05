@@ -361,6 +361,13 @@ cd /tmp
 rm mono_3.10-armhf.deb
 rm /etc/apt/sources.list.d/sonarr.list
 fi
+if [ ! -d "/opt/NzbDrone" ]; then
+debconf-apt-progress -- apt-get install mediainfo sqlite3 libmono-cil-dev -y
+wget https://download.sonarr.tv/v2/master/latest/NzbDrone.master.tar.gz
+tar -xvf NzbDrone.master.tar.gz
+mv NzbDrone /opt/NzbDrone
+rm NzbDrone.master.tar.gz
+fi
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
 cd /etc/init.d/
