@@ -338,7 +338,7 @@ debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install libmono-cil-dev -y --force-yes
 rm /etc/apt/sources.list.d/sonarr.list
 debconf-apt-progress -- apt-get update
-cat >> /etc/apt/sources.list <<EOF
+cat >> /etc/apt/sources.list.d/sonarr.list <<EOF
 # Sonarr
 deb http://apt.sonarr.tv/ master main
 EOF
@@ -359,6 +359,7 @@ cd /tmp
     dpkg -i mono_3.10-armhf.deb
 #fi
 rm mono_3.10-armhf.deb
+rm /etc/apt/sources.list.d/sonarr.list
 fi
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
