@@ -338,7 +338,7 @@ debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install libmono-cil-dev -y --force-yes
 rm /etc/apt/sources.list.d/sonarr.list
 debconf-apt-progress -- apt-get update
-cat >> /etc/apt/sources.list.d/sonarr.list <<EOF
+cat > /etc/apt/sources.list.d/sonarr.list <<EOF
 # Sonarr
 deb http://apt.sonarr.tv/ master main
 EOF
@@ -659,7 +659,7 @@ PLEXARCH=x86
 fi
 if [ $PLEXARCH == ARM ]; then
 	if !(cat /etc/apt/sources.list.d/pms.list | grep -q Plex > /dev/null);then
-cat >> /etc/apt/sources.list.d/pms.list <<EOF
+cat > /etc/apt/sources.list.d/pms.list <<EOF
 # Plex
 deb http://dev2day.de/pms/ $plexrepo main
 EOF
