@@ -394,9 +394,9 @@ if ! getent passwd $SICKRAGEUSER > /dev/null; then
 echo "User $SICKRAGEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+unrartest
 debconf-apt-progress -- apt-get install libssl-dev python-cheetah python-pip python-dev -y
 pip install pyopenssl==0.13.1
-unrartest
 sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
 cat > /etc/default/sickrage <<EOF
@@ -424,8 +424,8 @@ if ! getent passwd $COUCHPOTATOUSER > /dev/null; then
 echo "User $COUCHPOTATOUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-debconf-apt-progress -- apt-get install -y python
 unrartest
+debconf-apt-progress -- apt-get install -y python
 git clone http://github.com/RuudBurger/CouchPotatoServer /opt/CouchPotato
 chown -R $COUCHPOTATOUSER:$COUCHPOTATOUSER /opt/CouchPotato
 cat > /etc/default/couchpotato <<EOF
@@ -512,8 +512,8 @@ SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 i
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-debconf-apt-progress -- apt-get install -y python2.6 python-cheetah python-openssl par2 unzip
 unrartest
+debconf-apt-progress -- apt-get install -y python2.6 python-cheetah python-openssl par2 unzip
 if !(cat /etc/apt/sources.list | grep -q Sabnzbd > /dev/null);then
 cat >> /etc/apt/sources.list <<EOF
 # Sabnzbd
