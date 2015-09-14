@@ -33,7 +33,8 @@ apt-get clean
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get -y install sudo net-tools curl debconf-utils dnsutils unzip whiptail git build-essential alsa-base alsa-utils stunnel4 html2text apt-transport-https --force-yes
 debconf-apt-progress -- apt-get upgrade -y
-fi }
+#fi
+}
 updatecheck
 #--------------------------------------------------------------------------------------------------------------------------------
 
