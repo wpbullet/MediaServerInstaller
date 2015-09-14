@@ -10,7 +10,7 @@ if hash unrar 2>/dev/null; then
 	return
 else
 	cpunum=$(nproc)	
-	debconf-apt-progress -- apt-get install build-essential -y
+	apt-get install build-essential -y
 	cd /tmp
 	wget rarlab.com/rar/unrarsrc-5.2.7.tar.gz
 	tar -xvf unrarsrc-5.2.7.tar.gz
