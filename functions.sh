@@ -547,7 +547,7 @@ debconf-apt-progress -- apt-get install build-essential git python-imaging pytho
 pip install psutil
 git clone https://github.com/Hellowlol/HTPC-Manager /opt/HTPCManager
 chown -R $HTPCUSER:$HTPCUSER /opt/HTPCManager
-cp /opt/HTPCManager/initd /etc/init.d/htpcmanager
+cp /opt/HTPCManager/initscripts/initd /etc/init.d/htpcmanager
 sed -i "/APP_PATH=/c\APP_PATH=/opt/HTPCManager" /etc/init.d/htpcmanager
 chmod +x /etc/init.d/htpcmanager
 update-rc.d htpcmanager defaults
