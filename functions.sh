@@ -196,7 +196,7 @@ usermod -a -G $TRANSUSER debian-transmission
 else
 usermod -a -G $TRANSUSER transmission-daemon
 fi
-chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
+#chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
 chmod 775 /etc/transmission-daemon/settings.json
 #chown -R $TRANSUSER:$TRANSUSER /var/lib/transmission-daemon
 #sed -i "/USER=/c\USER=$TRANSUSER" /etc/init.d/transmission-daemon
