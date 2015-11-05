@@ -52,7 +52,7 @@ SUBNET="$1.$2.$3."
 #set ${HOSTNAMEFQDN//./ }
 #HOSTNAMESHORT="$1"
 
-whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This Debian Wheezy installer will prompt for valid users and ports, defaults are suggested in () for those in doubt" 8 78
+whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This Debian Wheezy/Jessie and Ubuntu installer will prompt for valid users and ports, defaults are suggested in () for those in doubt" 8 78
 
 source "functions.sh"
 
