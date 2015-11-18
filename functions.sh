@@ -397,7 +397,7 @@ fi
 unrartest
 debconf-apt-progress -- apt-get install libssl-dev python-cheetah python-pip python-dev -y
 pip install pyopenssl==0.13.1
-sudo git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage
+sudo git clone https://github.com/SickRage/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
 cat > /etc/default/sickrage <<EOF
 SR_USER=$SICKRAGEUSER
