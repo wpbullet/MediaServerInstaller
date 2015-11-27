@@ -713,8 +713,8 @@ cat > /etc/udev/rules.d/99-input.rules <<EOF
 SUBSYSTEM=="input", GROUP="input", MODE="0660"
 KERNEL=="tty[0-9]*", GROUP="tty", MODE="0660"
 EOF
-echo "ENABLED=1" > /etc/default/kodi
-#sed -i "/ENABLED=/c\ENABLED=1" /etc/default/kodi
+#echo "ENABLED=1" > /etc/default/kodi
+sed -i s'/ENABLED=0/ENABLED=1/' /etc/default/kodi
 
 sed -i "/gpu_mem=/c\gpu_mem=128" /boot/config.txt
 echo "Kodi has been installed, reboot"
