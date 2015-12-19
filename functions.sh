@@ -12,14 +12,15 @@ else
 	cpunum=$(nproc)	
 	apt-get install build-essential -y
 	cd /tmp
-	wget rarlab.com/rar/unrarsrc-5.2.7.tar.gz
-	tar -xvf unrarsrc-5.2.7.tar.gz
+	RARVERSION=$(wget -q http://www.rarlab.com/rar_add.htm -O - | grep unrarsrc | awk -F "[\"]" ' NR==1 {print $2}')
+	wget $RARVERSION
+	tar -xvf unrarsrc*.tar.gz
 	cd unrar
 	make -j$cpunum -f makefile
 	install -v -m755 unrar /usr/bin
 	cd ..
-	rm -R unrar
-	rm unrarsrc-5.2.7.tar.gz
+	rm -R unrar*
+	rm unrarsrc-*.tar.gz
 fi }
 
 install_basic (){
