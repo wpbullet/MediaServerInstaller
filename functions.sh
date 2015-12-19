@@ -395,7 +395,7 @@ echo "User $SICKRAGEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 unrartest
-debconf-apt-progress -- apt-get install libssl-dev python-cheetah python-pip python-dev -y
+debconf-apt-progress -- apt-get install git-core libssl-dev libxslt1-dev libxslt1.1 libxml2-dev libxml2 libssl-dev libffi-dev python-pip python-dev -y
 pip install pyopenssl==0.13.1
 sudo git clone https://github.com/SickRage/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
