@@ -384,6 +384,35 @@ echo "Sonarr is running on $showip:8989"
 echo "Configure Sonarr at HTPCGuides.com http://goo.gl/06iXEw"
 }
 
+install_jackett (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# jackett
+#--------------------------------------------------------------------------------------------------------------------------------
+hash mono 2>/dev/null || { echo >&2 "Mono isn't installed, install Sonarr first.  Aborting."; exit 1; }
+JACKETTUSER=$(whiptail --inputbox "Choose the owner of the downloads folder (usually pi)" 8 78 $JACKETTUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $JACKETTUSER > /dev/null; then
+echo "User $JACKETTUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O -  | grep -E \/tag\/ | awk -F "[><]" '{print $3}')
+wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.Mono.tar.gz
+tar -xvf Jackett*
+mkdir /opt/jackett
+sudo mv Jackett/* /opt/jackett
+chown -R $JACKETTUSER:$JACKETTUSER /opt/jackett
+#init
+cd /etc/init.d
+wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/jackett
+sed -i s"/RUN_AS=htpcguides/RUN_AS=$JACKETTUSER/" /etc/init.d/jackett
+chmod +x /etc/init.d/jackett
+cd /tmp
+update-rc.d jackett defaults
+service jackett start
+echo "Jackett is running on $showip:9117"
+echo "Configure Jackett at HTPCGuides.com http://goo.gl/A9i7ah"
+}
+
 install_sickrage (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sickrage
