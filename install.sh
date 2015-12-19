@@ -59,10 +59,11 @@ source "functions.sh"
 whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCGuides.com and Igor Pecovnik" --checklist --separate-output "\nIP:   $serverIP\nFQDN: $HOSTNAMEFQDN\n\nChoose what you want to install:" 20 78 9 \
 "Plex" "Plex Media Server        " off \
 "Kodi" "Raspberry Pi only        " off \
-"NZBGet Repo" "Usenet Downloader written in C++" off \
+"NZBGet" "Usenet Downloader written in C++" off \
 "Sabnzbd" "Usenet Downloader written in Python" off \
 "SickRage" "Python Show Automation Finder" off \
 "Sonarr" ".NET Show Automation Finder" off \
+"Jackett" "Add custom providers to Sonarr" off \
 "CouchPotato" "Video Automation Finder" off \
 "Mylar" "Comic Automation Finder" off \
 "Headphones" "Music Automation Finder" off \
@@ -70,7 +71,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "CherryMusic" "Personal Grooveshark Server" off \
 "HTPC Manager" "HTPC Management system" off \
 "pyLoad" "Online locker downloader" off \
-"miniDLNA 1.1.4" "ReadyMedia miniDLNA" off \
+"miniDLNA" "ReadyMedia miniDLNA Latest" off \
 "Ubooquity" "eBook Management" off \
 "Samba" "Windows compatible file sharing        " off \
 "NFS Tools" "Windows compatible file sharing        " off \
@@ -93,8 +94,9 @@ do
                    "TV headend") 		ins_tvheadend="true";;
                    "BitTorrent Sync") 	  	ins_btsync="true";;
                    "SoftEther VPN server") 	ins_vpn_server="true";;
-		   "NZBGet Repo") 			ins_nzbget="true";;
-		   "miniDLNA 1.1.4") 			ins_minidlna="true";;
+		   "NZBGet") 			ins_nzbget="true";;
+		   "miniDLNA") 			ins_minidlna="true";;
+		   "Jackett") 			ins_jackett="true";;		   
 		   "Sabnzbd") 			ins_sabnzbd="true";;
                    "SickRage") 			ins_sickrage="true";;
                    "Headphones") 			ins_headphones="true";;
@@ -115,6 +117,7 @@ if [[ "$ins_syncthing" == "true" ]]; 			then install_syncthing;			fi
 if [[ "$ins_pyload" == "true" ]]; 			then install_pyload;			fi
 if [[ "$ins_minidlna" == "true" ]]; 			then install_minidlna;			fi
 if [[ "$ins_ubooquity" == "true" ]]; 			then install_ubooquity;			fi
+if [[ "$ins_jackett" == "true" ]]; 			then install_jackett;			fi
 if [[ "$ins_kodi" == "true" ]]; 			then install_kodi;			fi
 if [[ "$ins_plex" == "true" ]]; 			then install_plex;			fi
 if [[ "$ins_samba" == "true" ]]; 			then install_samba; 			fi
