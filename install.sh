@@ -110,6 +110,7 @@ do
                    "CherryMusic")		ins_cherrymusic="true";;
 		   "ISPConfig")			ins_ispconfig="true";;
 		   "Webmin")			ins_webmin="true";;
+		   "LEMP")			ins_lemp="true";;
                 *)
                 ;;
         esac
@@ -139,6 +140,7 @@ if [[ "$ins_htpcmanager" == "true" ]];                 then install_htpcmanager;
 if [[ "$ins_rpimonitor" == "true" ]]; 			then install_bmc180; install_tsl2561; install_rpimonitor;  			fi
 if [[ "$ins_transmission" == "true" ]];                 then install_transmission;              fi
 if [[ "$ins_cherrymusic" == "true" ]];                 then install_cherrymusic;              fi
+if [[ "$ins_lemp" == "true" ]];                 	then install_lemp;              fi
 if [[ "$ins_ispconfig" == "true" ]];                    then
 							install_basic
 							install_DashNTP
