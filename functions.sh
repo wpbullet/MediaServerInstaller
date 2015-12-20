@@ -760,7 +760,9 @@ debconf-apt-progress -- apt-get install python-support python-crypto python-pycu
 debconf-apt-progress -- apt-get install python-pip python-dev libmozjs-dev -y
 pip install pyopenssl
 unrartest
-wget --no-check-certificate https://github.com/pyload/pyload/releases/download/v0.4.9/pyload-cli-v0.4.9-all.deb
+PYLOADVER=$(wget -q https://github.com/pyload/pyload/releases -O -  | grep -E \/tag\/ | awk -F "[\/\"]" 'NR==1 {print $7}')
+PYLOADVERDEB=$(wget -q https://github.com/pyload/pyload/releases -O -  | grep -E pyload-cli.+all.deb | awk -F "[\/\"]" 'NR==1 {print $8}')
+wget https://github.com/pyload/pyload/releases/download/$PYLOADVER/$PYLOADVERDEB
 dpkg -i pyload*
 rm pyload*
 echo "Type pyLoadCore -s for initial setup"
