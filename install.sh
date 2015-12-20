@@ -79,6 +79,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "TV headend" "TV streaming / proxy" off \
 "Syncthing" "Personal cloud" off \
 "BitTorrent Sync" "Personal cloud" off \
+"Webmin" "Admin server web interface" off \
 "SoftEther VPN server" "Advanced VPN solution" off \
 "LEMP" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
 while read choice
@@ -108,12 +109,14 @@ do
                    "Transmission")		ins_transmission="true";;
                    "CherryMusic")		ins_cherrymusic="true";;
 		   "ISPConfig")			ins_ispconfig="true";;
+		   "Webmin")			ins_webmin="true";;
                 *)
                 ;;
         esac
 done < results
 
 if [[ "$ins_syncthing" == "true" ]]; 			then install_syncthing;			fi
+if [[ "$ins_webmin" == "true" ]]; 			then install_webmin;			fi
 if [[ "$ins_pyload" == "true" ]]; 			then install_pyload;			fi
 if [[ "$ins_minidlna" == "true" ]]; 			then install_minidlna;			fi
 if [[ "$ins_ubooquity" == "true" ]]; 			then install_ubooquity;			fi
