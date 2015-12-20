@@ -532,6 +532,7 @@ cp /opt/headphones/init-scripts/init.ubuntu /etc/init.d/headphones
 chmod +x /etc/init.d/headphones
 update-rc.d headphones defaults
 service headphones start
+sleep 15
 service headphones stop
 sed -i "/http_host = /c\http_host = 0.0.0.0" /opt/headphones/config.ini
 service headphones start
