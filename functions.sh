@@ -778,7 +778,7 @@ install_pyload (){
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install python-support python-crypto python-pycurl tesseract-ocr tesseract-ocr-eng python-imaging -y
 debconf-apt-progress -- apt-get install python-pip python-dev -y
-debconf-apt-progress -- apt-get install libmozjs-dev -y
+debconf-apt-progress -- apt-get install libmozjs* -y
 pip install pyopenssl
 unrartest
 PYLOADVER=$(wget -q https://github.com/pyload/pyload/releases -O -  | grep -E \/tag\/ | awk -F "[\/\"]" 'NR==1 {print $7}')
