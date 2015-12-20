@@ -23,6 +23,16 @@ else
 	rm unrarsrc-*.tar.gz
 fi }
 
+install_webmin ()
+#--------------------------------------------------------------------------------------------------------------------------------
+# Set hostname, FQDN, add to sources list
+#--------------------------------------------------------------------------------------------------------------------------------
+debconf-apt-progress -- apt-get install libauthen-pam-perl libio-pty-perl libnet-ssleay-perl libapt-pkg-perl apt-show-versions libwww-perl -y
+wget http://www.webmin.com/download/deb/webmin-current.deb
+dpkg -i webmin*
+rm webmin*
+echo "Webmin is running at https://$showip:10000"
+
 install_basic (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # Set hostname, FQDN, add to sources list
