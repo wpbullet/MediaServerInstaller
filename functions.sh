@@ -178,8 +178,8 @@ install_tvheadend (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # TVheadend
 #--------------------------------------------------------------------------------------------------------------------------------
-if !(cat /etc/apt/sources.list | grep -q headend > /dev/null);then
-cat >> /etc/apt/sources.list <<EOF
+if !(cat /etc/apt/sources.list.d/tvheadend | grep -q headend > /dev/null);then
+cat > /etc/apt/sources.list.d/tvheadend <<EOF
 # TV headend
 deb http://apt.tvheadend.org/stable wheezy main
 EOF
