@@ -649,7 +649,7 @@ chmod +x /etc/init.d/cherrymusic
 update-rc.d cherrymusic defaults
 #whiptail --title "HTPC Guides Media Installer" --msgbox "When you see 'Open your browser and put the server IP:$CHERRYPORT' in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
 echo "sudo -u $CHERRYUSER python /opt/cherrymusic/cherrymusic --setup --port $CHERRYPORT"
-echo "Run the above command to setup cherrymusic in admin mode on $showip:$CHERRYPORT to create the admin user"
+echo "Run the above sudo command to setup cherrymusic in admin mode on $showip:$CHERRYPORT to create the admin user"
 echo "Reboot and CherryMusic will autostart"
 }
 
