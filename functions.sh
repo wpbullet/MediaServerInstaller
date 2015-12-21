@@ -672,13 +672,8 @@ EOF
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 fi
 debconf-apt-progress -- apt-get update
-echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-
-echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-
-echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 apt-get install unzip oracle-java8-installer -y
-
 mkdir -p /opt/ubooquity
 cd /opt/ubooquity
 wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
