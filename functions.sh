@@ -551,6 +551,43 @@ echo "Mylar is running on $showip:8090"
 echo "Configure Mylar at HTPCGuides.com http://goo.gl/KVFfMS"
 }
 
+install_lazylibrarian (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# lazylibrarian
+#--------------------------------------------------------------------------------------------------------------------------------
+LAZYLIBRARIANUSER=$(whiptail --inputbox "Enter the user to run LazyLibrarian as (usually pi)" 8 78 $LAZYLIBRARIANUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $LAZYLIBRARIANUSER > /dev/null; then
+echo "User $LAZYLIBRARIANUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+unrartest
+debconf-apt-progress -- apt-get install python python-cherrypy git -y
+git clone https://github.com/philborman/LazyLibrarian /opt/lazylibrarian
+chown -R $LAZYLIBRARIANUSER:$LAZYLIBRARIANUSER /opt/lazylibrarian
+cat > /etc/default/lazylibrarian <<EOF
+# [required] set path where lazylibrarian is installed:
+APP_PATH=/opt/lazylibrarian
+
+# [optional] change to 1 to enable daemon
+ENABLE_DAEMON=1
+
+# [required] user or uid of account to run the program as:
+RUN_AS=$LAZYLIBRARIANUSER
+
+# [optional] change to 1 to enable updating from webinterface
+# this changes ownership of /opt/lazylibrarian to user set @ RUN_AS
+WEB_UPDATE=1
+
+PORT=5299
+PID_FILE=/opt/lazylibrarian/lazylibrarian.pid
+EOF
+cp /opt/lazylibrarian/init/ubuntu.initd /etc/init.d/lazylibrarian
+chmod +x /etc/init.d/lazylibrarian
+update-rc.d lazylibrarian defaults
+echo "LazyLibrarian will run on $showip:5299 after reboot"
+}
+
 install_headphones (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # headphones
