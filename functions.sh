@@ -689,9 +689,10 @@ if !(crontab -l -u $UBOOQUITYUSER | grep -q Ubooquity.jar > /dev/null);then
 crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
 @reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless -port 2202"; } | crontab -u $UBOOQUITYUSER -
 fi
-echo "Ubooquity will run on $showip:2022 and will autostart on boot"
+echo "Ubooquity will run on $showip:2022 will autostart on boot"
 echo "Copy this to execute Ubooquity: cd /opt/ubooquity && java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless -port 2022"
 echo "You must exit root mode before executing Ubooquity!"
+echo "Use $showip:2022/admin for initial setup"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
 }
 install_nfs (){
