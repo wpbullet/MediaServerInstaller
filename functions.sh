@@ -4,6 +4,12 @@
 # 
 #get ip
 showip=$(ifconfig eth0 | awk -F"[: ]+" '/inet addr:/ {print $4}')
+#get architecture
+if uname -m | grep -i arm > /dev/null; then
+ARCH=ARM
+else
+ARCH=x86
+fi
 #functions
 function unrartest {
 if hash unrar 2>/dev/null; then
@@ -337,7 +343,6 @@ fi
 service nzbget start
 echo "NZBGet is running on $showip:6789"
 echo "Configure NZBGet at HTPCGuides.com http://goo.gl/PDjIAP"
-
 }
 
 install_sonarr (){
@@ -408,13 +413,22 @@ install_jackett (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # jackett
 #--------------------------------------------------------------------------------------------------------------------------------
-hash mono 2>/dev/null || { echo >&2 "Mono isn't installed, install Sonarr first.  Aborting."; exit 1; }
+#hash mono 2>/dev/null || { echo >&2 "Mono isn't installed, install Sonarr first.  Aborting."; exit 1; }
 JACKETTUSER=$(whiptail --inputbox "Choose the owner of the downloads folder (usually pi)" 8 78 $JACKETTUSER --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $JACKETTUSER > /dev/null; then
 echo "User $JACKETTUSER doesn't exist, exiting, restart the installer"
 exit
 fi
+hash mono 2>/dev/null || { 
+if [ $ARCH == ARM ]; then
+	wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
+    dpkg -i mono_3.10-armhf.deb
+fi
+if [ $ARCH == x86 ]; then
+	debconf-apt-progress -- apt-get install mono-complete -y
+fi
+}
 jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O -  | grep -E \/tag\/ | awk -F "[><]" '{print $3}')
 wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.Mono.tar.gz
 tar -xvf Jackett*
@@ -704,23 +718,23 @@ sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/Ig' /etc/locale.gen
 /usr/sbin/locale-gen en_US.UTF-8
 echo "Attempted to generate locales"
 fi
-if uname -a | grep -i arm > /dev/null; then
-PLEXARCH=ARM
-else
-PLEXARCH=x86
-fi
-if [ $PLEXARCH == ARM ]; then
+#if uname -a | grep -i arm > /dev/null; then
+#PLEXARCH=ARM
+#else
+#PLEXARCH=x86
+#fi
+if [ $ARCH == ARM ]; then
 	if !(cat /etc/apt/sources.list.d/pms.list | grep -q Plex > /dev/null);then
 cat > /etc/apt/sources.list.d/pms.list <<EOF
 # Plex
 deb http://dev2day.de/pms/ $plexrepo main
 EOF
 	wget -O - http://dev2day.de/pms/dev2day-pms.gpg.key | apt-key add -
+	fi
 fi
-fi
-if [ $PLEXARCH == x86 ]; then
-		if !(cat /etc/apt/sources.list.d/plex.list | grep -q Plex > /dev/null);then
-		wget -O - http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | sudo apt-key add -
+if [ $ARCH == x86 ]; then
+	if !(cat /etc/apt/sources.list.d/plex.list | grep -q Plex > /dev/null);then
+	wget -O - http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | sudo apt-key add -
 cat >> /etc/apt/sources.list.d/plex.list <<EOF
 # Plex
 deb http://www.deb-multimedia.org wheezy main non-free
@@ -728,7 +742,7 @@ deb http://shell.ninthgate.se/packages/debian wheezy main
 EOF
 apt-get update
 apt-get install deb-multimedia-keyring -y --force-yes
-fi
+	fi
 fi
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install plexmediaserver -y
