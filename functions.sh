@@ -1096,7 +1096,7 @@ install_vpn_server (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # Script downloads latest stable
 #--------------------------------------------------------------------------------------------------------------------------------
-apt-get install build-essential ncurses-dev libreadline-dev libssl-dev -y
+ebconf-apt-progress -- apt-get install build-essential ncurses-dev libreadline-dev libssl-dev -y
 cd /tmp
 SOFTETHERVER=$(wget -q http://www.softether-download.com/files/softether/ -O - | html2text | grep rtm | tail -n 1 | awk '{print $4}')
 SOFTETHERPROG=$(wget -q http://www.softether-download.com/files/softether/$SOFTETHERVER/Source_Code/ -O - | html2text | grep gz | awk '{print $4}')
