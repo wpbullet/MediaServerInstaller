@@ -118,12 +118,31 @@ install_varnish (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # Install high-performance HTTP accelerator
 #-------------------------------------------------------------------------------------------------------------------------------- 
-apt-get -y -qq install python-docutils python-sphinx automake autotools-dev libjemalloc-dev libtool pkg-config libncurses-dev libpcre3-dev libedit-dev
-git clone https://github.com/varnish/Varnish-Cache /tmp/varnish
-cd /tmp/varnish
-./autogen.sh
-./configure
-make && make install
+apt-get install apt-transport-https -y
+wget -O - https://repo.varnish-cache.org/GPG-key.txt | sudo apt-key add -
+cat > /etc/apt/sources.list.d/varnish-cache.list<<EOF
+deb-src https://repo.varnish-cache.org/debian/ jessie varnish-4.1
+EOF
+apt-get update
+apt-get build-dep varnish -y
+cd /tmp
+apt-get source varnish -y
+rm varnish_*.dsc
+rm varnish_*.orig.tar.gz
+rm varnish_*.diff.gz
+cd varnish-4*
+./configure --prefix=/usr
+make
+make install
+cp debian/varnish.init /etc/init.d/varnish
+chmod +x /etc/init.d/varnish
+cp debian/varnish.default /etc/default/varnish
+update-rc.d varnish defaults
+mkdir -p /etc/varnish
+cp etc/example.vcl /etc/varnish/default.vcl
+dd if=/dev/random of=/etc/varnish/secret count=1
+service varnish start
+echo "Configure Varnish with WordPress using this guide http://goo.gl/zlvBdB"
 }
 
 
@@ -356,7 +375,7 @@ echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 #if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
-cat >> /etc/apt/sources.list.d/sonarr.list <<EOF
+cat > /etc/apt/sources.list.d/sonarr.list <<EOF
 deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
 EOF
 debconf-apt-progress -- apt-get update
