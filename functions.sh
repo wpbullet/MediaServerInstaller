@@ -230,7 +230,7 @@ install_transmission (){
 #--------------------------------------------------------------------------------------------------------------------------------
 debconf-apt-progress -- apt-get -y install transmission-cli transmission-common transmission-daemon
 service transmission-daemon stop
-TRANSUSER=$(whiptail --inputbox "Choose the owner of the downloads folder (usually pi)" 8 78 $TRANSUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+TRANSUSER=$(whiptail --inputbox "Choose the owner of the downloads folder (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $TRANSUSER > /dev/null; then
 echo "User $TRANSUSER doesn't exist, exiting, restart the installer"
@@ -254,9 +254,9 @@ sed -i 's/.*"rpc-enabled":.*/    "rpc-enabled": 'true',/' /etc/transmission-daem
 else
 exit 1
 fi
-TRANSWEBUSER=$(whiptail --inputbox "Choose your Transmission web interface username" 8 78 $TRANSWEBUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+TRANSWEBUSER=$(whiptail --inputbox "Choose your Transmission web interface username" 8 78 "username" --title "$SECTION" 3>&1 1>&2 2>&3)
 sed -i 's/.*"rpc-username":.*/    "rpc-username": '\"$TRANSWEBUSER\"',/' /etc/transmission-daemon/settings.json
-TRANSWEBPASS=$(whiptail --inputbox "Choose your Transmission web interface password" 8 78 $TRANSWEBPASS --title "$SECTION" 3>&1 1>&2 2>&3)
+TRANSWEBPASS=$(whiptail --inputbox "Choose your Transmission web interface password" 8 78 "password" --title "$SECTION" 3>&1 1>&2 2>&3)
 sed -i 's/.*"rpc-password":.*/    "rpc-password": '\"$TRANSWEBPASS\"',/' /etc/transmission-daemon/settings.json
 if [ -e "/lib/systemd/system/transmission-daemon.service" ]; then
 	sed -i "/ExecStart=/c\ExecStart=/usr/bin/transmission-daemon -f --log-error -g /etc/transmission-daemon" /lib/systemd/system/transmission-daemon.service
@@ -315,7 +315,7 @@ install_nzbget (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # nzbget
 #--------------------------------------------------------------------------------------------------------------------------------
-NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as (usually pi)" 8 78 $NZBGETUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+NZBGETUSER=$(whiptail --inputbox "Enter the user to run NZBGet as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $NZBGETUSER > /dev/null; then
 echo "User $NZBGETUSER doesn't exist, exiting, restart the installer"
@@ -368,7 +368,7 @@ install_sonarr (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sonarr
 #--------------------------------------------------------------------------------------------------------------------------------
-NZBDRONEUSER=$(whiptail --inputbox "Enter the user to run Sonarr as (usually pi)" 8 78 $NZBDRONEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+NZBDRONEUSER=$(whiptail --inputbox "Enter the user to run Sonarr as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $NZBDRONEUSER > /dev/null; then
 echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
@@ -433,7 +433,7 @@ install_jackett (){
 # jackett
 #--------------------------------------------------------------------------------------------------------------------------------
 #hash mono 2>/dev/null || { echo >&2 "Mono isn't installed, install Sonarr first.  Aborting."; exit 1; }
-JACKETTUSER=$(whiptail --inputbox "Choose the owner of the downloads folder (usually pi)" 8 78 $JACKETTUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+JACKETTUSER=$(whiptail --inputbox "Choose the owner of the downloads folder (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $JACKETTUSER > /dev/null; then
 echo "User $JACKETTUSER doesn't exist, exiting, restart the installer"
@@ -470,7 +470,7 @@ install_sickrage (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sickrage
 #--------------------------------------------------------------------------------------------------------------------------------
-SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run SickRage as (usually pi)" 8 78 $SICKRAGEUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+SICKRAGEUSER=$(whiptail --inputbox "Enter the user to run SickRage as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $SICKRAGEUSER > /dev/null; then
 echo "User $SICKRAGEUSER doesn't exist, exiting, restart the installer"
@@ -500,7 +500,7 @@ install_couchpotato (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # couchpotato
 #--------------------------------------------------------------------------------------------------------------------------------
-COUCHPOTATOUSER=$(whiptail --inputbox "Enter the user to run CouchPotato as (usually pi)" 8 78 $COUCHPOTATOUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+COUCHPOTATOUSER=$(whiptail --inputbox "Enter the user to run CouchPotato as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $COUCHPOTATOUSER > /dev/null; then
 echo "User $COUCHPOTATOUSER doesn't exist, exiting, restart the installer"
@@ -528,7 +528,7 @@ install_mylar (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # mylar
 #--------------------------------------------------------------------------------------------------------------------------------
-MYLARUSER=$(whiptail --inputbox "Enter the user to run Mylar as (usually pi)" 8 78 $MYLARUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+MYLARUSER=$(whiptail --inputbox "Enter the user to run Mylar as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $MYLARUSER > /dev/null; then
 echo "User $MYLARUSER doesn't exist, exiting, restart the installer"
@@ -555,7 +555,7 @@ install_lazylibrarian (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # lazylibrarian
 #--------------------------------------------------------------------------------------------------------------------------------
-LAZYLIBRARIANUSER=$(whiptail --inputbox "Enter the user to run LazyLibrarian as (usually pi)" 8 78 $LAZYLIBRARIANUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+LAZYLIBRARIANUSER=$(whiptail --inputbox "Enter the user to run LazyLibrarian as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $LAZYLIBRARIANUSER > /dev/null; then
 echo "User $LAZYLIBRARIANUSER doesn't exist, exiting, restart the installer"
@@ -592,7 +592,7 @@ install_headphones (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # headphones
 #--------------------------------------------------------------------------------------------------------------------------------
-HPUSER=$(whiptail --inputbox "Enter the user to run Headphones as (usually pi)" 8 78 $HPUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+HPUSER=$(whiptail --inputbox "Enter the user to run Headphones as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $HPUSER > /dev/null; then
 echo "User $HPUSER doesn't exist, exiting, restart the installer"
@@ -622,15 +622,15 @@ install_sabnzbd (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # sabnzbd
 #--------------------------------------------------------------------------------------------------------------------------------
-SABUSER=$(whiptail --inputbox "Enter the user to run Sabnzbd as (usually pi)" 8 78 $SABUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+SABUSER=$(whiptail --inputbox "Enter the user to run Sabnzbd as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $SABUSER > /dev/null; then
 echo "User $SABUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 if you don't know)" 8 78 $SABHOST --title "$SECTION" 3>&1 1>&2 2>&3)
+SABHOST=$(whiptail --inputbox "Enter the host to run Sabnzbd as (enter 0.0.0.0 if you don't know)" 8 78 "0.0.0.0" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)" 8 78 $SABPORT --title "$SECTION" 3>&1 1>&2 2>&3)
+SABPORT=$(whiptail --inputbox "Enter the port to run Sabnzbd as (enter 8080 if you want the default)" 8 78 "8080" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 unrartest
 debconf-apt-progress -- apt-get install -y python-gdbm
@@ -658,7 +658,7 @@ install_htpcmanager (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # htpcmanager
 #--------------------------------------------------------------------------------------------------------------------------------
-HTPCUSER=$(whiptail --inputbox "Enter the user to run HTPC Manager as (usually pi)" 8 78 $HTPCUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+HTPCUSER=$(whiptail --inputbox "Enter the user to run HTPC Manager as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $HTPCUSER > /dev/null; then
 echo "User $HTPCUSER doesn't exist, exiting, restart the installer"
@@ -681,9 +681,9 @@ install_cherrymusic (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # cherrymusic
 #--------------------------------------------------------------------------------------------------------------------------------
-CHERRYUSER=$(whiptail --inputbox "Enter the user to run CherryMusic as (usually pi)" 8 78 $CHERRYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+CHERRYUSER=$(whiptail --inputbox "Enter the user to run CherryMusic as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
-CHERRYPORT=$(whiptail --inputbox "Enter the port to run CherryMusic on (default 7600)" 8 78 $CHERRYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+CHERRYPORT=$(whiptail --inputbox "Enter the port to run CherryMusic on (default 7600)" 8 78 "7600" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $CHERRYUSER > /dev/null; then
 echo "User $CHERRYUSER doesn't exist, exiting, restart the installer"
@@ -713,7 +713,7 @@ install_ubooquity (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install Ubooquity
 #--------------------------------------------------------------------------------------------------------------------------------
-UBOOQUITYUSER=$(whiptail --inputbox "Enter the user to run Ubooquity as (usually pi)" 8 78 $UBOOQUITYUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+UBOOQUITYUSER=$(whiptail --inputbox "Enter the user to run Ubooquity as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $UBOOQUITYUSER > /dev/null; then
 echo "User $UBOOQUITYUSER doesn't exist, exiting, restart the installer"
@@ -964,7 +964,7 @@ install_syncthing () {
 #--------------------------------------------------------------------------------------------------------------------------------
 # Install syncthing
 #--------------------------------------------------------------------------------------------------------------------------------
-SYNCTHINGUSER=$(whiptail --inputbox "Enter the user to run Syncthing as (usually pi)" 8 78 $SYNCTHINGUSER --title "$SECTION" 3>&1 1>&2 2>&3)
+SYNCTHINGUSER=$(whiptail --inputbox "Enter the user to run Syncthing as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $SYNCTHINGUSER > /dev/null; then
 echo "User $SYNCTHINGUSER doesn't exist, exiting, restart the installer"
