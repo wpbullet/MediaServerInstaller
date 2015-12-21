@@ -119,7 +119,7 @@ install_varnish (){
 # Install high-performance HTTP accelerator
 #-------------------------------------------------------------------------------------------------------------------------------- 
 apt-get install apt-transport-https -y
-wget -O - https://repo.varnish-cache.org/GPG-key.txt | sudo apt-key add -
+wget -O - https://repo.varnish-cache.org/GPG-key.txt | apt-key add -
 cat > /etc/apt/sources.list.d/varnish-cache.list<<EOF
 deb-src https://repo.varnish-cache.org/debian/ jessie varnish-4.1
 EOF
@@ -132,7 +132,7 @@ rm varnish_*.orig.tar.gz
 rm varnish_*.diff.gz
 cd varnish-4*
 ./configure --prefix=/usr
-make
+make -j$(ncpu)
 make install
 cp debian/varnish.init /etc/init.d/varnish
 chmod +x /etc/init.d/varnish
