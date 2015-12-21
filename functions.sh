@@ -1096,62 +1096,24 @@ install_vpn_server (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # Script downloads latest stable
 #--------------------------------------------------------------------------------------------------------------------------------
+apt-get install build-essential ncurses-dev libreadline-dev libssl-dev -y
 cd /tmp
-PREFIX="http://www.softether-download.com/files/softether/"
-URL=$(wget -q $PREFIX -O - | html2text | grep rtm | awk ' { print $(NF) }' | tail -1)
-SUFIX="${URL/-tree/}"
-if [ "$(dpkg --print-architecture | grep armhf)" != "" ]; then
-DLURL=$PREFIX$URL"/Linux/SoftEther%20VPN%20Server/32bit%20-%20ARM%20EABI/softether-vpnserver-$SUFIX-linux-arm_eabi-32bit.tar.gz"
-else
-DLURL=$PREFIX$URL"/Linux/SoftEther%20VPN%20Server/32bit%20-%20Intel%20x86/softether-vpnserver-$SUFIX-linux-x86-32bit.tar.gz"
-fi
-wget $DLURL -O - | tar -xz
-cd vpnserver
-make i_read_and_agree_the_license_agreement
-cd ..
-cp -R vpnserver /usr/local
-cd /usr/local/vpnserver/
-chmod 600 *
-chmod 700 vpncmd
-chmod 700 vpnserver
-cat <<EOT > /etc/init.d/vpnserver
-#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          vpnserver
-# Required-Start:    \$remote_fs \$syslog
-# Required-Stop:     \$remote_fs \$syslog
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Start daemon at boot time
-# Description:       Enable Softether by daemon.
-### END INIT INFO
-DAEMON=/usr/local/vpnserver/vpnserver
-LOCK=/var/lock/vpnserver
-test -x $DAEMON || exit 0
-case "\$1" in
-start)
-\$DAEMON start
-touch \$LOCK
-;;
-stop)
-\$DAEMON stop
-rm \$LOCK
-;;
-restart)
-\$DAEMON stop
-sleep 3
-\$DAEMON start
-;;
-*)
-echo "Usage: \$0 {start|stop|restart}"
-exit 1
-esac
-exit 0
-EOT
-chmod 755 /etc/init.d/vpnserver
-mkdir /var/lock/subsys
+SOFTETHERVER=$(wget -q http://www.softether-download.com/files/softether/ -O - | html2text | grep rtm | tail -n 1 | awk '{print $4}')
+SOFTETHERPROG=$(wget -q http://www.softether-download.com/files/softether/$SOFTETHERVER/Source_Code/ -O - | html2text | grep gz | awk '{print $4}')
+wget http://www.softether-download.com/files/softether/$SOFTETHERVER/Source_Code/$SOFTETHERPROG -O softether.tar.gz
+mkdir -p /tmp/softether
+tar --strip-components=1 -xvf softether.tar.gz -C /tmp/softether
+cd /tmp/softether
+( echo 1 && \
+  echo 1 \ && echo 1 ) \
+ | ./configure 
+make -j$(nproc)
+make install
+cp /tmp/softether/debian/softether-vpnserver.init /etc/init.d/vpnserver
+chmod +x /etc/init.d/vpnserver
+mkdir -p /var/lock/subsys
 update-rc.d vpnserver defaults
-/etc/init.d/vpnserver start
+service vpnserver start
 }
 
 
