@@ -685,10 +685,15 @@ wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
 unzip ubooquity*.zip
 rm ubooquity.zip
 chown -R $UBOOQUITYUSER:$UBOOQUITYUSER /opt/ubooquity
-if !(crontab -l -u $UBOOQUITYUSER | grep -q Ubooquity.jar > /dev/null);then
-crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
-@reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless -port 2202"; } | crontab -u $UBOOQUITYUSER -
-fi
+#if !(crontab -l -u $UBOOQUITYUSER | grep -q Ubooquity.jar > /dev/null);then
+#crontab -u $UBOOQUITYUSER -l | { cat; echo "PATH_UBOOQUITY=/opt/ubooquity
+#@reboot sleep 180 && cd \$PATH_UBOOQUITY && nohup java -jar \$PATH_UBOOQUITY/Ubooquity.jar -webadmin -headless -port 2202"; } | crontab -u $UBOOQUITYUSER -
+#fi
+cd /etc/init.d/
+wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/ubooquity
+sed -i "/DAEMON_USER=/c\DAEMON_USER=$UBOOQUITYUSER" /etc/init.d/ubooquity
+chmod +x /etc/init.d/ubooquity
+update-rc.d ubooquity defaults
 echo "Ubooquity will run on $showip:2022 will autostart on boot"
 echo "Copy this to execute Ubooquity: cd /opt/ubooquity && java -jar /opt/ubooquity/Ubooquity.jar -webadmin -headless -port 2022"
 echo "You must exit root mode before executing Ubooquity!"
