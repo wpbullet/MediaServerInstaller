@@ -639,12 +639,17 @@ pip install CherryPy==3.6
 debconf-apt-progress -- apt-get install imagemagick lame vorbis-tools flac -y
 git clone --branch devel https://github.com/devsnd/cherrymusic.git /opt/cherrymusic
 chown -R $CHERRYUSER:$CHERRYUSER /opt/cherrymusic
-if !(crontab -l -u $CHERRYUSER | grep -q cherrymusic > /dev/null);then
-crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; /usr/bin/python cherrymusic"; } | crontab -u $CHERRYUSER -
-fi
-whiptail --title "HTPC Guides Media Installer" --msgbox "When you see 'Open your browser and put the server IP:$CHERRYPORT' in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
-sudo -u $CHERRYUSER python /opt/cherrymusic/cherrymusic --setup --port $CHERRYPORT
-echo "CherryMusic is running in admin mode on $showip:$CHERRYPORT so go set it up"
+#if !(crontab -l -u $CHERRYUSER | grep -q cherrymusic > /dev/null);then
+#crontab -u $CHERRYUSER -l | { cat; echo "@reboot cd /opt/cherrymusic ; /usr/bin/python cherrymusic"; } | crontab -u $CHERRYUSER -
+#fi
+cd /etc/init.d/
+wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/cherrymusic
+sed -i "/DAEMON_USER=/c\DAEMON_USER=$CHERRYUSER" /etc/init.d/cherrymusic
+chmod +x /etc/init.d/cherrymusic
+update-rc.d cherrymusic defaults
+#whiptail --title "HTPC Guides Media Installer" --msgbox "When you see 'Open your browser and put the server IP:$CHERRYPORT' in the address bar, create the admin account and then Ctrl+C in Terminal to continue" 8 78
+echo "sudo -u $CHERRYUSER python /opt/cherrymusic/cherrymusic --setup --port $CHERRYPORT"
+echo "Run the above command to setup cherrymusic in admin mode on $showip:$CHERRYPORT to create the admin user"
 echo "Reboot and CherryMusic will autostart"
 }
 
