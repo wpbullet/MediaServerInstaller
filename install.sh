@@ -67,6 +67,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "CouchPotato" "Video Automation Finder" off \
 "Mylar" "Comic Automation Finder" off \
 "Headphones" "Music Automation Finder" off \
+"LazyLibrarian" "Book Automation Finder" off \
 "Transmission" "Torrent downloading" off \
 "CherryMusic" "Personal Grooveshark Server" off \
 "HTPC Manager" "HTPC Management system" off \
@@ -101,6 +102,7 @@ do
 		   "Sabnzbd") 			ins_sabnzbd="true";;
                    "SickRage") 			ins_sickrage="true";;
                    "Headphones") 			ins_headphones="true";;
+                   "LazyLibrarian") 			ins_lazylibrarian="true";;
                    "Sonarr") 			ins_sonarr="true";;
                    "CouchPotato")		ins_couchpotato="true";;
                    "Mylar")			ins_mylar="true";;
@@ -117,6 +119,7 @@ do
 done < results
 
 if [[ "$ins_syncthing" == "true" ]]; 			then install_syncthing;			fi
+if [[ "$ins_lazylibrarian" == "true" ]]; 			then install_lazylibrarian;			fi
 if [[ "$ins_webmin" == "true" ]]; 			then install_webmin;			fi
 if [[ "$ins_pyload" == "true" ]]; 			then install_pyload;			fi
 if [[ "$ins_minidlna" == "true" ]]; 			then install_minidlna;			fi
