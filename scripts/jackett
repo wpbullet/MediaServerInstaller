@@ -22,7 +22,7 @@ RUN_AS=htpcguides
 DAEMON=$(which mono)
 
 # Path to store PID file
-PID_FILE=/run/jackett.pid
+PID_FILE=/var/run/jackett.pid
 PID_PATH=$(dirname $PID_FILE)
 
 # script name
