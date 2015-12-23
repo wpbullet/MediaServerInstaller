@@ -376,37 +376,43 @@ echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 #if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
-if [ $ARCH == ARM ]; then
-	cat > /etc/apt/sources.list.d/sonarr.list <<EOF
-	deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
-EOF
-	debconf-apt-progress -- apt-get update
-	debconf-apt-progress -- apt-get install libmono-cil-dev mediainfo sqlite3 -y --force-yes
-	wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
-	dpkg -i mono_3.10-armhf.deb
-	rm /etc/apt/sources.list.d/sonarr.list
-	cat > /etc/apt/sources.list.d/sonarr.list <<EOF
-	# Sonarr
-	deb http://apt.sonarr.tv/ master main
-EOF
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
-	debconf-apt-progress -- apt-get update
-	apt-get install nzbdrone -y --force-yes
-	rm mono_3.10-armhf.deb
-	rm /etc/apt/sources.list.d/sonarr.list
-fi
-if [ $ARCH == x86 ]; then
 cat > /etc/apt/sources.list.d/sonarr.list <<EOF
-	# Sonarr
-	deb http://apt.sonarr.tv/ master main
+deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
 EOF
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
-	debconf-apt-progress -- apt-get update
-	debconf-apt-progress -- apt-get install nzbdrone mediainfo sqlite3 libmono-cil-dev -y
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get install libmono-cil-dev -y --force-yes
+rm /etc/apt/sources.list.d/sonarr.list
+debconf-apt-progress -- apt-get update
+cat > /etc/apt/sources.list.d/sonarr.list <<EOF
+# Sonarr
+deb http://apt.sonarr.tv/ master main
+EOF
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
+#debconf-apt-progress -- apt-get update
+apt-get update
+apt-get install nzbdrone -y --force-yes
+#fi
+if uname -a | grep -i arm > /dev/null; then
+cd /tmp
+#wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
+#FILENAME="mono_3.10-armhf.deb"
+#SIZE=$(du -sb $FILENAME | awk '{ print $1 }')
+#if ((SIZE<100000000)) ; then
+#    echo "Sourceforge is down :( trying mirror";
+    wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
+#else
+    dpkg -i mono_3.10-armhf.deb
+#fi
+rm mono_3.10-armhf.deb
+rm /etc/apt/sources.list.d/sonarr.list
 fi
-#tar -xvf NzbDrone.master.tar.gz
-#mv NzbDrone /opt/NzbDrone
-#rm NzbDrone.master.tar.gz
+if [ ! -d "/opt/NzbDrone" ]; then
+debconf-apt-progress -- apt-get install mediainfo sqlite3 libmono-cil-dev -y
+wget https://download.sonarr.tv/v2/master/latest/NzbDrone.master.tar.gz
+tar -xvf NzbDrone.master.tar.gz
+mv NzbDrone /opt/NzbDrone
+rm NzbDrone.master.tar.gz
+fi
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
 cd /etc/init.d/
