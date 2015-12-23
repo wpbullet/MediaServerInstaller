@@ -379,7 +379,7 @@ fi
 if [ $ARCH == ARM ]; then
 	cat > /etc/apt/sources.list.d/sonarr.list <<EOF
 	deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
-	EOF
+EOF
 	debconf-apt-progress -- apt-get update
 	debconf-apt-progress -- apt-get install libmono-cil-dev mediainfo sqlite3 -y --force-yes
 	wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
@@ -388,7 +388,7 @@ if [ $ARCH == ARM ]; then
 	cat > /etc/apt/sources.list.d/sonarr.list <<EOF
 	# Sonarr
 	deb http://apt.sonarr.tv/ master main
-	EOF
+EOF
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 	debconf-apt-progress -- apt-get update
 	apt-get install nzbdrone -y --force-yes
@@ -396,10 +396,10 @@ if [ $ARCH == ARM ]; then
 	rm /etc/apt/sources.list.d/sonarr.list
 fi
 if [ $ARCH == x86 ]; then
-	cat > /etc/apt/sources.list.d/sonarr.list <<EOF
+cat > /etc/apt/sources.list.d/sonarr.list <<EOF
 	# Sonarr
 	deb http://apt.sonarr.tv/ master main
-	EOF
+EOF
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 	debconf-apt-progress -- apt-get update
 	debconf-apt-progress -- apt-get install nzbdrone mediainfo sqlite3 libmono-cil-dev -y
