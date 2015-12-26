@@ -82,7 +82,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "BitTorrent Sync" "Personal cloud" off \
 "Webmin" "Admin server web interface" off \
 "SoftEther VPN server" "Advanced VPN solution" off \
-"SVarnish" "Reverse Proxy HTTP Accelerator" off \
+"Varnish" "Reverse Proxy HTTP Accelerator" off \
 "LEMP" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
 while read choice
 do
