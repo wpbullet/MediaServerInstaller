@@ -82,6 +82,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "BitTorrent Sync" "Personal cloud" off \
 "Webmin" "Admin server web interface" off \
 "SoftEther VPN server" "Advanced VPN solution" off \
+"SVarnish" "Reverse Proxy HTTP Accelerator" off \
 "LEMP" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
 while read choice
 do
@@ -113,6 +114,7 @@ do
 		   "ISPConfig")			ins_ispconfig="true";;
 		   "Webmin")			ins_webmin="true";;
 		   "LEMP")			ins_lemp="true";;
+		   "Varnish")			ins_varnish="true";;
                 *)
                 ;;
         esac
@@ -144,6 +146,7 @@ if [[ "$ins_rpimonitor" == "true" ]]; 			then install_bmc180; install_tsl2561; i
 if [[ "$ins_transmission" == "true" ]];                 then install_transmission;              fi
 if [[ "$ins_cherrymusic" == "true" ]];                 then install_cherrymusic;              fi
 if [[ "$ins_lemp" == "true" ]];                 	then install_lemp;              fi
+if [[ "$ins_varnish" == "true" ]];                 	then install_varnish;              fi
 if [[ "$ins_ispconfig" == "true" ]];                    then
 							install_basic
 							install_DashNTP
