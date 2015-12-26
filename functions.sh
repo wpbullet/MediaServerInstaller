@@ -638,7 +638,7 @@ debconf-apt-progress -- apt-get install -y python-gdbm
 debconf-apt-progress -- apt-get install -y python2.6
 debconf-apt-progress -- apt-get install -y python-cheetah python-openssl par2 unzip
 if !(cat /etc/apt/sources.list | grep -q Sabnzbd > /dev/null);then
-cat >> /etc/apt/sources.list <<EOF
+cat >> /etc/apt/sources.list.d/sabnzbdplus.list <<EOF
 # Sabnzbd
 deb http://ppa.launchpad.net/jcfp/ppa/ubuntu precise main
 EOF
