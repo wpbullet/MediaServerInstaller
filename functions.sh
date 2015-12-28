@@ -238,8 +238,10 @@ exit
 fi
 if ! getent passwd debian-transmission > /dev/null; then
 usermod -a -G $TRANSUSER debian-transmission
+usermod -a -G debian-transmission $TRANSUSER
 else
 usermod -a -G $TRANSUSER transmission-daemon
+usermod -a -G transmission-daemon $TRANSUSER
 fi
 #chown $TRANSUSER:$TRANSUSER /etc/transmission-daemon/settings.json
 chmod 775 /etc/transmission-daemon/settings.json
