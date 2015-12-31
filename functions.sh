@@ -889,7 +889,6 @@ update-rc.d minidlna defaults
 service minidlna start
 cd /tmp
 rm -R minidlna*
-rm minidlna*.tar.gz
 echo miniDLNA is running on port 8200 configure on HTPCGuides http://goo.gl/f2DGfn
 }
 
