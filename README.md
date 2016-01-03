@@ -1,7 +1,7 @@
 HTPC Guides Media Server Installer for Ubuntu and Debian
 ========================
 
-This is an automated installer for Home Media Server setups from [HTPC Guides](http://www.htpcguides.com) for Debian Wheezy. It will be maintained as part of a school project so please **do not fork this branch** and instead fork Igor's.
+This is an automated installer for Home Media Server setups from [HTPC Guides](http://www.htpcguides.com) for Debian and Ubuntu. It will be maintained as part of a school project so please **do not fork this branch** and instead fork Igor's.
 
 It currently supports ARM, x86 and x64 devices
 
