@@ -767,7 +767,7 @@ install_madsonic (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install Madsonic
 #--------------------------------------------------------------------------------------------------------------------------------
-MADSONICUSER=$(whiptail --inputbox "Enter the user to run Ubooquity as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
+MADSONICUSER=$(whiptail --inputbox "Enter the user to run Madsonic as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
 exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 if ! getent passwd $MADSONICUSER > /dev/null; then
 echo "User $MADSONICUSER doesn't exist, exiting, restart the installer"
