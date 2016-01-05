@@ -74,6 +74,8 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "pyLoad" "Online locker downloader" off \
 "miniDLNA" "ReadyMedia miniDLNA Latest" off \
 "Ubooquity" "eBook Management" off \
+"Madsonic" "eBook Management" off \
+"Subsonic" "eBook Management" off \
 "Samba" "Windows compatible file sharing        " off \
 "NFS Tools" "Windows compatible file sharing        " off \
 "Rpi monitor" "Status page and statistics" off \
@@ -89,6 +91,8 @@ do
    case $choice in
    		   "Samba") 			ins_samba="true";;
 		   "Syncthing") 			ins_syncthing="true";;
+		   "Madsonic") 			ins_madsonic="true";;
+		   "Subsonic") 			ins_subsonic="true";;
 		   "pyLoad") 			ins_pyload="true";;
 		   "Kodi") 			ins_kodi="true";;
 		   "Plex") 			ins_plex="true";;
@@ -121,6 +125,8 @@ do
 done < results
 
 if [[ "$ins_syncthing" == "true" ]]; 			then install_syncthing;			fi
+if [[ "$ins_subsonic" == "true" ]]; 			then install_subsonic;			fi
+if [[ "$ins_madsonic" == "true" ]]; 			then install_madsonic;			fi
 if [[ "$ins_lazylibrarian" == "true" ]]; 			then install_lazylibrarian;			fi
 if [[ "$ins_webmin" == "true" ]]; 			then install_webmin;			fi
 if [[ "$ins_pyload" == "true" ]]; 			then install_pyload;			fi
