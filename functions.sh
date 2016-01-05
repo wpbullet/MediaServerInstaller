@@ -29,6 +29,23 @@ else
 	rm unrarsrc-*.tar.gz
 fi }
 
+function javatest {
+if hash java 2>/dev/null; then
+	return
+else
+if !(cat /etc/apt/sources.list.d/webupd8team-java.list | grep -q Java > /dev/null);then
+cat >> /etc/apt/sources.list.d/webupd8team-java.list <<EOF
+# Java
+deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
+deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
+EOF
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+fi
+debconf-apt-progress -- apt-get update
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+apt-get install oracle-java8-installer -y	
+fi }
+
 install_webmin () {
 #--------------------------------------------------------------------------------------------------------------------------------
 # Install webmin
@@ -722,17 +739,8 @@ if ! getent passwd $UBOOQUITYUSER > /dev/null; then
 echo "User $UBOOQUITYUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-if !(cat /etc/apt/sources.list.d/webupd8team-java.list | grep -q Java > /dev/null);then
-cat >> /etc/apt/sources.list.d/webupd8team-java.list <<EOF
-# Java
-deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
-deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
-EOF
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
-fi
-debconf-apt-progress -- apt-get update
-echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-apt-get install unzip oracle-java8-installer -y
+debconf-apt-progress -- apt-get install unzip -y
+javatest
 mkdir -p /opt/ubooquity
 cd /opt/ubooquity
 wget "http://vaemendis.net/ubooquity/service/download.php" -O ubooquity.zip
@@ -754,6 +762,7 @@ echo "You must exit root mode before executing Ubooquity!"
 echo "Use $showip:2022/admin for initial setup"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
 }
+
 install_nfs (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install NFS
