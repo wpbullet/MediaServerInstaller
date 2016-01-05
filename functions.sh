@@ -763,6 +763,38 @@ echo "Use $showip:2022/admin for initial setup"
 echo "Ubooquity configuration guide at HTPCGuides.com http://goo.gl/hEaUh5"
 }
 
+install_madsonic (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# install Madsonic
+#--------------------------------------------------------------------------------------------------------------------------------
+MADSONICUSER=$(whiptail --inputbox "Enter the user to run Ubooquity as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $MADSONICUSER > /dev/null; then
+echo "User $MADSONICUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+javatest
+MADSONIC=$(wget -q http://beta.madsonic.org/pages/download.jsp -O - | grep .deb | awk -F "[\"]" ' NR==1 {print $2}')
+MADSONICVER=$(echo $MADSONIC | awk 'match($0, /[0-9]\.[0-9]/) {print substr($0, RSTART, RLENGTH)}')
+MADSONICFILE=$(echo $MADSONIC | awk 'match($0, /[0-9][0-9].+/) {print substr($0, RSTART, RLENGTH)}')
+wget http://www.madsonic.org/download/$MADSONICVER/$MADSONICFILE -O madsonic.deb
+dpkg -i madsonic.deb
+rm madsonic.deb
+debconf-apt-progress -- apt-get install libav-tools xmp lame flac -y
+rm /var/madsonic/transcode/ffmpeg
+rm /var/madsonic/transcode/lame
+rm /var/madsonic/transcode/xmp
+rm /var/madsonic/transcode/flac
+ln -s /usr/bin/avconv /var/madsonic/transcode/ffmpeg
+ln -s /usr/bin/flac /var/madsonic/transcode/flac
+ln -s /usr/bin/xmp /var/madsonic/transcode/xmp
+ln -s /usr/bin/lame /var/madsonic/transcode/lame
+sed -i "/MADSONIC_USER=/c\MADSONIC_USER=$MADSONICUSER" /etc/default/madsonic
+service madsonic start
+echo "Madsonic will run on $showip:4040 and autostart on boot"
+echo "Use $showip:4040 for initial Madsonic setup"
+}
+
 install_nfs (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install NFS
