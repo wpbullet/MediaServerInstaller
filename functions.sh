@@ -795,6 +795,38 @@ echo "Madsonic will run on $showip:4040 and autostart on boot"
 echo "Use $showip:4040 for initial Madsonic setup"
 }
 
+install_subsonic (){
+#--------------------------------------------------------------------------------------------------------------------------------
+# install Subsonic
+#--------------------------------------------------------------------------------------------------------------------------------
+SUBSONICUSER=$(whiptail --inputbox "Enter the user to run Subsonic as (usually pi)" 8 78 "pi" --title "$SECTION" 3>&1 1>&2 2>&3)
+exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
+if ! getent passwd $SUBSONICUSER > /dev/null; then
+echo "User $SUBSONICUSER doesn't exist, exiting, restart the installer"
+exit
+fi
+javatest
+SUBSONIC=$(wget -q http://www.subsonic.org/pages/download.jsp -O - | grep .deb | awk -F "[\"]" ' NR==1 {print $2}')
+SUBSONICFILE=$(echo $SUBSONIC | awk 'match($0, /subsonic.+\.deb$/) {print substr($0, RSTART, RLENGTH)}')
+cd /tmp
+wget http://subsonic.org/download/$SUBSONICFILE -O subsonic.deb
+dpkg -i subsonic.deb
+rm subsonic.deb
+sed -i "/SUBSONIC_USER=/c\SUBSONIC_USER=$SUBSONICUSER" /etc/default/subsonic
+debconf-apt-progress -- apt-get install libav-tools xmp lame flac -y
+rm /var/subsonic/transcode/ffmpeg
+rm /var/subsonic/transcode/lame
+rm /var/subsonic/transcode/xmp
+rm /var/subsonic/transcode/flac
+ln -s /usr/bin/avconv /var/subsonic/transcode/ffmpeg
+ln -s /usr/bin/flac /var/subsonic/transcode/flac
+ln -s /usr/bin/xmp /var/subsonic/transcode/xmp
+ln -s /usr/bin/lame /var/subsonic/transcode/lame
+service subsonic start
+echo "Subsonic will run on $showip:4040 and autostart on boot"
+echo "Use $showip:4040 for initial Subsonic setup"
+}
+
 install_nfs (){
 #--------------------------------------------------------------------------------------------------------------------------------
 # install NFS
