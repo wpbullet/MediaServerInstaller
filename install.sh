@@ -74,8 +74,8 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "pyLoad" "Online locker downloader" off \
 "miniDLNA" "ReadyMedia miniDLNA Latest" off \
 "Ubooquity" "eBook Management" off \
-"Madsonic" "eBook Management" off \
-"Subsonic" "eBook Management" off \
+"Madsonic" "Java media server" off \
+"Subsonic" "Java media server" off \
 "Samba" "Windows compatible file sharing        " off \
 "NFS Tools" "Windows compatible file sharing        " off \
 "Rpi monitor" "Status page and statistics" off \
