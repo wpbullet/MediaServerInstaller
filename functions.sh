@@ -498,7 +498,7 @@ exit
 fi
 unrartest
 debconf-apt-progress -- apt-get install git-core libssl-dev libxslt1-dev libxslt1.1 libxml2-dev libxml2 libssl-dev libffi-dev python-pip python-dev -y
-pip install pyopenssl==0.13.1
+pip install pyopenssl
 sudo git clone https://github.com/SickRage/SickRage.git /opt/sickrage
 sudo chown -R $SICKRAGEUSER:$SICKRAGEUSER /opt/sickrage
 cat > /etc/default/sickrage <<EOF
@@ -527,7 +527,10 @@ echo "User $COUCHPOTATOUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 unrartest
-debconf-apt-progress -- apt-get install -y python
+debconf-apt-progress -- apt-get install -y libxslt1-dev libxml2-dev python python-pip python-dev build-essential
+pip install cryptography
+pip install pyopenssl
+pip install pyopenssl --upgrade
 git clone http://github.com/RuudBurger/CouchPotatoServer /opt/CouchPotato
 chown -R $COUCHPOTATOUSER:$COUCHPOTATOUSER /opt/CouchPotato
 cat > /etc/default/couchpotato <<EOF
