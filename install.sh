@@ -32,7 +32,7 @@ return
 else
 debconf-apt-progress -- apt-get update
 apt-get -y install sudo net-tools curl debconf-utils dnsutils unzip whiptail git build-essential alsa-base alsa-utils stunnel4 html2text apt-transport-https --force-yes
-debconf-apt-progress -- apt-get upgrade -y
+#debconf-apt-progress -- apt-get upgrade -y
 fi
 }
 updatecheck
