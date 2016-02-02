@@ -933,12 +933,12 @@ install_pyload (){
 debconf-apt-progress -- apt-get update
 debconf-apt-progress -- apt-get install python-support python-crypto python-pycurl tesseract-ocr tesseract-ocr-eng python-imaging -y
 debconf-apt-progress -- apt-get install python-pip python-dev -y
-debconf-apt-progress -- apt-get install libmozjs* -y
+debconf-apt-progress -- apt-get install rhino -y
 pip install pyopenssl
 unrartest
 PYLOADVER=$(wget -q https://github.com/pyload/pyload/releases -O -  | grep -E \/tag\/ | awk -F "[\/\"]" 'NR==1 {print $7}')
 PYLOADVERDEB=$(wget -q https://github.com/pyload/pyload/releases -O -  | grep -E pyload-cli.+all.deb | awk -F "[\/\"]" 'NR==1 {print $8}')
-wget https://github.com/pyload/pyload/releases/download/$PYLOADVER/$PYLOADVERDEB
+wget --no-check-certificate https://github.com/pyload/pyload/releases/download/$PYLOADVER/$PYLOADVERDEB
 dpkg -i pyload*
 rm pyload*
 update-rc.d pyload defaults
