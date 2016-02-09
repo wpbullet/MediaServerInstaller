@@ -6,7 +6,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: NZBGet
-# Description:       NZBGet for ebook management
+# Description:       NZBGet
 ### END INIT INFO
  
  
