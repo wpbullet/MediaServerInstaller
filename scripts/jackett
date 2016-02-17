@@ -37,7 +37,7 @@ DAEMON_OPTS=" "$EXENAME
 
 ############### END EDIT ME ##################
 
-JACKETT_PID=`ps auxf | grep Jackett.exe | grep -v grep | awk '{print $2}'`
+JACKETT_PID=`ps auxf | grep $EXENAME | grep -v grep | awk '{print $2}'`
 
 test -x $DAEMON || exit 0
 
