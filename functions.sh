@@ -374,7 +374,7 @@ wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbget
 sed -i "/DAEMON_USER=/c\DAEMON_USER=$NZBGETUSER" /etc/init.d/nzbget
 chmod +x /etc/init.d/nzbget
 cd /tmp
-update-rc.d nzbget defaults
+update-rc.d nzbget defaults 98
 #if !(crontab -l -u $NZBGETUSER | grep -q /opt/nzbget/nzbget > /dev/null);then
 #crontab -u $NZBGETUSER -l | { cat; echo "@reboot /opt/nzbget/nzbget -D"; } | crontab -u $NZBGETUSER -
 #fi
