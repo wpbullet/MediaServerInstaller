@@ -527,7 +527,7 @@ echo "User $COUCHPOTATOUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 unrartest
-debconf-apt-progress -- apt-get install -y zlib1g-dev libxslt1-dev libxml2-dev python python-pip python-dev build-essential
+debconf-apt-progress -- apt-get install -y zlib1g-dev libffi-dev libssl-dev libxslt1-dev libxml2-dev python python-pip python-dev build-essential
 pip install cryptography
 pip install pyopenssl
 pip install pyopenssl --upgrade
