@@ -29,6 +29,18 @@ else
 	rm unrarsrc-*.tar.gz
 fi }
 
+function monotest {
+if hash mono 2>/dev/null; then
+	return
+else
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+cat >> /etc/apt/sources.list.d/mono-xamarin.list <<EOF
+# Mono
+deb http://download.mono-project.com/repo/debian wheezy main
+EOF
+fi
+}
+
 function javatest {
 if hash java 2>/dev/null; then
 	return
@@ -395,13 +407,14 @@ echo "User $NZBDRONEUSER doesn't exist, exiting, restart the installer"
 exit
 fi
 #if !(cat /etc/apt/sources.list | grep -q Sonarr > /dev/null);then
-cat > /etc/apt/sources.list.d/sonarr.list <<EOF
-deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
-EOF
-debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get install libmono-cil-dev -y --force-yes
-rm /etc/apt/sources.list.d/sonarr.list
-debconf-apt-progress -- apt-get update
+#cat > /etc/apt/sources.list.d/sonarr.list <<EOF
+#deb http://archive.raspbian.org/raspbian wheezy main contrib non-free
+#EOF
+#debconf-apt-progress -- apt-get update
+#debconf-apt-progress -- apt-get install libmono-cil-dev -y --force-yes
+#rm /etc/apt/sources.list.d/sonarr.list
+#debconf-apt-progress -- apt-get update
+monotest
 cat > /etc/apt/sources.list.d/sonarr.list <<EOF
 # Sonarr
 deb http://apt.sonarr.tv/ master main
@@ -411,35 +424,35 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 apt-get update
 apt-get install nzbdrone -y --force-yes
 #fi
-if uname -a | grep -i arm > /dev/null; then
-cd /tmp
+#if uname -a | grep -i arm > /dev/null; then
+#cd /tmp
 #wget http://sourceforge.net/projects/bananapi/files/mono_3.10-armhf.deb
 #FILENAME="mono_3.10-armhf.deb"
 #SIZE=$(du -sb $FILENAME | awk '{ print $1 }')
 #if ((SIZE<100000000)) ; then
 #    echo "Sourceforge is down :( trying mirror";
-    wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
+#    wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
 #else
-    dpkg -i mono_3.10-armhf.deb
+#    dpkg -i mono_3.10-armhf.deb
 #fi
-rm mono_3.10-armhf.deb
-rm /etc/apt/sources.list.d/sonarr.list
-fi
-if [ ! -d "/opt/NzbDrone" ]; then
-debconf-apt-progress -- apt-get install mediainfo sqlite3 libmono-cil-dev -y
-wget https://download.sonarr.tv/v2/master/latest/NzbDrone.master.tar.gz
-tar -xvf NzbDrone.master.tar.gz
-mv NzbDrone /opt/NzbDrone
-rm NzbDrone.master.tar.gz
-fi
+#rm mono_3.10-armhf.deb
+#rm /etc/apt/sources.list.d/sonarr.list
+#fi
+#if [ ! -d "/opt/NzbDrone" ]; then
+#debconf-apt-progress -- apt-get install mediainfo sqlite3 libmono-cil-dev -y
+#wget https://download.sonarr.tv/v2/master/latest/NzbDrone.master.tar.gz
+#tar -xvf NzbDrone.master.tar.gz
+#mv NzbDrone /opt/NzbDrone
+#rm NzbDrone.master.tar.gz
+#fi
 chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 #Create nzbdrone script
 cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbdrone
 sed -i "/RUN_AS=/c\RUN_AS=$NZBDRONEUSER" /etc/init.d/nzbdrone
-if uname -a | grep arm > /dev/null; then
-sed -i "/DAEMON=/c\DAEMON=/usr/local/bin/mono" /etc/init.d/nzbdrone
-fi
+#if uname -a | grep arm > /dev/null; then
+#sed -i "/DAEMON=/c\DAEMON=/usr/local/bin/mono" /etc/init.d/nzbdrone
+#fi
 chmod +x /etc/init.d/nzbdrone
 cd /tmp
 update-rc.d nzbdrone defaults
@@ -459,15 +472,18 @@ if ! getent passwd $JACKETTUSER > /dev/null; then
 echo "User $JACKETTUSER doesn't exist, exiting, restart the installer"
 exit
 fi
-hash mono 2>/dev/null || { 
-if [ $ARCH == ARM ]; then
-	wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
-    dpkg -i mono_3.10-armhf.deb
-fi
-if [ $ARCH == x86 ]; then
-	debconf-apt-progress -- apt-get install mono-complete -y
-fi
-}
+#hash mono 2>/dev/null || { 
+#if [ $ARCH == ARM ]; then
+#	wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
+#    dpkg -i mono_3.10-armhf.deb
+#fi
+#if [ $ARCH == x86 ]; then
+#	debconf-apt-progress -- apt-get install mono-complete -y
+#fi
+#}
+monotest
+debconf-apt-progress -- apt-get update
+debconf-apt-progress -- apt-get install mono-complete -y
 jackettver=$(wget -q https://github.com/Jackett/Jackett/releases/latest -O -  | grep -E \/tag\/ | awk -F "[><]" '{print $3}')
 wget -q https://github.com/Jackett/Jackett/releases/download/$jackettver/Jackett.Binaries.Mono.tar.gz
 tar -xvf Jackett*
