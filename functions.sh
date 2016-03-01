@@ -33,11 +33,20 @@ function monotest {
 if hash mono 2>/dev/null; then
 	return
 else
+echo "Installing mono"
+if !(uname -m | grep -i arm6 > /dev/null); then
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 cat >> /etc/apt/sources.list.d/mono-xamarin.list <<EOF
 # Mono
 deb http://download.mono-project.com/repo/debian wheezy main
 EOF
+else
+debconf-apt-progress -- install libmono-cil-dev -y
+cd /tmp
+wget https://www.dropbox.com/s/k6ff6s9bfe4mfid/mono_3.10-armhf.deb
+dpkg -i mono_3.10-armhf.deb
+rm mono_3.10-armhf.deb
+fi
 fi
 }
 
@@ -450,9 +459,9 @@ chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbdrone
 sed -i "/RUN_AS=/c\RUN_AS=$NZBDRONEUSER" /etc/init.d/nzbdrone
-#if uname -a | grep arm > /dev/null; then
-#sed -i "/DAEMON=/c\DAEMON=/usr/local/bin/mono" /etc/init.d/nzbdrone
-#fi
+if uname -a | grep arm6 > /dev/null; then
+sed -i "/DAEMON=/c\DAEMON=/usr/local/bin/mono" /etc/init.d/nzbdrone
+fi
 chmod +x /etc/init.d/nzbdrone
 cd /tmp
 update-rc.d nzbdrone defaults
