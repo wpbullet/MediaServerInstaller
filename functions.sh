@@ -34,7 +34,7 @@ if hash mono 2>/dev/null; then
 	return
 else
 echo "Installing mono"
-if !(uname -m | grep -i arm6 > /dev/null); then
+if !(uname -m | grep -i armv6 > /dev/null); then
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 cat >> /etc/apt/sources.list.d/mono-xamarin.list <<EOF
 # Mono
@@ -459,7 +459,7 @@ chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbdrone
 sed -i "/RUN_AS=/c\RUN_AS=$NZBDRONEUSER" /etc/init.d/nzbdrone
-if uname -a | grep arm6 > /dev/null; then
+if uname -a | grep armv6 > /dev/null; then
 sed -i "/DAEMON=/c\DAEMON=/usr/local/bin/mono" /etc/init.d/nzbdrone
 fi
 chmod +x /etc/init.d/nzbdrone
