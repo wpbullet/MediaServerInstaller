@@ -1066,6 +1066,7 @@ chmod -R 777 /ext
 service samba start
 service smbd start
 service nmbd start
+echo I did not code this section so if you have issues use the link below
 echo See configuration details on HTPCGuides.com http://goo.gl/tQEaHK
 }
 
