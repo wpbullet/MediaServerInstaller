@@ -85,7 +85,7 @@ whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCG
 "Webmin" "Admin server web interface" off \
 "SoftEther VPN server" "Advanced VPN solution" off \
 "Varnish" "Reverse Proxy HTTP Accelerator" off \
-"LEMP" "WWW, PHP, SQL, SMTP, IMAP, POP3" off 2>results
+"LEMP" "nginx, PHP, MariaDB" off 2>results
 while read choice
 do
    case $choice in
@@ -153,22 +153,4 @@ if [[ "$ins_transmission" == "true" ]];                 then install_transmissio
 if [[ "$ins_cherrymusic" == "true" ]];                 then install_cherrymusic;              fi
 if [[ "$ins_lemp" == "true" ]];                 	then install_lemp;              fi
 if [[ "$ins_varnish" == "true" ]];                 	then install_varnish;              fi
-if [[ "$ins_ispconfig" == "true" ]];                    then
-							install_basic
-							install_DashNTP
-							install_MySQL
-							install_MySQLDovecot
-							install_Virus;
-
-
-							if (whiptail --no-button "Apache" --yes-button "NginX" --title "Choose webserver platform" --yesno "ISPConfig can run on both." 7 78) then
-								server="nginx"
-								install_NginX
-							else
-								server="apache"
-								install_Apache
-							fi
-							create_ispconfig_configuration
-				   			install_PureFTPD; install_Fail2BanDovecot; install_Fail2BanRulesDovecot; install_ISPConfig
-fi
 #rm results
