@@ -56,7 +56,7 @@ whiptail --title "Welcome to HTPC Guides Media Server" --msgbox "This Debian Whe
 
 source "functions.sh"
 
-whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCGuides.com and Igor Pecovnik" --checklist --separate-output "\nIP:   $serverIP\nFQDN: $HOSTNAMEFQDN\n\nChoose what you want to install:" 20 78 9 \
+whiptail --ok-button "Install" --title "HTPC Guides Media Server ARMv7 (c) HTPCGuides.com and Igor Pecovnik" --checklist --separate-output "\nIP:   $serverIP\n\nChoose what you want to install:" 20 78 9 \
 "Plex" "Plex Media Server        " off \
 "Kodi" "Raspberry Pi only        " off \
 "NZBGet" "Usenet Downloader written in C++" off \
