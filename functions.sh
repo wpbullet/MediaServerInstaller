@@ -935,7 +935,7 @@ exit 1
 else
     rm /etc/apt/sources.list.d/mene.list
 cat > /etc/apt/sources.list.d/mene.list <<EOF
-deb http://archive.mene.za.net/raspbian wheezy contrib
+deb http://archive.mene.za.net/raspbian jessie contrib
 EOF
 apt-key adv --keyserver keyserver.ubuntu.com --recv-key 5243CDED
 debconf-apt-progress -- apt-get update
