@@ -252,15 +252,14 @@ install_tvheadend (){
 if !(cat /etc/apt/sources.list.d/tvheadend | grep -q headend > /dev/null);then
 cat > /etc/apt/sources.list.d/tvheadend <<EOF
 # TV headend
-deb http://apt.tvheadend.org/stable wheezy main
+deb https://dl.bintray.com/tvheadend/deb jessie stable"
 EOF
 fi
-wget -qO - http://apt.tvheadend.org/stable/repo.gpg.key | apt-key add -
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 debconf-apt-progress -- apt-get update
 apt-get -y install tvheadend
 echo "TVheadend is running on $showip:9981"
 }
-
 
 install_transmission (){
 #--------------------------------------------------------------------------------------------------------------------------------
