@@ -16,11 +16,6 @@ Samba, TV headend, BitTorrent Sync, SoftEther VPN server, CUPS, scanner + button
 The HTPC Guides fork includes these programs
 NZBGet, Sabnzbd, Sonarr, SickRage, CouchPotato, HTPC Manager, CherryMusic, Kodi and more will be added.
 
-Tips:
-- mail server install (ISPConfig) will work **only with Debian Wheezy**
-- set fixed ip address
-- for those who use ramlog. You can enable ramlog back when installation is finished
-- installation is based on [http://www.howtoforge.com/perfect-server-debian-wheezy-nginx-bind-dovecot-ispconfig-3](http://www.howtoforge.com/perfect-server-debian-wheezy-nginx-bind-dovecot-ispconfig-3)
 
 HTPC Guides Media Server Installation
 ------------------
@@ -33,13 +28,13 @@ cd ~/HTPCGuides
 sudo bash install.sh
 ```
 
-**If you want to include this installer in any distro images you must get consent**
+**If you want to include this installer in any distro images please ask**
 
 Donate to Igor's project
 ------------------
 
 [![Paypal donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CUYH2KR36YB7W)
 
-![My bitcoin address](http://www.igorpecovnik.com/wp-content/uploads/2014/10/bitcoinigor.png)
+![Igor's bitcoin address](http://www.igorpecovnik.com/wp-content/uploads/2014/10/bitcoinigor.png)
 
 17vT6hV83EQ6rizbWeasfy1tWEzFpzYqEE
