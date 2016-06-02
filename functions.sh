@@ -905,7 +905,7 @@ EOF
 fi
 if [ $ARCH == x86 ]; then
 	if !(cat /etc/apt/sources.list.d/plex.list | grep -q Plex > /dev/null);then
-	wget -O - http://shell.ninthgate.se/packages/shell-ninthgate-se-keyring.key | sudo apt-key add -
+	wget -O - http://shell.ninthgate.se/packages/shell.ninthgate.se.gpg.key | sudo apt-key add -
 cat >> /etc/apt/sources.list.d/plex.list <<EOF
 # Plex
 deb http://www.deb-multimedia.org wheezy main non-free
