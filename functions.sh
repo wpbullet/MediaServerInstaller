@@ -71,7 +71,7 @@ install_webmin () {
 #--------------------------------------------------------------------------------------------------------------------------------
 # Install webmin
 #--------------------------------------------------------------------------------------------------------------------------------
-debconf-apt-progress -- apt-get install libauthen-pam-perl libio-pty-perl libnet-ssleay-perl libapt-pkg-perl apt-show-versions libwww-perl -y
+debconf-apt-progress -- apt-get install libauthen-pam-perl libio-pty-perl libnet-ssleay-perl libapt-pkg-perl apt-show-versions libwww-perl libauthen-sasl-perl -y
 wget http://www.webmin.com/download/deb/webmin-current.deb
 dpkg -i webmin*
 rm webmin*
