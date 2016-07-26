@@ -370,7 +370,8 @@ fi
 # test unrar is installed, build it
 unrartest
 #install nzbget
-wget http://nzbget.net/download/nzbget-latest-bin-linux.run
+NZBGETLATEST=$(wget http://nzbget.net/download/ -O - | grep run | awk -F "[\"]" '{print $4}' | head -n1)
+wget $NZBGETLATEST -O nzbget-latest-bin-linux.run
 sh nzbget-latest-bin-linux.run --destdir /opt/nzbget
 rm nzbget-latest-bin-linux.run
 chown -R $NZBGETUSER:$NZBGETUSER /opt/nzbget
