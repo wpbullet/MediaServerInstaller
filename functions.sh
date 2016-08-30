@@ -469,15 +469,16 @@ chown -R $NZBDRONEUSER:$NZBDRONEUSER /opt/NzbDrone
 cd /etc/init.d/
 wget https://raw.github.com/blindpet/MediaServerInstaller/usenet/scripts/nzbdrone
 sed -i "/RUN_AS=/c\RUN_AS=$NZBDRONEUSER" /etc/init.d/nzbdrone
-#if uname -a | grep armv6 > /dev/null; then
-#sed -i "/DAEMON=/c\DAEMON=/usr/local/bin/mono" /etc/init.d/nzbdrone
-#fi
+if uname -a | grep armv6 > /dev/null; then
+sed -i "/DAEMON=/c\DAEMON=/usr/local/bin/mono" /etc/init.d/nzbdrone
+fi
 chmod +x /etc/init.d/nzbdrone
 cd /tmp
 update-rc.d nzbdrone defaults
 service nzbdrone start
 echo "Sonarr is running on $showip:8989"
 echo "Configure Sonarr at HTPCGuides.com http://goo.gl/06iXEw"
+rm /etc/apt/sources.list.d/sonarr.list
 }
 
 install_jackett (){
