@@ -934,7 +934,7 @@ install_kodi (){
 # install kodi raspberry pi
 #--------------------------------------------------------------------------------------------------------------------------------
 
-if ! uname -a | grep raspberrypi > /dev/null; then
+if ! uname -a | grep -E "minibian|raspberrypi" > /dev/null; then
 echo not Raspberry Pi...
 exit 1
 else
