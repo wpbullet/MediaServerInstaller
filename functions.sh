@@ -694,7 +694,7 @@ exitstatus=$?; if [ $exitstatus = 1 ]; then exit 1; fi
 unrartest
 debconf-apt-progress -- apt-get install -y python-gdbm
 debconf-apt-progress -- apt-get install -y python2.6
-debconf-apt-progress -- apt-get install -y python-cheetah python-openssl par2 unzip
+debconf-apt-progress -- apt-get install -y python-cheetah python-openssl par2 unzip python-pip
 if !(cat /etc/apt/sources.list | grep -q Sabnzbd > /dev/null);then
 cat >> /etc/apt/sources.list.d/sabnzbdplus.list <<EOF
 # Sabnzbd
@@ -703,7 +703,8 @@ EOF
 sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:11371 --recv-keys 0x98703123E0F52B2BE16D586EF13930B14BB9F05F
 fi
 debconf-apt-progress -- apt-get update
-debconf-apt-progress -- apt-get install sabnzbdplus -y 
+debconf-apt-progress -- apt-get install sabnzbdplus -y
+pip install sabyenc
 cat > /etc/default/sabnzbdplus <<EOF
 USER=$SABUSER
 HOST=$SABHOST
